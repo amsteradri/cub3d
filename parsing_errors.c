@@ -47,6 +47,7 @@ void	all_checks(t_map *map)
 {
 	check_chars(&map);
     check_nsew(&map);
+	check_walls(&map);
 }
 
 void	check_chars(t_map **map)
@@ -62,7 +63,7 @@ void	check_chars(t_map **map)
 		{
 			if ((*map)->map[y][x] != '0' && (*map)->map[y][x] != '1'
 				&& (*map)->map[y][x] != 'N' && (*map)->map[y][x] != 'E'
-				&& (*map)->map[y][x] != 'S' && (*map)->map[y][x] != 'W')
+				&& (*map)->map[y][x] != 'S' && (*map)->map[y][x] != 'W' && (*map)->map[y][x] != ' ')
 				{
                     perror("\033[1;31mERROR: Wrong map components\033[0m");
                     exit(0);
@@ -95,5 +96,73 @@ void check_nsew(t_map **map)
         y++;
     }
     if (direction_count != 1)
-        error_char();
+    {
+		perror("\033[1;31mERROR: Only one spawn direction requiered\033[0m");
+        exit(0);
+	}
+}
+
+void	first_line(char *line)
+{
+	int	i;
+
+	i = -1;
+	while (line[++i] != '\0' && line[i] != '\r')
+	{
+		if (line[i] != '1' && line[i] != ' ')
+		{
+			perror("\033[1;31mERROR: No walls in top or bot\033[0m");
+            exit(0);
+		}
+	}
+}
+
+int ft_spacelen(char *str) 
+{
+    int l;
+    int count;
+    int i;
+
+	i = l - 1;
+    l = strlen(str);
+	count = 0;
+    while (i >= 0 && (str[i] == ' ' || str[i] == '\r')) 
+	{
+        count++;
+        i--;
+    }
+
+    return count;
+}
+
+
+void	check_walls(t_map **map)
+{
+	int		i;
+	int		aux;
+	int		j;
+
+	i = 1;
+	j = 0;
+	aux = (*map)->y - 1;
+	first_line((*map)->map[0]);
+	while (i < aux)
+	{
+		j = 0;
+		while ((*map)->map[i][j] == ' ')
+			j++;
+		if ((*map)->map[i][j] != '1')
+		{
+			perror("\033[1;31mERROR: No walls in first col\033[0m");
+            exit(0);
+		}
+		if ((*map)->map[i][ft_strlen((*map)->map[i]) - ft_spacelen((*map)->map[i]) - 1] != '1')
+		{
+			printf("mi char:%d\n", (*map)->map[i][ft_strlen((*map)->map[i]) - ft_spacelen((*map)->map[i]) - 1]);
+			perror("\033[1;31mERROR: No walls in last col\033[0m");
+            exit(0);
+		}
+		i++;
+	}
+	first_line((*map)->map[(*map)->y - 1]);
 }
