@@ -14,7 +14,7 @@
 
 void	default_error(void)
 {
-	perror("\033[1;31mERROR:\033[0m");
+	perror("\033[1;31mERROR\033[0m");
 	exit(1);
 }
 

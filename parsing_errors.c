@@ -35,11 +35,11 @@ void	check_ext(char *map)
 	int	len;
 
 	len = ft_strlen(map);
-	if (map[len - 4] != '.' && map[len - 4] != 'c'
-		&& map[len - 4] != 'u' && map[len - 4] != 'b')
+	if (map[len - 4] != '.' || map[len - 3] != 'c'
+		|| map[len - 2] != 'u' || map[len - 1] != 'b')
 	{
-        perror("\033[1;31mERROR: Wrong map extension\033[0m");
-        exit(0);
+        printf("\033[1;31mERROR: Wrong map extension\033[0m\n");
+        exit(1);
     }
 }
 
@@ -66,7 +66,7 @@ void	check_chars(t_map **map)
 				&& (*map)->map[y][x] != 'S' && (*map)->map[y][x] != 'W' && (*map)->map[y][x] != ' ')
 				{
                     perror("\033[1;31mERROR: Wrong map components\033[0m");
-                    exit(0);
+                    exit(1);
                 }
 			x++;
 		}
@@ -97,8 +97,8 @@ void check_nsew(t_map **map)
     }
     if (direction_count != 1)
     {
-		perror("\033[1;31mERROR: Only one spawn direction requiered\033[0m");
-        exit(0);
+		perror("\033[1;31mERROR: Only one spawn direction required\033[0m");
+        exit(1);
 	}
 }
 
@@ -112,7 +112,7 @@ void	first_line(char *line)
 		if (line[i] != '1' && line[i] != ' ')
 		{
 			perror("\033[1;31mERROR: No walls in top or bot\033[0m");
-            exit(0);
+            exit(1);
 		}
 	}
 }
@@ -123,15 +123,14 @@ int ft_spacelen(char *str)
     int count;
     int i;
 
+    l = ft_strlen(str);
 	i = l - 1;
-    l = strlen(str);
 	count = 0;
     while (i >= 0 && (str[i] == ' ' || str[i] == '\r')) 
 	{
         count++;
         i--;
     }
-
     return count;
 }
 
@@ -154,13 +153,13 @@ void	check_walls(t_map **map)
 		if ((*map)->map[i][j] != '1')
 		{
 			perror("\033[1;31mERROR: No walls in first col\033[0m");
-            exit(0);
+            exit(1);
 		}
 		if ((*map)->map[i][ft_strlen((*map)->map[i]) - ft_spacelen((*map)->map[i]) - 1] != '1')
 		{
 			printf("mi char:%d\n", (*map)->map[i][ft_strlen((*map)->map[i]) - ft_spacelen((*map)->map[i]) - 1]);
 			perror("\033[1;31mERROR: No walls in last col\033[0m");
-            exit(0);
+            exit(1);
 		}
 		i++;
 	}

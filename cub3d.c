@@ -28,8 +28,7 @@ void	init_vars(t_map *map)
 	map->x = ft_strlen(map->map[0]);
 }
 
-
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	(void)argv;
 	// int i;
@@ -47,5 +46,4 @@ int main(int argc, char **argv)
 	// 	i++;
 	// }
 	// return(0);
-
 }
