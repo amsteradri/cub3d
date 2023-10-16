@@ -186,23 +186,23 @@ void	check_under_empty(t_map **map)
 		{
 			if ((*map)->map[i][j] == '0')
 			{
-				if((i + 1 <= aux) && (*map)->map[i + 1][j] != '1'&& (*map)->map[i + 1][j] != '0' && (*map)->map[i + 1][j] != 'E')
+				if((i + 1 <= aux) && (*map)->map[i + 1][j] != '1'&& (*map)->map[i + 1][j] != '0' && (*map)->map[i + 1][j] != 'E' && (*map)->map[i + 1][j] != 'N' && (*map)->map[i + 1][j] != 'S' && (*map)->map[i + 1][j] != 'W')
 				{
 					printf("encima:%c\n", (*map)->map[i + 1][j]);
 					perror("\033[1;31mERROR: No walls in bot row\033[0m");
 					exit(1);
 				}
-				if((*map)->map[i - 1][j] != '1' && (*map)->map[i - 1][j] != '0' && (*map)->map[i - 1][j] != 'E')
+				if((*map)->map[i - 1][j] != '1' && (*map)->map[i - 1][j] != '0' && (*map)->map[i - 1][j] != 'E'  && (*map)->map[i + 1][j] != 'N' && (*map)->map[i + 1][j] != 'S' && (*map)->map[i + 1][j] != 'W')
 				{
 					perror("\033[1;31mERROR: No walls in top row\033[0m");
 					exit(1);
 				}
-				if(j + 1 <= len && (*map)->map[i][j + 1] != '1' && (*map)->map[i][j + 1] != '0' && (*map)->map[i][j + 1] != 'E')
+				if(j + 1 <= len && (*map)->map[i][j + 1] != '1' && (*map)->map[i][j + 1] != '0' && (*map)->map[i][j + 1] != 'E'  && (*map)->map[i + 1][j] != 'N' && (*map)->map[i + 1][j] != 'S' && (*map)->map[i + 1][j] != 'W')
 				{
 					perror("\033[1;31mERROR: No walls in right col\033[0m");
 					exit(1);
 				}
-				if((*map)->map[i][j - 1] != '1' && (*map)->map[i][j - 1] != '0' && (*map)->map[i][j - 1] != 'E')
+				if((*map)->map[i][j - 1] != '1' && (*map)->map[i][j - 1] != '0' && (*map)->map[i][j - 1] != 'E'  && (*map)->map[i + 1][j] != 'N' && (*map)->map[i + 1][j] != 'S' && (*map)->map[i + 1][j] != 'W')
 				{
 					printf("izq:%c\n", (*map)->map[i][j - 1]);
 					perror("\033[1;31mERROR: No walls in left col\033[0m");
