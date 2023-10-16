@@ -41,3 +41,56 @@ char	**read_map(char *fmap)
 		default_error();
 	return (ft_split(joined_lines, '\n'));
 }
+
+void fill_dir(t_map *map)
+{
+    int y;
+    int x;
+
+    y = 0;
+    while (y < map->y)
+    {
+        x = 0;
+        while (x < map->x)
+        {
+            if (map->map[y][x] == 'N')
+			{
+				map->player->dir = 'N';
+				map->player->vect_y = 1;
+				map->player->vect_x = 0;
+				map->player->x_pj = x;
+				map->player->y_pj = y;
+				return ;
+			}
+			else if (map->map[y][x] == 'S')
+			{
+				map->player->dir = 'S';
+				map->player->vect_y = -1;
+				map->player->vect_x = 0;
+				map->player->x_pj = x;
+				map->player->y_pj = y;
+				return ;
+			}
+        	else if (map->map[y][x] == 'E')
+			{
+				map->player->dir = 'E';
+				map->player->vect_y = 0;
+				map->player->vect_x = 1;
+				map->player->x_pj = x;
+				map->player->y_pj = y;
+				return ;
+			}
+			else if (map->map[y][x] == 'W')
+			{
+				map->player->dir = 'W';
+				map->player->vect_y = 0;
+				map->player->vect_x = -1;
+				map->player->x_pj = x;
+				map->player->y_pj = y;
+				return ;
+			}
+            x++;
+        }
+        y++;
+    }
+}

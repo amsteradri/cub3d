@@ -40,6 +40,8 @@ int	main(int argc, char **argv)
 	map.map = read_map(argv[1]);
 	init_vars(&map);
 	all_checks(&map);
+	fill_dir(&map);
+	
 	// while(map.map[i])
 	// {
 	// 	printf("%s\n", map.map[i]);

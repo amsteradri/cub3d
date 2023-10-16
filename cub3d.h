@@ -24,14 +24,29 @@
 # include <fcntl.h>
 # include <mlx.h>
 
-typedef struct t_map
+
+typedef struct s_player
+{
+	char			dir;
+	int				vect_x;
+	int				vect_y;
+	int				x_pj;
+	int				y_pj;
+}t_player;
+
+
+typedef struct s_map
 {
 	char			**map;
 	int				x;
 	int				y;
+	t_player		*player;
+
 	// void			*win_ptr;
 	// void			*mlx_ptr;
 }t_map;
+
+
 
 //parsin_errors.c//
 
@@ -46,6 +61,7 @@ void	check_under_empty(t_map **map);
 // parsing.c//
 void	first_line(char *line);
 char	**read_map(char *fmap);
+void fill_dir(t_map *map);
 
 
 
