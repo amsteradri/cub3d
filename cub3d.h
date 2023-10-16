@@ -41,6 +41,7 @@ void	check_chars(t_map **map);
 void	all_checks(t_map *map);
 void    check_nsew(t_map **map);
 void	check_walls(t_map **map);
+void	check_under_empty(t_map **map);
 
 // parsing.c//
 void	first_line(char *line);
