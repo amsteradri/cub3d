@@ -12,11 +12,12 @@
 
 NAME		=	cub3d
 CC			=	gcc
-SRCS		=	cub3d.c parsing_errors.c parsing.c
+SRCS		=	cub3d.c parsing_errors.c parsing.c cub_window.c
 
 LIBFT		=	libft/libft.a
 
-CFLAGS		=	-Wall -Werror -Wextra
+CFLAGS		=	-Wall -Werror -Wextra -fsanitize=address
+MLXFLAGS	=	-L ./mlx/ -lmlx -framework OpenGL -framework AppKit -lz
 RM			=	rm -f
 
 all:		$(NAME)
@@ -26,14 +27,14 @@ OBJS		=	$(addprefix $(OBJ_DIR)/,$(SRCS:.c=.o))
 
 $(OBJ_DIR)/%.o: %.c
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -Imlx -c $< -o $@
 
 $(LIBFT):
 			@make -C libft >/dev/null 2>&1
 			@make clean -C libft >/dev/null 2>&1
 
 $(NAME):	$(OBJS) $(LIBFT)
-			$(CC) $(OBJS) $(LIBFT) $(CFLAGS) -o $(NAME) >/dev/null 2>&1
+			$(CC) $(OBJS) $(LIBFT) $(MLXFLAGS) $(CFLAGS) -o $(NAME) >/dev/null 2>&1
 
 clean:
 	@$(RM) $(OBJS) >/dev/null 2>&1

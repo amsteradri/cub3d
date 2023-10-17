@@ -23,6 +23,8 @@
 # include "libft/libft.h"
 # include <fcntl.h>
 # include <mlx.h>
+#include <math.h>
+
 
 
 typedef struct s_player
@@ -30,8 +32,9 @@ typedef struct s_player
 	char			dir;
 	int				vect_x;
 	int				vect_y;
-	int				x_pj;
-	int				y_pj;
+	int				j_pj;
+	int				i_pj;
+	int				len_to_wall;
 }t_player;
 
 
@@ -41,12 +44,13 @@ typedef struct s_map
 	int				x;
 	int				y;
 	t_player		*player;
-
-	// void			*win_ptr;
-	// void			*mlx_ptr;
+	void			*win_ptr;
+	void			*mlx_ptr;
 }t_map;
 
 
+
+void	create_window(t_map *map);
 
 //parsin_errors.c//
 
@@ -63,6 +67,10 @@ void	first_line(char *line);
 char	**read_map(char *fmap);
 void fill_dir(t_map *map);
 
+// cub_window.c //
+void	init_window(t_map *map);
+void draw_background(t_map *map);
+void	create_window(t_map *map);
 
 
 

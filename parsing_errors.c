@@ -85,7 +85,7 @@ void check_nsew(t_map **map)
     while (y < (*map)->y && direction_count <= 1)
     {
         x = 0;
-        while (x < (*map)->x && direction_count <= 1)
+        while (x < (int)ft_strlen((*map)->map[y]) && direction_count <= 1)
         {
             if ((*map)->map[y][x] == 'N' || (*map)->map[y][x] == 'S' ||
                 (*map)->map[y][x] == 'E' || (*map)->map[y][x] == 'W')

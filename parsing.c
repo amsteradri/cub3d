@@ -42,55 +42,61 @@ char	**read_map(char *fmap)
 	return (ft_split(joined_lines, '\n'));
 }
 
-void fill_dir(t_map *map)
+void	fill_dir(t_map *map)
 {
-    int y;
-    int x;
+	int		i;
+	int		aux;
+	int		j;
+	int		len;
 
-    y = 0;
-    while (y < map->y)
-    {
-        x = 0;
-        while (x < map->x)
-        {
-            if (map->map[y][x] == 'N')
+	i = 1;
+	j = 0;
+	aux = map->y - 1;
+	len = ft_strlen(map->map[i]);
+	while (i < aux)
+	{
+		j = 0;
+		len = ft_strlen(map->map[i]);
+		while(j < len)
+		{
+			if (map->map[i][j] == 'N')
 			{
 				map->player->dir = 'N';
 				map->player->vect_y = 1;
 				map->player->vect_x = 0;
-				map->player->x_pj = x;
-				map->player->y_pj = y;
+				map->player->j_pj = j;
+				map->player->i_pj = i;
 				return ;
 			}
-			else if (map->map[y][x] == 'S')
+			else if (map->map[i][j] == 'S')
 			{
 				map->player->dir = 'S';
 				map->player->vect_y = -1;
 				map->player->vect_x = 0;
-				map->player->x_pj = x;
-				map->player->y_pj = y;
+				map->player->j_pj = j;
+				map->player->i_pj = i;
 				return ;
 			}
-        	else if (map->map[y][x] == 'E')
+        	else if (map->map[i][j] == 'E')
 			{
 				map->player->dir = 'E';
 				map->player->vect_y = 0;
 				map->player->vect_x = 1;
-				map->player->x_pj = x;
-				map->player->y_pj = y;
+				map->player->j_pj = j;
+				map->player->i_pj = i;
 				return ;
 			}
-			else if (map->map[y][x] == 'W')
+			else if (map->map[i][j] == 'W')
 			{
 				map->player->dir = 'W';
 				map->player->vect_y = 0;
 				map->player->vect_x = -1;
-				map->player->x_pj = x;
-				map->player->y_pj = y;
+				map->player->j_pj = j;
+				map->player->i_pj = i;
 				return ;
 			}
-            x++;
-        }
-        y++;
-    }
+			j++;
+		}
+		i++;
+	}
 }

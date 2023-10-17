@@ -22,11 +22,37 @@ int	map_height(char **map)
 	return (i);
 }
 
+int find_longest_line_length(char **map) {
+    int longest_length = 0;
+
+    if (map == NULL) {
+        return longest_length;
+    }
+
+    for (int i = 0; map[i] != NULL; i++) {
+        int current_length = strlen(map[i]);
+
+        if (current_length > longest_length) {
+            longest_length = current_length;
+        }
+    }
+
+    return longest_length;
+}
+
 void	init_vars(t_map *map)
 {
 	map->y = map_height(map->map);
-	map->x = ft_strlen(map->map[0]);
+	map->x = find_longest_line_length(map->map);
+	map->player = (t_player *)malloc(sizeof(t_player));
+	map->player->i_pj = 0;
+	map->player->j_pj = 0;
+	map->player->vect_x = 0;
+	map->player->vect_y = 0;
+	map->player->len_to_wall = 0;
 }
+
+
 
 int	main(int argc, char **argv)
 {
@@ -41,6 +67,7 @@ int	main(int argc, char **argv)
 	init_vars(&map);
 	all_checks(&map);
 	fill_dir(&map);
+	init_window(&map);
 	
 	// while(map.map[i])
 	// {
