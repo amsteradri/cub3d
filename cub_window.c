@@ -6,7 +6,7 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 13:17:53 by adgutier          #+#    #+#             */
-/*   Updated: 2023/10/28 11:06:01 by isromero         ###   ########.fr       */
+/*   Updated: 2023/10/28 11:14:34 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,11 +150,18 @@ void	render_all(t_map *map)
 	print_char_on_map(map);
 }
 
+int	handle_esc_screen(t_map *map)
+{
+	mlx_destroy_window(map->mlx_ptr, map->win_ptr);
+	exit(0);
+}
+
 void	init_window(t_map *map)
 {
 	create_window(map);
 	draw_background(map);
     render_all(map);
     mlx_key_hook(map->win_ptr, move_character, map);
+	mlx_hook(map->win_ptr, 17, 1L << 0, handle_esc_screen, map);
 	mlx_loop(map->mlx_ptr);
 }

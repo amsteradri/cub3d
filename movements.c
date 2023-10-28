@@ -6,7 +6,7 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 08:55:56 by isromero          #+#    #+#             */
-/*   Updated: 2023/10/28 11:06:48 by isromero         ###   ########.fr       */
+/*   Updated: 2023/10/28 11:14:31 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,12 @@ static void move_camera_right(t_map *map)
 
 int	move_character(int keycode, t_map *map)
 {
-	if (keycode == 0 ) // || keycode == 123 -> flecha izquierda
+	if (keycode == 53)
+	{
+		mlx_destroy_window(map->mlx_ptr, map->win_ptr);
+		exit (0);
+	}
+	else if (keycode == 0 ) // || keycode == 123 -> flecha izquierda
 		move_left(map);
 	else if (keycode == 13 || keycode == 126)
 		move_up(map);

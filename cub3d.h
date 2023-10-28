@@ -56,6 +56,7 @@ void	print_empty_on_map(t_map *map);
 void	print_obstacles_on_map(t_map *map);
 void	print_char_on_map(t_map *map);
 void	render_all(t_map *map);
+int		handle_esc_screen(t_map *map);
 void	init_window(t_map *map);
 
 // cub3d.c //

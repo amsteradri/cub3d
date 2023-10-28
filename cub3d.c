@@ -55,8 +55,14 @@ void	init_vars(t_map *map)
 	map->player->rotation_angle = 0;
 }
 
+void   leak_check(void)
+{
+    system("leaks cub3d");
+}
+
 int	main(int argc, char **argv)
 {
+	atexit(leak_check);
 	(void)argv;
 	// int i;
 
@@ -69,6 +75,7 @@ int	main(int argc, char **argv)
 	all_checks(&map);
 	fill_dir(&map);
 	init_window(&map);
+	
 	
 	// while(map.map[i])
 	// {
