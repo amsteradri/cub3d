@@ -22,7 +22,8 @@ int	map_height(char **map)
 	return (i);
 }
 
-int find_longest_line_length(char **map) {
+int	find_longest_line_length(char **map)
+{
     int longest_length = 0;
 
     if (map == NULL) {
@@ -51,8 +52,6 @@ void	init_vars(t_map *map)
 	map->player->vect_y = 0;
 	map->player->len_to_wall = 0;
 }
-
-
 
 int	main(int argc, char **argv)
 {

@@ -23,9 +23,7 @@
 # include "libft/libft.h"
 # include <fcntl.h>
 # include <mlx.h>
-#include <math.h>
-
-
+# include <math.h>
 
 typedef struct s_player
 {
@@ -35,8 +33,7 @@ typedef struct s_player
 	int				j_pj;
 	int				i_pj;
 	int				len_to_wall;
-}t_player;
-
+}	t_player;
 
 typedef struct s_map
 {
@@ -46,33 +43,44 @@ typedef struct s_map
 	t_player		*player;
 	void			*win_ptr;
 	void			*mlx_ptr;
-}t_map;
-
-
-
-void	create_window(t_map *map);
-
-//parsin_errors.c//
-
-void	check_ext(char *map);
-void	error_args(int argc);
-void	check_chars(t_map **map);
-void	all_checks(t_map *map);
-void    check_nsew(t_map **map);
-void	check_walls(t_map **map);
-void	check_under_empty(t_map **map);
-
-// parsing.c//
-void	first_line(char *line);
-char	**read_map(char *fmap);
-void fill_dir(t_map *map);
+}	t_map;
 
 // cub_window.c //
-void	init_window(t_map *map);
-void draw_background(t_map *map);
 void	create_window(t_map *map);
+void	draw_background(t_map *map);
+void	print_empty_on_map(t_map *map);
+void	print_obstacles_on_map(t_map *map);
+void	print_char_on_map(t_map *map);
+void	render_all(t_map *map);
+void	init_window(t_map *map);
 
+// cub3d.c //
+int		map_height(char **map);
+int		find_longest_line_length(char **map);
+void	init_vars(t_map *map);
 
+// movements.c //
+int		is_valid_move(int fil, int col, t_map *map);
+int		move_character_up(int keycode, t_map *map);
 
+// parsing_errors.c //
+void	error_args(int argc);
+void	check_ext(char *map);
+void	check_chars(t_map **map);
+void    check_nsew(t_map **map);
+void	first_line(char *line);
+int		ft_spacelen(char *str);
+void	check_walls(t_map **map);
+void	check_under_empty(t_map **map);
+void	all_checks(t_map *map);
+
+// parsing.c //
+void	default_error(void);
+char	**read_map(char *fmap);
+void	fill_dir(t_map *map);
+
+// ray_casting.c //
+void	draw_ray(t_map *map, int j, int i);
+void	draw_diagonal_line(t_map *map, double angle, int i, int j);
 
 #endif

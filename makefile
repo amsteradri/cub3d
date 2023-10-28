@@ -12,7 +12,7 @@
 
 NAME		=	cub3d
 CC			=	gcc
-SRCS		=	cub3d.c parsing_errors.c parsing.c cub_window.c
+SRCS		=	cub3d.c parsing_errors.c parsing.c cub_window.c ray_casting.c movements.c
 
 LIBFT		=	libft/libft.a
 

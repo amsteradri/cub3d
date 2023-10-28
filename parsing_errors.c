@@ -43,14 +43,6 @@ void	check_ext(char *map)
     }
 }
 
-void	all_checks(t_map *map)
-{
-	check_chars(&map);
-    check_nsew(&map);
-	check_walls(&map);
-	check_under_empty(&map);
-}
-
 void	check_chars(t_map **map)
 {
 	int	y;
@@ -118,7 +110,7 @@ void	first_line(char *line)
 	}
 }
 
-int ft_spacelen(char *str) 
+int	ft_spacelen(char *str) 
 {
     int l;
     int count;
@@ -213,4 +205,12 @@ void	check_under_empty(t_map **map)
 		}
 		i++;
 	}
+}
+
+void	all_checks(t_map *map)
+{
+	check_chars(&map);
+    check_nsew(&map);
+	check_walls(&map);
+	check_under_empty(&map);
 }
