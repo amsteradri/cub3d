@@ -37,6 +37,12 @@ typedef struct s_player
 	int				len_to_wall;
 	double			camera_angle;
 	double			rotation_angle;
+	int				move_up;
+	int				move_left;
+	int				move_right;
+	int				move_down;
+	int				move_camera_left;
+	int				move_camera_right;
 }	t_player;
 
 typedef struct s_map
@@ -67,6 +73,8 @@ void	init_vars(t_map *map);
 // movements.c //
 int		is_valid_move(int fil, int col, t_map *map);
 int		move_character(int keycode, t_map *map);
+int		handle_key_press(int keycode, t_map *map);
+int		handle_key_release(int keycode, t_map *map);
 
 // parsing_errors.c //
 void	error_args(int argc);

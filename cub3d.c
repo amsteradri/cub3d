@@ -53,6 +53,12 @@ void	init_vars(t_map *map)
 	map->player->len_to_wall = 0;
 	map->player->camera_angle = -50;
 	map->player->rotation_angle = 0;
+	map->player->move_up = 0;
+	map->player->move_left = 0;
+	map->player->move_right = 0;
+	map->player->move_down = 0;
+	map->player->move_camera_left = 0;
+	map->player->move_camera_right = 0;
 }
 
 void   leak_check(void)

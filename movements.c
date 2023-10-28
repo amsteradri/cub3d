@@ -6,7 +6,7 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 08:55:56 by isromero          #+#    #+#             */
-/*   Updated: 2023/10/28 11:14:31 by isromero         ###   ########.fr       */
+/*   Updated: 2023/10/28 14:15:16 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,17 +77,14 @@ static void move_camera_right(t_map *map)
 int	move_character(int keycode, t_map *map)
 {
 	if (keycode == 53)
-	{
-		mlx_destroy_window(map->mlx_ptr, map->win_ptr);
-		exit (0);
-	}
-	else if (keycode == 0 ) // || keycode == 123 -> flecha izquierda
+		handle_esc_screen(map);
+	else if (keycode == 0) // || keycode == 123 -> flecha izquierda
 		move_left(map);
-	else if (keycode == 13 || keycode == 126)
+	else if (keycode == 13)
 		move_up(map);
 	else if (keycode == 2) // || keycode == 124 -> flecha derecha
 		move_right(map);
-	else if (keycode == 1 || keycode == 125)
+	else if (keycode == 1)
 		move_down(map);
 	else  if (keycode == 123)
 		move_camera_left(map);
@@ -97,3 +94,61 @@ int	move_character(int keycode, t_map *map)
 	return (0);
 }
 
+// Esto de abajo es para probar con varias teclas, por ahora causa seg fault
+
+// int	move_character(t_map *map)
+// {
+	
+// 	if (map->player->move_left == 1)
+// 		move_left(map);
+// 	else if (map->player->move_up == 1)
+// 		move_up(map);
+// 	else if (map->player->move_right == 1)
+// 		move_right(map);
+// 	else if (map->player->move_down == 1)
+// 		move_down(map);
+// 	else  if (map->player->move_camera_left == 1)
+// 		move_camera_left(map);
+// 	else if (map->player->move_camera_right == 1)
+// 		move_camera_right(map);
+	
+// 	return (0);
+// }
+
+// int	handle_key_press(int keycode, t_map *map)
+// {
+// 	if (keycode == 53)
+// 		handle_esc_screen(map);
+// 	else if (keycode == 0) // || keycode == 123 -> flecha izquierda
+// 		map->player->move_left = 1;
+// 	else if (keycode == 13)
+// 		map->player->move_up = 1;
+// 	else if (keycode == 2) // || keycode == 124 -> flecha derecha
+// 		map->player->move_right = 1;
+// 	else if (keycode == 1)
+// 		map->player->move_down = 1;
+// 	else  if (keycode == 123)
+// 		map->player->move_camera_left = 1;
+// 	else if (keycode == 124)
+// 		map->player->move_camera_right = 1;
+// 	return (0);
+// }
+
+// int	handle_key_release(int keycode, t_map *map)
+// {
+// 	if (keycode == 53)
+// 		handle_esc_screen(map);
+// 	else if (keycode == 0 && map->player->move_left == 1) // || keycode == 123 -> flecha izquierda
+// 		map->player->move_left = 0;
+// 	else if (keycode == 13 && map->player->move_up == 1)
+// 		map->player->move_up = 0;
+// 	else if (keycode == 2 && map->player->move_right == 1) // || keycode == 124 -> flecha derecha
+// 		map->player->move_right = 0;
+// 	else if (keycode == 1 && map->player->move_down == 1)
+// 		map->player->move_down = 0;
+// 	else  if (keycode == 123 && map->player->move_camera_left == 1)
+// 		map->player->move_camera_left = 0;
+// 	else if (keycode == 124 && map->player->move_right == 1)
+// 		map->player->move_camera_right = 0;
+// 	return (0);
+// }
