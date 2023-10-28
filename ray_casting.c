@@ -6,7 +6,7 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 08:57:02 by isromero          #+#    #+#             */
-/*   Updated: 2023/10/28 09:06:46 by isromero         ###   ########.fr       */
+/*   Updated: 2023/10/28 10:46:16 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,7 @@ void draw_ray(t_map *map, int j, int i)
     while (j < x_end) 
 	{
 		if (map->map[i / 20][j / 20] == '1') 
-		{
             break; // Sale del bucle si encuentra una pared
-        }
         mlx_pixel_put(map->mlx_ptr, map->win_ptr, j, i, 0xFF0000); // Color rojo (formato RGB)
         j++;
     }
@@ -43,7 +41,8 @@ void draw_diagonal_line(t_map *map, double angle, int i, int j)
         int map_x = x / 20; // Convierte la posición X a coordenadas del mapa
         int map_y = y / 20; // Convierte la posición Y a coordenadas del mapa
 
-        if (map->map[map_y][map_x] == '1') {
+        if (map->map[map_y][map_x] == '1')
+		{
             map->player->len_to_wall = sqrt((x - player_x) * (x - player_x) + (y - player_y) * (y - player_y));
             break;
         }

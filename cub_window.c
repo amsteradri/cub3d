@@ -6,7 +6,7 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 13:17:53 by adgutier          #+#    #+#             */
-/*   Updated: 2023/10/28 08:59:27 by isromero         ###   ########.fr       */
+/*   Updated: 2023/10/28 11:06:01 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,13 +107,14 @@ void	print_char_on_map(t_map *map)
 	void	*img_ptr;
 	int		width;
 	int		height;
-	double	angle;
+	// double	angle;
 	int		i;
 	int		j;
 
 	i = 0;
 	j = 0;
-	angle = 50;
+	// angle = -50;
+	map->player->camera_angle = -50 + map->player->rotation_angle;
 	while (i < map->y)
 	{
 		j = 0;
@@ -125,14 +126,14 @@ void	print_char_on_map(t_map *map)
 						"assets/rojo.xpm", &width, &height);
 				mlx_put_image_to_window(map->mlx_ptr, map->win_ptr,
 					img_ptr, j * 20, i * 20);
-				draw_ray(map, j * 20, i * 20 + 10);
-				draw_diagonal_line(map, 50, i * 20 , j * 20 + 10);
-				while(angle > -50)
+				// draw_ray(map, j * 20, i * 20 + 10);
+				// draw_diagonal_line(map, 50, i * 20 , j * 20 + 10);
+				while(map->player->camera_angle <= (50 + map->player->rotation_angle))
 				{
-					draw_diagonal_line(map, angle, i * 20 + 10 , j * 20 + 20);
-					angle--;
+					draw_diagonal_line(map, map->player->camera_angle, i * 20 + 10 , j * 20 + 20);
+					map->player->camera_angle++;
 				}
-				draw_diagonal_line(map, -50, i * 20 + 10, j * 20 + 20);
+				// draw_diagonal_line(map, -50, i * 20 + 10, j * 20 + 20);
 				mlx_destroy_image(map->mlx_ptr, img_ptr);
 			}
 			j++;
@@ -154,6 +155,6 @@ void	init_window(t_map *map)
 	create_window(map);
 	draw_background(map);
     render_all(map);
-    mlx_key_hook(map->win_ptr, move_character_up, map);
+    mlx_key_hook(map->win_ptr, move_character, map);
 	mlx_loop(map->mlx_ptr);
 }

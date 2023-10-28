@@ -25,6 +25,8 @@
 # include <mlx.h>
 # include <math.h>
 
+#define ROTATION_ANGLE 10 // Valor de la velocidad de rotación en radianes por frame (se suma/se resta ángulo)
+
 typedef struct s_player
 {
 	char			dir;
@@ -33,6 +35,8 @@ typedef struct s_player
 	int				j_pj;
 	int				i_pj;
 	int				len_to_wall;
+	double			camera_angle;
+	double			rotation_angle;
 }	t_player;
 
 typedef struct s_map
@@ -61,7 +65,7 @@ void	init_vars(t_map *map);
 
 // movements.c //
 int		is_valid_move(int fil, int col, t_map *map);
-int		move_character_up(int keycode, t_map *map);
+int		move_character(int keycode, t_map *map);
 
 // parsing_errors.c //
 void	error_args(int argc);

@@ -51,6 +51,8 @@ void	init_vars(t_map *map)
 	map->player->vect_x = 0;
 	map->player->vect_y = 0;
 	map->player->len_to_wall = 0;
+	map->player->camera_angle = -50;
+	map->player->rotation_angle = 0;
 }
 
 int	main(int argc, char **argv)
