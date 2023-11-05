@@ -29,11 +29,20 @@
 
 typedef struct s_player
 {
-	char			dir;
-	int				vect_x;
-	int				vect_y;
-	int				j_pj;
-	int				i_pj;
+	char			dir; // N, S, W, E
+	int				vect_x; //dirX
+	int				vect_y; //dirY
+	int				j_pj; // posX
+	int				i_pj; // posY
+	double			plane_x; // Todas estas variables habría que poner en otra struct
+	double			plane_y;
+	double			camera_x;
+	double			ray_dir_x; 
+	double			ray_dir_y;
+	double			side_dist_x;
+	double			side_dist_y;
+	double			delta_dist_x;
+	double			delta_dist_y;
 	int				len_to_wall;
 	double			camera_angle;
 	double			rotation_angle;
@@ -50,6 +59,7 @@ typedef struct s_map
 	char			**map;
 	int				x;
 	int				y;
+	int				screen_width;
 	t_player		*player;
 	void			*win_ptr;
 	void			*mlx_ptr;

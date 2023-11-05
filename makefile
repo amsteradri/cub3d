@@ -17,7 +17,7 @@ SRCS		=	cub3d.c parsing_errors.c parsing.c cub_window.c ray_casting.c movements.
 LIBFT		=	libft/libft.a
 
 CFLAGS		=	#-Wall -Werror -Wextra #-fsanitize=address
-MLXFLAGS	=	-L ./mlx/ -lmlx -framework OpenGL -framework AppKit -lz -L/usr/X11/lib -lXext -lX11  ## a partir de -L es para mi propio
+MLXFLAGS	=	-L ./mlx/ -lmlx -framework OpenGL -framework AppKit -lz #-L/usr/X11/lib -lXext -lX11  ## a partir de -L es para mi propio
 RM			=	rm -f
 
 all:		$(NAME)

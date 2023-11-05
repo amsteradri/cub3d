@@ -33,11 +33,9 @@ int	find_longest_line_length(char **map)
     for (int i = 0; map[i] != NULL; i++) {
         int current_length = strlen(map[i]);
 
-        if (current_length > longest_length) {
+        if (current_length > longest_length)
             longest_length = current_length;
-        }
     }
-
     return longest_length;
 }
 
@@ -45,11 +43,21 @@ void	init_vars(t_map *map)
 {
 	map->y = map_height(map->map);
 	map->x = find_longest_line_length(map->map);
+	map->screen_width = map->x * 20;
 	map->player = (t_player *)malloc(sizeof(t_player));
 	map->player->i_pj = 0;
 	map->player->j_pj = 0;
 	map->player->vect_x = 0;
 	map->player->vect_y = 0;
+	map->player->plane_x = 0;
+	map->player->plane_y = 0.66;
+	map->player->camera_x = 0;
+	map->player->ray_dir_x = 0; 
+	map->player->ray_dir_y = 0;
+	map->player->side_dist_x = 0;
+	map->player->side_dist_y = 0;
+	map->player->delta_dist_x = 0;
+	map->player->delta_dist_y = 0;
 	map->player->len_to_wall = 0;
 	map->player->camera_angle = -50;
 	map->player->rotation_angle = 0;

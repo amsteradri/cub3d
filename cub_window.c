@@ -6,7 +6,7 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 13:17:53 by adgutier          #+#    #+#             */
-/*   Updated: 2023/10/28 14:14:07 by isromero         ###   ########.fr       */
+/*   Updated: 2023/11/05 15:15:15 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	create_window(t_map *map)
 {
 	map->mlx_ptr = mlx_init();
 	map->win_ptr = mlx_new_window(map->mlx_ptr, (map->x * 20),
-			(map->y * 20 + 2), "juego");
+			(map->y * 20 + 2), "cub3d");
 }
 
 void	draw_background(t_map *map)
@@ -120,7 +120,7 @@ void	print_char_on_map(t_map *map)
 		j = 0;
 		while (j < (int)ft_strlen(map->map[i]))
 		{
-			if (map->map[i][j] == 'E')
+			if (map->map[i][j] == 'E') // Habría que hacer en todas las direcciones
 			{
 				img_ptr = mlx_xpm_file_to_image(map->mlx_ptr,
 						"assets/rojo.xpm", &width, &height);

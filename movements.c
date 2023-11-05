@@ -6,7 +6,7 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 08:55:56 by isromero          #+#    #+#             */
-/*   Updated: 2023/10/28 14:15:16 by isromero         ###   ########.fr       */
+/*   Updated: 2023/11/05 14:03:41 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,11 @@ int	move_character(int keycode, t_map *map)
 {
 	if (keycode == 53)
 		handle_esc_screen(map);
-	else if (keycode == 0) // || keycode == 123 -> flecha izquierda
+	else if (keycode == 0)
 		move_left(map);
 	else if (keycode == 13)
 		move_up(map);
-	else if (keycode == 2) // || keycode == 124 -> flecha derecha
+	else if (keycode == 2)
 		move_right(map);
 	else if (keycode == 1)
 		move_down(map);
@@ -119,11 +119,11 @@ int	move_character(int keycode, t_map *map)
 // {
 // 	if (keycode == 53)
 // 		handle_esc_screen(map);
-// 	else if (keycode == 0) // || keycode == 123 -> flecha izquierda
+// 	else if (keycode == 0)
 // 		map->player->move_left = 1;
 // 	else if (keycode == 13)
 // 		map->player->move_up = 1;
-// 	else if (keycode == 2) // || keycode == 124 -> flecha derecha
+// 	else if (keycode == 2)
 // 		map->player->move_right = 1;
 // 	else if (keycode == 1)
 // 		map->player->move_down = 1;
@@ -138,11 +138,11 @@ int	move_character(int keycode, t_map *map)
 // {
 // 	if (keycode == 53)
 // 		handle_esc_screen(map);
-// 	else if (keycode == 0 && map->player->move_left == 1) // || keycode == 123 -> flecha izquierda
+// 	else if (keycode == 0 && map->player->move_left == 1)
 // 		map->player->move_left = 0;
 // 	else if (keycode == 13 && map->player->move_up == 1)
 // 		map->player->move_up = 0;
-// 	else if (keycode == 2 && map->player->move_right == 1) // || keycode == 124 -> flecha derecha
+// 	else if (keycode == 2 && map->player->move_right == 1)
 // 		map->player->move_right = 0;
 // 	else if (keycode == 1 && map->player->move_down == 1)
 // 		map->player->move_down = 0;
