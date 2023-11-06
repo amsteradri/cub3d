@@ -6,7 +6,7 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 08:57:02 by isromero          #+#    #+#             */
-/*   Updated: 2023/11/05 18:16:30 by isromero         ###   ########.fr       */
+/*   Updated: 2023/11/06 17:37:14 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,110 +51,141 @@ void draw_diagonal_line(t_map *map, double angle, int i, int j)
     }
 }
 
-void raycast_implementation(t_map *map)
+void	paint_line(t_map *map, t_line *line, t_ray *ray)
 {
-	double posX = map->player->j_pj;
-	double posY = map->player->i_pj;
-	double dirX = map->player->vect_x;
-	double dirY = map->player->vect_y;
-	double planeX = 0;
-	double planeY = 0.66;
-	
+	int	y;
+	int	y_max;
+
+	if (line->y0 < line->y1)
+	{
+		y = line->y0;
+		y_max = line->y1;
+	}
+	else
+	{
+		y = line->y1;
+		y_max = line->y0;
+	}
+	if (y >= 0)
+	{
+		while (y < y_max)
+		{
+			if (ray->side == 0)
+				mlx_pixel_put(map->mlx_ptr, map->win_ptr, line->x, y, 0x0000FF);
+			else if (ray->side == 1)
+				mlx_pixel_put(map->mlx_ptr, map->win_ptr, line->x, y, 0x00FF00);
+			y++;
+		}
+	}
+}
+
+int raycast_implementation(t_map *map, t_ray *ray, t_line *line)
+{
 	int x = 0;
 	int w = map->x * 20;
+	printf("weiii\n");
 	while(x < w)
 	{
+		ray->hit = 0;
 		// Calcular la posición y dirección del rayo
-		double cameraX = 2 * x / (double)w - 1; // La coordenada en x de la cámara -> camera x es -1 cuando mira 100% izquierda, 0 centro y 1 derecha 100%
-		double rayDirX = dirX + planeX * cameraX;
-		double rayDirY = dirY + planeY * cameraX;
-
-		// Cálculo de otras distancias(explicación de variables)
-		
-		// sideDistX y sideDistY son las distancias iniciales que el rayo tiene que recorrer desde su posición del jugador hasta
-		// llegar al primer borde (lado) en X e Y. Son esenciales para ver cuánto ha avanzado el rayo antes de cruzar un borde y cambiar de casilla en el mapa
-		// Resumen: es la distancia recorrida dentro del bloque, va cambiando según se va moviendo de bloque en bloque
-		
-		// deltaDistX y deltaDistY realmente representa las distancias que el rayo tiene que recorrer para pasar de un lado a otro
-
-		// Resumen total: la diferencia entre estas distancias es que una es la distancia ya recorrida dentro de un bloque y la otra la faltante para llegar a x bloque
+		ray->camera_x = 2 * x / (double)w - 1; // La coordenada en x de la cámara -> camera x es -1 cuando mira 100% izquierda, 0 centro y 1 derecha 100%
+		ray->ray_dir_x = ray->dir_x + ray->plane_x * ray->camera_x;
+		ray->ray_dir_y = ray->dir_y + ray->plane_y * ray->camera_x;
 		
 		// en dónde está el jugador
-		int mapX = map->player->j_pj;
-		int mapY = map->player->i_pj;
+		ray->map_x = map->player->j_pj;
+		ray->map_y = map->player->i_pj;
 
-		double sideDistX;
-		double sideDistY;
-		
-		double	deltaDistX;
-		double	deltaDistY;
-
-		if (rayDirX == 0)
-			deltaDistX = 1e30;
+		if (ray->ray_dir_x == 0)
+			ray->delta_dist_x = 1e30;
 		else
-			deltaDistX = fabs(1.0 / rayDirX);
-		if (rayDirY == 0)
-			deltaDistY = 1e30;
+			ray->delta_dist_x = fabs(1.0 / ray->ray_dir_x);
+		if (ray->ray_dir_y == 0)
+			ray->delta_dist_y = 1e30;
 		else
-			deltaDistY = fabs(1.0 / rayDirY);
-
-		double	perpWallDist; // Longitud del rayo desde el jugador hasta que impacta
+			ray->delta_dist_y = fabs(1.0 / ray->ray_dir_y);
 		
-		// En la dirección en la que debe avanzar el rayo en el mundo 2D
+		// stepX y stepY En la dirección en la que debe avanzar el rayo en el mundo 2D
 		// rayDirX y rayDirY parece lo mismo, pero ellos lo hacen en el mundo3D
-		double stepX;
-		double stepY;
 		
-		// Indica si el rayo ha impactado en NS(norte-sur)->(1, vertical) o EW(este-oeste)->(0, horitzontal)
-		double side;
-		int hit = 0;
-
+		// side Indica si el rayo ha impactado en NS(norte-sur)->(1, vertical) o EW(este-oeste)->(0, horitzontal)
+	
 		// calcular step y sideDist
-		if (rayDirX < 0)
+		if (ray->ray_dir_x < 0)
 		{
-			stepX = -1;
-			sideDistX = (posX - mapX) * deltaDistX;
+			ray->step_x = -1;
+			ray->side_dist_x = (ray->pos_x - ray->map_x) * ray->delta_dist_x;
 		}
 		else
 		{
-			stepX = 1;
-			sideDistX = (mapX + 1.0 - posX) * deltaDistX;
+			ray->step_x = 1;
+			ray->side_dist_x = (ray->map_x + 1.0 - ray->pos_x) * ray->delta_dist_x;
 		}
-		if (rayDirY < 0)
+		if (ray->ray_dir_y < 0)
 		{
-			stepY = -1;
-			sideDistY = (posY - mapY) * deltaDistY;
+			ray->step_y = -1;
+			ray->side_dist_y = (ray->pos_y - ray->map_y) * ray->delta_dist_y;
 		}
 		else
 		{
-			stepY = 1;
-			sideDistY = (mapY + 1.0 - posY) * deltaDistY;
+			ray->step_y = 1;
+			ray->side_dist_y = (ray->map_y + 1.0 - ray->pos_y) * ray->delta_dist_y;
 		}
 
 		// ejecutar el algoritmo DDA
-		while (hit == 0)
+		while (ray->hit == 0)
 		{
-			if (sideDistX < sideDistY)
+			if (ray->side_dist_x < ray->side_dist_y)
 			{
-				sideDistX += deltaDistX;
-				mapX += stepX;
-				side = 0;
+				ray->side_dist_x += ray->delta_dist_x;
+				ray->map_x += ray->step_x;
+				ray->side = 0;
 			}
 			else
 			{
-				sideDistY += deltaDistY;
-				mapY += stepY;
-				side = 1;
+				ray->side_dist_y += ray->delta_dist_y;
+				ray->map_y += ray->step_y;
+				ray->side = 1;
 			}
-			if (map->map[mapX][mapY] == '1')
-				hit = 1;
+			if (map->map[ray->map_y][ray->map_x] == '1')
+				ray->hit = 1;
 		}
 
 		// Calculamos la distancia hacia el muro(no euclidiana, es decir, no desde el jugador al muro ya que ahce efecto pez)
 		// Dependiendo en dónde impacte el rayo, si NS o EW(dirección de cámara) pues hacemos los cálculos
-		if(side == 0)
-			perpWallDist = (sideDistX - deltaDistX);
+		if(ray->side == 0)
+			ray->perp_wall_dist = (ray->side_dist_x - ray->delta_dist_x);
       	else
-			perpWallDist = (sideDistY - deltaDistY);
+			ray->perp_wall_dist = (ray->side_dist_y - ray->delta_dist_y);
+
+		// Con los cálculos transformamos y convertimos imágenes(las líneas verticales que se van a pintar en pantalla)
+		
+		if (ray->side == 0) //EW
+			line->wall_x = map->player->i_pj + ray->perp_wall_dist * ray->ray_dir_y;
+		else
+			line->wall_x = map->player->j_pj + ray->perp_wall_dist * ray->ray_dir_x;
+		line->wall_x -= floor(line->wall_x);
+		
+		line->x = x; // ponemos la coordenada de line->x a la coordenada del ancho de pantalla donde estamos recorriendo
+
+		//PINTAMOS
+		
+		//pintar textura cuando el rayo da a un muro
+		line->y0 = 0;
+		
+		//calculamos altura del muro para saber dónde se empieza a pintar el primer pixel
+		double line_height = map->y * 20 / ray->perp_wall_dist;
+		line->y1 = (-line_height / 2) + (map->y * 20 / 2); // (draw_start)
+		if (line->y1 < 0)
+			line->y1 = 0;
+		line->y0 = (line_height / 2) + (map->y * 20 / 2); // (draw_end)
+		if (line->y0 >= map->y * 20)
+			line->y0 = map->y * 20 - 1;
+		
+		if(ray->hit == 1)
+			paint_line(map, line, ray);
+		x++;
 	}
+	return 0;
  }
+

@@ -6,7 +6,7 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 13:17:53 by adgutier          #+#    #+#             */
-/*   Updated: 2023/11/05 15:15:15 by isromero         ###   ########.fr       */
+/*   Updated: 2023/11/06 14:09:27 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,12 +142,13 @@ void	print_char_on_map(t_map *map)
 	}
 }
 
-void	render_all(t_map *map)
+void	render_all(t_map *map, t_ray *ray, t_line *line)
 {
     draw_background(map);
 	print_empty_on_map(map);
 	print_obstacles_on_map(map);
 	print_char_on_map(map);
+	raycast_implementation(map, ray, line);
 }
 
 int	handle_esc_screen(t_map *map)
@@ -156,11 +157,12 @@ int	handle_esc_screen(t_map *map)
 	exit(0);
 }
 
-void	init_window(t_map *map)
+void	init_window(t_map *map, t_ray *ray, t_line *line)
 {
 	create_window(map);
-	draw_background(map);
-    render_all(map);
+	// draw_background(map);
+    render_all(map, ray, line);
+	// mlx_loop_hook(map->win_ptr, raycast_implementation, map);
 	mlx_hook(map->win_ptr, 2, 1L << 0, move_character, map);
 	// Esto es para probar varias teclas, por ahora causa seg fault
 	// mlx_hook(map->win_ptr, 2, 1L << 0, handle_key_press, map);

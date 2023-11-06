@@ -6,7 +6,7 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 08:55:56 by isromero          #+#    #+#             */
-/*   Updated: 2023/11/05 14:03:41 by isromero         ###   ########.fr       */
+/*   Updated: 2023/11/06 14:27:50 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static void move_camera_right(t_map *map)
 	map->player->rotation_angle += ROTATION_ANGLE;
 }
 
-int	move_character(int keycode, t_map *map)
+int	move_character(int keycode, t_map *map, t_ray *ray, t_line *line)
 {
 	if (keycode == 53)
 		handle_esc_screen(map);
@@ -90,7 +90,7 @@ int	move_character(int keycode, t_map *map)
 		move_camera_left(map);
 	else if (keycode == 124)
 		move_camera_right(map);
-	render_all(map);
+	render_all(map, ray, line);
 	return (0);
 }
 
