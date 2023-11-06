@@ -6,7 +6,7 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 13:17:53 by adgutier          #+#    #+#             */
-/*   Updated: 2023/11/06 14:09:27 by isromero         ###   ########.fr       */
+/*   Updated: 2023/11/06 18:33:32 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,8 @@ void	print_char_on_map(t_map *map)
 		j = 0;
 		while (j < (int)ft_strlen(map->map[i]))
 		{
-			if (map->map[i][j] == 'E') // Habría que hacer en todas las direcciones
+			if (map->map[i][j] == 'E' || map->map[i][j] == 'N' 
+				|| map->map[i][j] == 'S' || map->map[i][j] == 'W')
 			{
 				img_ptr = mlx_xpm_file_to_image(map->mlx_ptr,
 						"assets/rojo.xpm", &width, &height);
@@ -128,11 +129,11 @@ void	print_char_on_map(t_map *map)
 					img_ptr, j * 20, i * 20);
 				// draw_ray(map, j * 20, i * 20 + 10);
 				// draw_diagonal_line(map, 50, i * 20 , j * 20 + 10);
-				while(map->player->camera_angle <= (50 + map->player->rotation_angle))
-				{
-					draw_diagonal_line(map, map->player->camera_angle, i * 20 + 10 , j * 20 + 20);
-					map->player->camera_angle++;
-				}
+				// while(map->player->camera_angle <= (50 + map->player->rotation_angle))
+				// {
+				// 	draw_diagonal_line(map, map->player->camera_angle, i * 20 + 10 , j * 20 + 20);
+				// 	map->player->camera_angle++;
+				// }
 				// draw_diagonal_line(map, -50, i * 20 + 10, j * 20 + 20);
 				mlx_destroy_image(map->mlx_ptr, img_ptr);
 			}
@@ -148,7 +149,7 @@ void	render_all(t_map *map, t_ray *ray, t_line *line)
 	print_empty_on_map(map);
 	print_obstacles_on_map(map);
 	print_char_on_map(map);
-	raycast_implementation(map, ray, line);
+	// raycast_implementation(map, ray, line);
 }
 
 int	handle_esc_screen(t_map *map)

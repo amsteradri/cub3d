@@ -6,7 +6,7 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 08:57:02 by isromero          #+#    #+#             */
-/*   Updated: 2023/11/06 17:37:14 by isromero         ###   ########.fr       */
+/*   Updated: 2023/11/06 18:34:55 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,11 @@ void	paint_line(t_map *map, t_line *line, t_ray *ray)
 	}
 }
 
+// No funciona bien esta implementación(en busca de otra más sencilla)
 int raycast_implementation(t_map *map, t_ray *ray, t_line *line)
 {
 	int x = 0;
 	int w = map->x * 20;
-	printf("weiii\n");
 	while(x < w)
 	{
 		ray->hit = 0;
@@ -187,5 +187,9 @@ int raycast_implementation(t_map *map, t_ray *ray, t_line *line)
 		x++;
 	}
 	return 0;
- }
+}
 
+void	raycasting_implementation2(t_map *map)
+{
+	
+}
