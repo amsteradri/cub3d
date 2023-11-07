@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../../inc/cub3d.h"
 
 void	default_error(void)
 {
@@ -66,6 +66,7 @@ void	fill_dir(t_map *map)
 				map->player->vect_x = 0;
 				map->player->j_pj = j;
 				map->player->i_pj = i;
+				/* map->player->pa = M_PI / 2.0; */
 				return ;
 			}
 			else if (map->map[i][j] == 'S')
@@ -75,6 +76,7 @@ void	fill_dir(t_map *map)
 				map->player->vect_x = 0;
 				map->player->j_pj = j;
 				map->player->i_pj = i;
+				/* map->player->pa = 3 * M_PI / 2.0; */
 				return ;
 			}
         	else if (map->map[i][j] == 'E')
@@ -84,6 +86,7 @@ void	fill_dir(t_map *map)
 				map->player->vect_x = 1;
 				map->player->j_pj = j;
 				map->player->i_pj = i;
+				/* map->player->pa = 0; */
 				return ;
 			}
 			else if (map->map[i][j] == 'W')
@@ -93,6 +96,7 @@ void	fill_dir(t_map *map)
 				map->player->vect_x = -1;
 				map->player->j_pj = j;
 				map->player->i_pj = i;
+				/* map->player->pa = M_PI; */
 				return ;
 			}
 			j++;

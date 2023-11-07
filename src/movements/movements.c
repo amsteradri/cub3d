@@ -6,11 +6,11 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 08:55:56 by isromero          #+#    #+#             */
-/*   Updated: 2023/11/06 14:27:50 by isromero         ###   ########.fr       */
+/*   Updated: 2023/11/07 18:48:04 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../../inc/cub3d.h"
 
 int	is_valid_move(int fil, int col, t_map *map)
 {
@@ -62,19 +62,27 @@ static void	move_down(t_map *map)
 	}
 }
 
-static void	move_camera_left(t_map *map)
+/* static void	move_camera_left(t_map *map)
 {
-	map->player->rotation_angle -= ROTATION_ANGLE;
-	map->player->camera_angle -= ROTATION_ANGLE;
+	map->player->pa -= (3 * M_PI / 180.0);  // Cambia 3 grados a radianes (3 * M_PI / 180.0)
+	if (map->player->pa < 0)
+		map->player->pa += (2 * M_PI);
+   	printf("pa: %f\n", map->player->pa);
+    map->player->pdx = cos(map->player->pa) * 5;
+    map->player->pdy = sin(map->player->pa) * 5;
 }
 
 static void move_camera_right(t_map *map)
 {
-	map->player->camera_angle += ROTATION_ANGLE;
-	map->player->rotation_angle += ROTATION_ANGLE;
-}
+	map->player->pa += (3 * M_PI / 180.0);  // Cambia 3 grados a radianes (3 * M_PI / 180.0)
+	if (map->player->pa >= M_PI * 2)
+		map->player->pa -= (2 * M_PI);
+	printf("pa: %f\n", map->player->pa);
+    map->player->pdx = cos(map->player->pa) * 5;
+    map->player->pdy = sin(map->player->pa) * 5;
+} */
 
-int	move_character(int keycode, t_map *map, t_ray *ray, t_line *line)
+int	move_character(int keycode, t_map *map)
 {
 	if (keycode == 53)
 		handle_esc_screen(map);
@@ -86,11 +94,11 @@ int	move_character(int keycode, t_map *map, t_ray *ray, t_line *line)
 		move_right(map);
 	else if (keycode == 1)
 		move_down(map);
-	else  if (keycode == 123)
+	/* else  if (keycode == 123)
 		move_camera_left(map);
 	else if (keycode == 124)
-		move_camera_right(map);
-	render_all(map, ray, line);
+		move_camera_right(map); */
+	render_all(map);
 	return (0);
 }
 
