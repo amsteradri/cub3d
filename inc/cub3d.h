@@ -35,6 +35,7 @@ typedef struct	s_player
 	int				vect_y; //dirY
 	int				j_pj; // posX
 	int				i_pj; // posY
+	double			angle;
 	int				len_to_wall;
 	int				move_up;
 	int				move_left;
@@ -56,11 +57,6 @@ typedef struct s_map
 
 // cub_window.c //
 void	create_window(t_map *map);
-void	render_background_2d(t_map *map);
-void	render_empty_2d(t_map *map);
-void	render_walls_2d(t_map *map);
-void	render_char_2d(t_map *map);
-void	render_all(t_map *map);
 int		handle_esc_screen(t_map *map);
 void	init_window(t_map *map);
 
@@ -94,5 +90,17 @@ void	fill_dir(t_map *map);
 // ray_casting.c //
 void	draw_ray(t_map *map, int j, int i);
 void	draw_diagonal_ray(t_map *map, double angle, int i, int j);
+
+// render.c //
+void	render_all(t_map *map);
+
+// render2d.c //
+void	render_ray_2d(t_map *map);
+void	render_background_2d(t_map *map);
+void	render_empty_2d(t_map *map);
+void	render_walls_2d(t_map *map);
+void	render_char_2d(t_map *map);
+
+// render3d.c //
 
 #endif
