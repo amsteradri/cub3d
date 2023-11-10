@@ -25,8 +25,15 @@
 # include <mlx.h>
 # include <math.h>
 
-#define ROTATION_ANGLE 10 // Valor de la velocidad de rotación en radianes por frame (se suma/se resta ángulo)
 #define DR 0.0174533 // Un grado en radianes
+
+typedef struct	s_lines
+{
+	int	intersection_x;
+	int	intersection_y;
+	int	xa;
+	int	ya;
+}	t_lines;
 
 typedef struct	s_player
 {
@@ -51,6 +58,7 @@ typedef struct s_map
 	int				x;
 	int				y;
 	t_player		*player;
+	t_lines			*line;
 	void			*win_ptr;
 	void			*mlx_ptr;
 }	t_map;

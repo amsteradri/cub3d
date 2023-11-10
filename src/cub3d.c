@@ -55,6 +55,11 @@ void	init_vars_map(t_map *map)
 	map->player->move_down = 0;
 	map->player->move_camera_left = 0;
 	map->player->move_camera_right = 0;
+	map->line = (t_lines *)malloc(sizeof(t_lines));
+	map->line->intersection_x = 0;
+	map->line->intersection_y = 0;
+	map->line->xa = 0;
+	map->line->ya = 0;
 }
 
 // void   leak_check(void)

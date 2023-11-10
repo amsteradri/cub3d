@@ -1,22 +1,13 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render.c                                           :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/07 18:39:43 by isromero          #+#    #+#             */
-/*   Updated: 2023/11/10 21:02:22 by isromero         ###   ########.fr       */
+/*   Created: 2023/11/10 20:02:38 by isromero          #+#    #+#             */
+/*   Updated: 2023/11/10 20:04:47 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/cub3d.h"
-
-void	render_all(t_map *map)
-{
-    render_background_2d(map);
-	render_empty_2d(map);
-	render_walls_2d(map);
-	render_char_2d(map);
-    render_all_rays_2d(map);
-}
+#include "cub3d.h"
