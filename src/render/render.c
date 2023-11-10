@@ -6,7 +6,7 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 18:39:43 by isromero          #+#    #+#             */
-/*   Updated: 2023/11/08 21:06:42 by isromero         ###   ########.fr       */
+/*   Updated: 2023/11/10 18:43:58 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	render_all(t_map *map)
 	render_empty_2d(map);
 	render_walls_2d(map);
 	render_char_2d(map);
-    render_ray_2d(map);
+    render_all_rays_2d(map);
 	// int n_rays = 60; // Cantidad de rayos en el campo de visión
     // double initial_angle = map->player->pa - (M_PI / 6);  // Ángulo inicial en radianes (aproximadamente 30 grados)
 

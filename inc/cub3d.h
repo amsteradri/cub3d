@@ -95,7 +95,8 @@ void	draw_diagonal_ray(t_map *map, double angle, int i, int j);
 void	render_all(t_map *map);
 
 // render2d.c //
-void	render_ray_2d(t_map *map);
+void	render_ray_2d(t_map *map, int player_x, int player_y, double angle);
+void	render_all_rays_2d(t_map *map);
 void	render_background_2d(t_map *map);
 void	render_empty_2d(t_map *map);
 void	render_walls_2d(t_map *map);

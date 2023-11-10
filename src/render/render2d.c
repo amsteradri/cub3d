@@ -6,7 +6,7 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 18:35:54 by isromero          #+#    #+#             */
-/*   Updated: 2023/11/08 21:28:59 by isromero         ###   ########.fr       */
+/*   Updated: 2023/11/10 19:45:46 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,28 +125,31 @@ void	render_char_2d(t_map *map)
 	}
 }
 
-void	render_ray_2d(t_map *map)
+void	render_ray_2d(t_map *map, int player_x, int player_y, double angle)
 {
-	// double initial_angle;
-
-	// initial_angle = map->player->angle - (map->player->angle / 2); // El primer rayo
-	
-	int		player_x;
-	int		player_y;
 	double	ray_x;
 	double	ray_y;
 
-	player_x = map->player->j_pj * 16 + 8;
-	player_y = map->player->i_pj * 16 + 8;
-	ray_x = player_x + cos(map->player->angle); // cos suma las x en el eje de coordenadas
-	ray_y = player_y + sin(map->player->angle); // sen suma la y en el eje de coordenadas
-	while(player_x < map->x * 16 && ray_x < map->x * 16 && ray_y < map->y * 16 && ray_y > 0 && ray_x > 0)
+	ray_x = player_x + cos(angle); // cos suma las x en el eje de coordenadas
+	ray_y = player_y + sin(angle); // sen suma la y en el eje de coordenadas
+	while (ray_x >= 0 && ray_x < map->x * 16 && ray_y >= 0 && ray_y < map->y * 16)
 	{
-		ray_x = player_x + cos(map->player->angle);
-		ray_y = player_y + sin(map->player->angle);
-		
+		if (map->map[(int)ray_y / 16][(int)ray_x / 16] == '1')
+			break;
 		mlx_pixel_put(map->mlx_ptr, map->win_ptr, ray_x, ray_y, 0x0FF0F0);
-		player_x = ray_x;
-		player_y = ray_y;
+		ray_x += cos(angle);
+    	ray_y += sin(angle);
+	}
+}
+
+void	render_all_rays_2d(t_map *map)
+{
+	double angle;
+	
+	angle = map->player->angle - (M_PI / 6); // El primer rayo se dibuja en el ángulo inicial - 30º
+	while(angle < map->player->angle + (M_PI / 6)) // El último rayo se dibuja en el ángulo inicial + 30º
+	{
+		render_ray_2d(map, map->player->j_pj * 16 + 8, map->player->i_pj * 16 + 8, angle);
+		angle += (60 / map->x) * (M_PI / 180.0);
 	}
 }

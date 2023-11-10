@@ -6,7 +6,7 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 08:55:56 by isromero          #+#    #+#             */
-/*   Updated: 2023/11/07 18:48:04 by isromero         ###   ########.fr       */
+/*   Updated: 2023/11/10 19:49:18 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,25 +62,19 @@ static void	move_down(t_map *map)
 	}
 }
 
-/* static void	move_camera_left(t_map *map)
+static void	move_camera_left(t_map *map)
 {
-	map->player->pa -= (3 * M_PI / 180.0);  // Cambia 3 grados a radianes (3 * M_PI / 180.0)
-	if (map->player->pa < 0)
-		map->player->pa += (2 * M_PI);
-   	printf("pa: %f\n", map->player->pa);
-    map->player->pdx = cos(map->player->pa) * 5;
-    map->player->pdy = sin(map->player->pa) * 5;
+	map->player->angle -= 3 * DR;
+	if (map->player->angle < 0)
+		map->player->angle += (2 * M_PI);
 }
 
 static void move_camera_right(t_map *map)
 {
-	map->player->pa += (3 * M_PI / 180.0);  // Cambia 3 grados a radianes (3 * M_PI / 180.0)
-	if (map->player->pa >= M_PI * 2)
-		map->player->pa -= (2 * M_PI);
-	printf("pa: %f\n", map->player->pa);
-    map->player->pdx = cos(map->player->pa) * 5;
-    map->player->pdy = sin(map->player->pa) * 5;
-} */
+	map->player->angle += 3 * DR;
+	if (map->player->angle >= M_PI * 2)
+		map->player->angle -= (2 * M_PI);
+}
 
 int	move_character(int keycode, t_map *map)
 {
@@ -94,10 +88,10 @@ int	move_character(int keycode, t_map *map)
 		move_right(map);
 	else if (keycode == 1)
 		move_down(map);
-	/* else  if (keycode == 123)
+	else  if (keycode == 123)
 		move_camera_left(map);
 	else if (keycode == 124)
-		move_camera_right(map); */
+		move_camera_right(map);
 	render_all(map);
 	return (0);
 }
