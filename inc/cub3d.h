@@ -27,12 +27,26 @@
 
 #define DR 0.0174533 // Un grado en radianes
 
-typedef struct	s_lines
+typedef struct s_line_h
 {
 	int	intersection_x;
 	int	intersection_y;
 	int	xa;
 	int	ya;
+} 	t_line_h;
+
+typedef struct s_line_v
+{
+	int	intersection_x;
+	int	intersection_y;
+	int	xa;
+	int	ya;
+}	t_line_v;
+
+typedef struct	s_lines
+{
+	t_line_h	line_h;
+	t_line_v	line_v;
 }	t_lines;
 
 typedef struct	s_player

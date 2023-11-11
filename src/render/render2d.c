@@ -6,7 +6,7 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 18:35:54 by isromero          #+#    #+#             */
-/*   Updated: 2023/11/11 16:20:33 by isromero         ###   ########.fr       */
+/*   Updated: 2023/11/11 17:12:28 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,16 +133,36 @@ int find_horizontal_intersection(t_map *map, double ray_x, double ray_y, double 
     if ((int)tan_value == 0)
 		return 0;
 	if (angle >= M_PI && angle < (M_PI * 2)) // Cuando un rayo mira hacia arriba se verifica en términos geométricos: [0, π)
-		map->line->intersection_y = floor(((ray_y / 16) * (16)) - 1);
+		map->line->line_h.intersection_y = floor(((ray_y / 16) * (16)));
 	else // el rayo mira hacia abajo
-		map->line->intersection_y = floor((ray_y / 16) * (16));
+		map->line->line_h.intersection_y = floor((ray_y / 16) * (16));
 	if (tan_value != 0)
-		map->line->intersection_x = (ray_x + (ray_y - map->line->intersection_y) / tan(angle));
+		map->line->line_h.intersection_x = (ray_x + (ray_y - map->line->line_h.intersection_y) / tan(angle));
 	
-	if (map->map[map->line->intersection_y / 16][map->line->intersection_x / 16] == '1')
+	if (map->map[map->line->line_h.intersection_y / 16][map->line->line_h.intersection_x / 16] == '1')
 		return 1;
 	return 0;
 }
+
+int find_vertical_intersection(t_map *map, double ray_x, double ray_y, double angle)
+{
+    printf("%f\n", angle);
+    double tan_value = tan(angle);
+
+    if ((int)tan_value == 0)
+		return 0;
+	 if ((angle >= 0 && angle < M_PI / 2) || (angle >= 3 * M_PI / 2 && angle < 2 * M_PI))
+		map->line->line_v.intersection_x = floor(((ray_x / 16) * (16)));
+	else // el rayo mira hacia izquierda
+		map->line->line_v.intersection_x = floor((ray_x / 16) * (16));
+	if (tan_value != 0)
+		map->line->line_v.intersection_y = (ray_y + (ray_x - map->line->line_v.intersection_x) * tan(angle));
+	
+	if (map->map[map->line->line_v.intersection_y / 16][map->line->line_v.intersection_x / 16] == '1')
+		return 1;
+	return 0;
+}
+
 
 void	render_ray_2d(t_map *map, int player_x, int player_y, double angle)
 {
@@ -152,28 +172,49 @@ void	render_ray_2d(t_map *map, int player_x, int player_y, double angle)
 	int	ya;
 	int xa;
 
-	xa = 16/tan(angle);
-	ya = 16;
+	map->line->line_h.xa = 16/tan(angle);
+	map->line->line_h.ya = 16;
+
+	map->line->line_v.xa = 16;
+	map->line->line_v.ya = 16 / tan(angle);
 
 	if (angle >= M_PI && angle < (M_PI * 2))
-		ya *= -1;
+	{
+		map->line->line_h.ya *= -1;
+		map->line->line_v.ya *= -1;
+	}
 	if (angle >= (M_PI / 2) && angle < (3 * M_PI / 2))
-		xa *= -1;
+	{
+		map->line->line_h.xa *= -1;
+		map->line->line_v.xa *= -1;
+	}
 	ray_x = player_x + cos(angle) + 8; // cos suma las x en el eje de coordenadas + 8(centro de personaje)
 	ray_y = player_y + sin(angle) + 8; // sen suma la y en el eje de coordenadas + 8(centro de personaje)
 	while (ray_x >= 0 && ray_x < map->x * 16 && ray_y >= 0 && ray_y < map->y * 16)
 	{
         if (find_horizontal_intersection(map, ray_x, ray_y, angle) == 1)
 		{
-            printf("Hit: (%d, %d)\n", map->line->intersection_x / 16, map->line->intersection_y / 16);
+            printf("Hit: (%d, %d)\n", map->line->line_h.intersection_x / 16, map->line->line_h.intersection_y / 16);
 			/* len_to_wall = ((player_x / 16) -  map->line->intersection_x) / cos(angle);
 			printf("len to wall: %d\n", len_to_wall); */
             break;
         }
 		else
 		{
-			map->line->intersection_x += xa;
-			map->line->intersection_y += ya;
+			map->line->line_h.intersection_x += map->line->line_h.xa;
+			map->line->line_h.intersection_y += map->line->line_h.ya;
+		}
+		if (find_vertical_intersection(map, ray_x, ray_y, angle) == 1)
+		{
+            printf("Hit: (%d, %d)\n", map->line->line_v.intersection_x / 16, map->line->line_v.intersection_y / 16);
+			len_to_wall = ((player_x / 16) -  map->line->line_v.intersection_x) / cos(angle);
+			printf("len to wall: %d\n", len_to_wall);
+            break;
+        }
+		else
+		{
+			map->line->line_v.intersection_x += map->line->line_v.xa;
+			map->line->line_v.intersection_y += map->line->line_v.ya;
 		}
 		mlx_pixel_put(map->mlx_ptr, map->win_ptr, ray_x, ray_y, 0x0FF0F0);
 		
