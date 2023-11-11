@@ -6,7 +6,7 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 08:55:56 by isromero          #+#    #+#             */
-/*   Updated: 2023/11/10 21:12:06 by isromero         ###   ########.fr       */
+/*   Updated: 2023/11/11 15:54:58 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,14 +64,14 @@ static void	move_down(t_map *map)
 
 static void	move_camera_left(t_map *map)
 {
-	map->player->angle -= 3 * DR;
+	map->player->angle -= 5 * DR;
 	if (map->player->angle < 0)
 		map->player->angle += (2 * M_PI);
 }
 
 static void move_camera_right(t_map *map)
 {
-	map->player->angle += 3 * DR;
+	map->player->angle += 5 * DR;
 	if (map->player->angle >= M_PI * 2)
 		map->player->angle -= (2 * M_PI);
 }
