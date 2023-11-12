@@ -86,7 +86,7 @@ void	fill_dir(t_map *map)
 				map->player->vect_x = 1;
 				map->player->j_pj = j;
 				map->player->i_pj = i;
-				map->player->angle = 0; // 0º
+				map->player->angle = 0.0; // 0º
 				return ;
 			}
 			else if (map->map[i][j] == 'W')
