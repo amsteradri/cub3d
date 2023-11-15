@@ -52,26 +52,30 @@ typedef struct	s_lines
 typedef struct	s_player
 {
 	char			dir; // N, S, W, E
-	int				vect_x; //dirX
-	int				vect_y; //dirY
-	int				j_pj; // posX
-	int				i_pj; // posY
-	double			angle;
+	double			x;
+	double			y;
 	int				len_to_wall;
-	int				move_up;
-	int				move_left;
-	int				move_right;
-	int				move_down;
-	int				move_camera_left;
-	int				move_camera_right;
 }	t_player;
+
+typedef struct	s_ray
+{
+	double			x;
+	double			y;
+	double			angle_between_rays;
+	double			angle;
+	double			dist_player_projection_plane;
+	int				current_col;
+}	t_ray;
 
 typedef struct s_map
 {
 	char			**map;
 	int				x;
 	int				y;
+	int				screen_width;
+	int				screen_height;
 	t_player		*player;
+	t_ray			*ray;
 	t_lines			*line;
 	void			*win_ptr;
 	void			*mlx_ptr;
@@ -110,15 +114,15 @@ char	**read_map(char *fmap);
 void	fill_dir(t_map *map);
 
 // ray_casting.c //
-void	draw_ray(t_map *map, int j, int i);
-void	draw_diagonal_ray(t_map *map, double angle, int i, int j);
+void	render_ray_2d(t_map *map, int player_x, int player_y, double angle);
+void	raycast(t_map *map);
+int		find_vertical_intersection(t_map *map, double ray_x, double ray_y, double angle);
+int		find_horizontal_intersection(t_map *map, double ray_x, double ray_y, double angle);
 
 // render.c //
 void	render_all(t_map *map);
 
 // render2d.c //
-void	render_ray_2d(t_map *map, int player_x, int player_y, double angle);
-void	render_all_rays_2d(t_map *map);
 void	render_background_2d(t_map *map);
 void	render_empty_2d(t_map *map);
 void	render_walls_2d(t_map *map);

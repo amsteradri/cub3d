@@ -43,18 +43,12 @@ void	init_vars_map(t_map *map)
 {
 	map->y = map_height(map->map);
 	map->x = find_longest_line_length(map->map);
+	map->screen_width = map->x * 16;
+	map->screen_height = map->y * 16;
 	map->player = (t_player *)malloc(sizeof(t_player));
-	map->player->i_pj = 0;
-	map->player->j_pj = 0;
-	map->player->vect_x = 0;
-	map->player->vect_y = 0;
+	map->player->y = 0.0;
+	map->player->x = 0.0;
 	map->player->len_to_wall = 0;
-	map->player->move_up = 0;
-	map->player->move_left = 0;
-	map->player->move_right = 0;
-	map->player->move_down = 0;
-	map->player->move_camera_left = 0;
-	map->player->move_camera_right = 0;
 	map->line = (t_lines *)malloc(sizeof(t_lines));
 	map->line->line_h.intersection_x = 0;
 	map->line->line_v.intersection_x = 0;
@@ -64,6 +58,13 @@ void	init_vars_map(t_map *map)
 	map->line->line_v.xa = 0;
 	map->line->line_h.ya = 0;
 	map->line->line_v.ya = 0;
+	map->ray = (t_ray *)malloc(sizeof(t_ray));
+	map->ray->x = 0.0;
+	map->ray->y = 0.0;
+	map->ray->angle = 0.0;
+	map->ray->angle_between_rays = (60 / map->screen_width * (M_PI / 180.0));
+	map->ray->dist_player_projection_plane = (map->screen_width / 2) / tan(30 * (M_PI / 180.0));
+	map->ray->current_col = 0;
 }
 
 // void   leak_check(void)

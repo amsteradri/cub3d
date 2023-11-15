@@ -59,44 +59,36 @@ void	fill_dir(t_map *map)
 		len = ft_strlen(map->map[i]);
 		while(j < len)
 		{
-			if (map->map[i][j] == 'N')
+			if (map->map[(int)i][(int)j] == 'N')
 			{
 				map->player->dir = 'N';
-				map->player->vect_y = 1;
-				map->player->vect_x = 0;
-				map->player->j_pj = j;
-				map->player->i_pj = i;
-				map->player->angle = 3 * M_PI / 2.0; // 270º(90º 2d) pero mira al norte -> eje coordenadas Y disminuye según subes
+				map->player->x = j + 0.5;
+				map->player->y = i + 0.5;
+				map->ray->angle = 3 * M_PI / 2.0; // 270º(90º 2d) pero mira al norte -> eje coordenadas Y disminuye según subes
 				return ;
 			}
-			else if (map->map[i][j] == 'S')
+			else if (map->map[(int)i][(int)j] == 'S')
 			{
 				map->player->dir = 'S';
-				map->player->vect_y = -1;
-				map->player->vect_x = 0;
-				map->player->j_pj = j;
-				map->player->i_pj = i;
-				map->player->angle = M_PI / 2.0; // 90º(270º 2d) pero mira al sur -> eje coordenadas Y aumenta según bajas
+				map->player->x = j + 0.5;
+				map->player->y = i + 0.5;
+				map->ray->angle = M_PI / 2.0; // 90º(270º 2d) pero mira al sur -> eje coordenadas Y aumenta según bajas
 				return ;
 			}
-        	else if (map->map[i][j] == 'E')
+        	else if (map->map[(int)i][(int)j] == 'E')
 			{
 				map->player->dir = 'E';
-				map->player->vect_y = 0;
-				map->player->vect_x = 1;
-				map->player->j_pj = j;
-				map->player->i_pj = i;
-				map->player->angle = 0.0; // 0º
+				map->player->x = j + 0.5;
+				map->player->y = i + 0.5;
+				map->ray->angle = 0.0; // 0º
 				return ;
 			}
-			else if (map->map[i][j] == 'W')
+			else if (map->map[(int)i][(int)j] == 'W')
 			{
 				map->player->dir = 'W';
-				map->player->vect_y = 0;
-				map->player->vect_x = -1;
-				map->player->j_pj = j;
-				map->player->i_pj = i;
-				map->player->angle = M_PI; // 180º
+				map->player->x = j + 0.5;
+				map->player->y = i + 0.5;
+				map->ray->angle = M_PI; // 180º
 				return ;
 			}
 			j++;
