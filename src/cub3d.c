@@ -45,6 +45,14 @@ void	init_vars_map(t_map *map)
 	map->x = find_longest_line_length(map->map);
 	map->screen_width = map->x * 16;
 	map->screen_height = map->y * 16;
+	map->mlx_ptr = NULL;
+	map->win_ptr = NULL;
+	map->img = (t_img *)malloc(sizeof(t_img));
+	map->img->img = NULL;
+	map->img->addr = NULL;
+	map->img->bits_per_pixel = 0;
+	map->img->line_length = 0;
+	map->img->endian = 0;
 	map->player = (t_player *)malloc(sizeof(t_player));
 	map->player->y = 0.0;
 	map->player->x = 0.0;
@@ -88,5 +96,12 @@ int	main(int argc, char **argv)
 	init_vars_map(&map);
 	all_checks(&map);
 	fill_dir(&map);
-	init_window(&map);
+	create_window(&map);
+	create_img(&map);
+	render_all(&map);
+	mlx_hook(map.win_ptr, 2, 1L << 0, move_character, &map);
+	mlx_hook(map.win_ptr, 17, 1L << 0, handle_esc_screen, &map);
+	mlx_loop_hook(map.mlx_ptr, render_all, &map);
+	mlx_loop(map.mlx_ptr);
+	mlx_destroy_image(map.mlx_ptr, map.img->img);
 }

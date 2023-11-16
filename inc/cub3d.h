@@ -71,6 +71,15 @@ typedef struct	s_ray
 	double			dist_to_slice;
 }	t_ray;
 
+typedef struct s_img
+{
+	void			*img;
+	char			*addr;
+	int				bits_per_pixel;
+	int				line_length;
+	int				endian;
+}	t_img;
+
 typedef struct s_map
 {
 	char			**map;
@@ -83,13 +92,13 @@ typedef struct s_map
 	t_lines			*line;
 	void			*win_ptr;
 	void			*mlx_ptr;
-	
+	t_img			*img;
 }	t_map;
 
 // cub_window.c //
 void	create_window(t_map *map);
 int		handle_esc_screen(t_map *map);
-void	init_window(t_map *map);
+void	create_img(t_map *map);
 
 // cub3d.c //
 int		map_height(char **map);
@@ -99,8 +108,6 @@ void	init_vars_map(t_map *map);
 // movements.c //
 int		is_valid_move(int fil, int col, t_map *map);
 int		move_character(int keycode, t_map *map);
-int		handle_key_press(int keycode, t_map *map);
-int		handle_key_release(int keycode, t_map *map);
 
 // parsing_errors.c //
 void	error_args(int argc);
@@ -119,13 +126,12 @@ char	**read_map(char *fmap);
 void	fill_dir(t_map *map);
 
 // ray_casting.c //
-void	render_ray_2d(t_map *map, int player_x, int player_y, double angle);
-void	raycast(t_map *map);
+int		raycast(t_map *map);
 int		find_vertical_intersection(t_map *map, double ray_x, double ray_y, double angle);
 int		find_horizontal_intersection(t_map *map, double ray_x, double ray_y, double angle);
 
 // render.c //
-void	render_all(t_map *map);
+int		render_all(t_map *map);
 
 // render2d.c //
 void	render_background_2d(t_map *map);

@@ -6,13 +6,13 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 08:55:56 by isromero          #+#    #+#             */
-/*   Updated: 2023/11/16 08:16:27 by isromero         ###   ########.fr       */
+/*   Updated: 2023/11/16 21:43:40 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
-/* int	is_valid_move(int fil, int col, t_map *map)
+int	is_valid_move(int fil, int col, t_map *map)
 {
 	if (fil < 0 || fil >= map->y || col < 0 || col >= map->x)
 		return (0);
@@ -23,44 +23,44 @@
 
 static void	move_left(t_map *map)
 {
-	if (is_valid_move(map->player->y, map->player->x - 1, map))
+	if (is_valid_move((int)map->player->y, (int)map->player->x - 1, map))
 	{
-		map->map[map->player->y][map->player->x] = '0';
+		map->map[(int)map->player->y][(int)map->player->x] = '0';
 		map->player->x--;
-		map->map[map->player->y][map->player->x] = 'E';
+		map->map[(int)map->player->y][(int)map->player->x] = 'E';
 	}
 }
 
 static void	move_up(t_map *map)
 {
-	if (is_valid_move(map->player->y - 1, map->player->x, map))
+	if (is_valid_move((int)map->player->y - 1, (int)map->player->x, map))
 	{
 		
-		map->map[map->player->y][map->player->x] = '0';
+		map->map[(int)map->player->y][(int)map->player->x] = '0';
 		map->player->y--;
-		map->map[map->player->y][map->player->x] = 'E';
+		map->map[(int)map->player->y][(int)map->player->x] = 'E';
 	}
 }
 
 static void	move_right(t_map *map)
 {
-	if (is_valid_move(map->player->y, map->player->x + 1, map))
+	if (is_valid_move((int)map->player->y, (int)map->player->x + 1, map))
 	{
-		map->map[map->player->y][map->player->x] = '0';
+		map->map[(int)map->player->y][(int)map->player->x] = '0';
 		map->player->x++;
-		map->map[map->player->y][map->player->x] = 'E';
+		map->map[(int)map->player->y][(int)map->player->x] = 'E';
 	}
 }
 
 static void	move_down(t_map *map)
 {
-	if (is_valid_move(map->player->y + 1, map->player->x, map))
+	if (is_valid_move((int)map->player->y + 1, (int)map->player->x, map))
 	{
-		map->map[map->player->y][map->player->x] = '0';
+		map->map[(int)map->player->y][(int)map->player->x] = '0';
 		map->player->y++;
-		map->map[map->player->y][map->player->x] = 'E';
+		map->map[(int)map->player->y][(int)map->player->x] = 'E';
 	}
-} */
+}
 
 static void	move_camera_left(t_map *map)
 {
@@ -80,19 +80,18 @@ int	move_character(int keycode, t_map *map)
 {
 	if (keycode == 53)
 		handle_esc_screen(map);
-	/* else if (keycode == 0)
+	else if (keycode == 0)
 		move_left(map);
 	else if (keycode == 13)
 		move_up(map);
 	else if (keycode == 2)
 		move_right(map);
 	else if (keycode == 1)
-		move_down(map); */
+		move_down(map);
 	else  if (keycode == 123)
 		move_camera_left(map);
 	else if (keycode == 124)
 		move_camera_right(map);
-	render_all(map);
 	return (0);
 }
 

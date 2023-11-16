@@ -6,11 +6,19 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 08:57:02 by isromero          #+#    #+#             */
-/*   Updated: 2023/11/16 08:52:28 by isromero         ###   ########.fr       */
+/*   Updated: 2023/11/16 21:41:27 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
+
+void	my_mlx_pixel_put(t_map *map, int x, int y, int color)
+{
+	char	*dst;
+
+	dst = map->img->addr + (y * map->img->line_length + x * (map->img->bits_per_pixel / 8));
+	*(unsigned int*)dst = color;
+}
 
 void	draw_slice(t_map *map, int x, int projected_slice_height)
 {
@@ -19,21 +27,15 @@ void	draw_slice(t_map *map, int x, int projected_slice_height)
 
     // Dibuja el techo
     for (int y = 0; y < ceiling_height; y++)
-    {
-        mlx_pixel_put(map->mlx_ptr, map->win_ptr, x, y, 0x00666666);  // Puedes ajustar el color según sea necesario
-    }
+        my_mlx_pixel_put(map, x, y, 0x00666666);
 
     // Dibuja el muro
     for (int y = ceiling_height; y < floor_height; y++)
-    {
-        mlx_pixel_put(map->mlx_ptr, map->win_ptr, x, y, 0x00FFFFFF);  // Puedes ajustar el color según sea necesario
-    }
+        my_mlx_pixel_put(map, x, y, 0x00FF0000);
 
     // Dibuja el suelo
     for (int y = floor_height; y < map->y * 16; y++)
-    {
-        mlx_pixel_put(map->mlx_ptr, map->win_ptr, x, y, 0x00333333);  // Puedes ajustar el color según sea necesario
-    }
+        my_mlx_pixel_put(map, x, y, 0x00333333);
 }
 
 int find_vertical_intersection(t_map *map, double ray_x, double ray_y, double angle)
@@ -82,7 +84,6 @@ int find_vertical_intersection(t_map *map, double ray_x, double ray_y, double an
 				return 1;
 			}
 		}
-
 		// Actualizar coordenadas solo si no hay colisión
 		map->line->line_v.intersection_x += map->line->line_v.xa;
 		map->line->line_v.intersection_y += map->line->line_v.ya;
@@ -136,7 +137,6 @@ int find_horizontal_intersection(t_map *map, double ray_x, double ray_y, double 
 				return 1;
 			}
 		}
-
 		// Actualizar coordenadas solo si no hay colisión
 		map->line->line_h.intersection_x += map->line->line_h.xa;
 		map->line->line_h.intersection_y += map->line->line_h.ya;
@@ -145,7 +145,7 @@ int find_horizontal_intersection(t_map *map, double ray_x, double ray_y, double 
 	return 0; // Nunca debería llegar aquí, ya que la función siempre debería salir con una colisión
 }
 
-void	raycast(t_map *map)
+int	raycast(t_map *map)
 {
 	int	projected_slice_height;
 	double angle;
@@ -166,4 +166,6 @@ void	raycast(t_map *map)
 		draw_slice(map, map->ray->current_col, projected_slice_height);
 		map->ray->current_col++;
 	}
+	mlx_put_image_to_window(map->mlx_ptr, map->win_ptr, map->img, 0, 0);
+	return 0;
 }
