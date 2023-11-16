@@ -29,18 +29,22 @@
 
 typedef struct s_line_h
 {
-	int	intersection_x;
-	int	intersection_y;
-	int	xa;
-	int	ya;
+	int		intersection_x;
+	int		intersection_y;
+	int		xa;
+	int		ya;
+	double	perp_dist;
+	double	correct_dist;
 } 	t_line_h;
 
 typedef struct s_line_v
 {
-	int	intersection_x;
-	int	intersection_y;
-	int	xa;
-	int	ya;
+	int		intersection_x;
+	int		intersection_y;
+	int		xa;
+	int		ya;
+	double	perp_dist;
+	double	correct_dist;
 }	t_line_v;
 
 typedef struct	s_lines
@@ -54,7 +58,6 @@ typedef struct	s_player
 	char			dir; // N, S, W, E
 	double			x;
 	double			y;
-	int				len_to_wall;
 }	t_player;
 
 typedef struct	s_ray
@@ -65,6 +68,7 @@ typedef struct	s_ray
 	double			angle;
 	double			dist_player_projection_plane;
 	int				current_col;
+	double			dist_to_slice;
 }	t_ray;
 
 typedef struct s_map
@@ -79,6 +83,7 @@ typedef struct s_map
 	t_lines			*line;
 	void			*win_ptr;
 	void			*mlx_ptr;
+	
 }	t_map;
 
 // cub_window.c //

@@ -6,7 +6,7 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 13:17:53 by adgutier          #+#    #+#             */
-/*   Updated: 2023/11/07 19:14:30 by isromero         ###   ########.fr       */
+/*   Updated: 2023/11/16 08:43:21 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	handle_esc_screen(t_map *map)
 void	init_window(t_map *map)
 {
 	create_window(map);
-	render_background_2d(map);
+	/* render_background_2d(map); */
     render_all(map);
 	mlx_hook(map->win_ptr, 2, 1L << 0, move_character, map);
 	// Esto es para probar varias teclas, por ahora causa seg fault
