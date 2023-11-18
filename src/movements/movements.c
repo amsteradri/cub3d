@@ -6,7 +6,7 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 08:55:56 by isromero          #+#    #+#             */
-/*   Updated: 2023/11/16 21:43:40 by isromero         ###   ########.fr       */
+/*   Updated: 2023/11/18 13:35:33 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,43 +23,47 @@ int	is_valid_move(int fil, int col, t_map *map)
 
 static void	move_left(t_map *map)
 {
-	if (is_valid_move((int)map->player->y, (int)map->player->x - 1, map))
+/* 	if (is_valid_move((int)map->player->y, (int)map->player->x - 1, map))
 	{
 		map->map[(int)map->player->y][(int)map->player->x] = '0';
 		map->player->x--;
 		map->map[(int)map->player->y][(int)map->player->x] = 'E';
-	}
+	} */
+	map->player->x--;
 }
 
 static void	move_up(t_map *map)
 {
-	if (is_valid_move((int)map->player->y - 1, (int)map->player->x, map))
+	/* if (is_valid_move((int)map->player->y - 1, (int)map->player->x, map))
 	{
 		
 		map->map[(int)map->player->y][(int)map->player->x] = '0';
-		map->player->y--;
+		
 		map->map[(int)map->player->y][(int)map->player->x] = 'E';
-	}
+	} */
+	map->player->y--;
 }
 
 static void	move_right(t_map *map)
 {
-	if (is_valid_move((int)map->player->y, (int)map->player->x + 1, map))
+	/* if (is_valid_move((int)map->player->y, (int)map->player->x + 1, map))
 	{
 		map->map[(int)map->player->y][(int)map->player->x] = '0';
-		map->player->x++;
+		
 		map->map[(int)map->player->y][(int)map->player->x] = 'E';
-	}
+	} */
+	map->player->x++;
 }
 
 static void	move_down(t_map *map)
 {
-	if (is_valid_move((int)map->player->y + 1, (int)map->player->x, map))
+	/* if (is_valid_move((int)map->player->y + 1, (int)map->player->x, map))
 	{
 		map->map[(int)map->player->y][(int)map->player->x] = '0';
-		map->player->y++;
+		
 		map->map[(int)map->player->y][(int)map->player->x] = 'E';
-	}
+	} */
+	map->player->y++;
 }
 
 static void	move_camera_left(t_map *map)

@@ -6,7 +6,7 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 08:57:02 by isromero          #+#    #+#             */
-/*   Updated: 2023/11/16 21:41:27 by isromero         ###   ########.fr       */
+/*   Updated: 2023/11/18 13:47:55 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,15 @@ void	draw_slice(t_map *map, int x, int projected_slice_height)
 
     // Dibuja el techo
     for (int y = 0; y < ceiling_height; y++)
-        my_mlx_pixel_put(map, x, y, 0x00666666);
+        mlx_pixel_put(map->mlx_ptr, map->win_ptr, x, y, 0x003333);
 
     // Dibuja el muro
     for (int y = ceiling_height; y < floor_height; y++)
-        my_mlx_pixel_put(map, x, y, 0x00FF0000);
+        mlx_pixel_put(map->mlx_ptr, map->win_ptr, x, y, 0x00FFFFFF);
 
     // Dibuja el suelo
     for (int y = floor_height; y < map->y * 16; y++)
-        my_mlx_pixel_put(map, x, y, 0x00333333);
+        mlx_pixel_put(map->mlx_ptr, map->win_ptr, x, y, 0x00FF00);
 }
 
 int find_vertical_intersection(t_map *map, double ray_x, double ray_y, double angle)
@@ -87,6 +87,7 @@ int find_vertical_intersection(t_map *map, double ray_x, double ray_y, double an
 		// Actualizar coordenadas solo si no hay colisión
 		map->line->line_v.intersection_x += map->line->line_v.xa;
 		map->line->line_v.intersection_y += map->line->line_v.ya;
+		i++;
     }
 	return 0; // Nunca debería llegar aquí, ya que la función siempre debería salir con una colisión
 }
@@ -159,9 +160,9 @@ int	raycast(t_map *map)
 		angle = map->ray->angle + map->ray->angle_between_rays * map->ray->current_col;
 		find_horizontal_intersection(map, map->player->x * 16, map->player->y * 16, angle);
 		find_vertical_intersection(map, map->player->x * 16, map->player->y * 16, angle);
-		if (map->line->line_h.correct_dist <= map->line->line_v.correct_dist)
+		if (map->line->line_h.correct_dist <= map->line->line_v.correct_dist && map->line->line_h.correct_dist != 0)
 			projected_slice_height = ceil(16 / map->line->line_h.correct_dist * map->ray->dist_player_projection_plane);
-		else if (map->line->line_h.correct_dist > map->line->line_v.correct_dist)
+		else if (map->line->line_h.correct_dist > map->line->line_v.correct_dist && map->line->line_v.correct_dist != 0)
 			projected_slice_height = ceil(16 / map->line->line_v.correct_dist * map->ray->dist_player_projection_plane);
 		draw_slice(map, map->ray->current_col, projected_slice_height);
 		map->ray->current_col++;
