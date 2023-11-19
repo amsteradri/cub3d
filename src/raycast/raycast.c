@@ -6,7 +6,7 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 08:57:02 by isromero          #+#    #+#             */
-/*   Updated: 2023/11/18 13:47:55 by isromero         ###   ########.fr       */
+/*   Updated: 2023/11/19 13:54:08 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int find_vertical_intersection(t_map *map, double ray_x, double ray_y, double an
 {
 	double tan_value = tan(angle);
 
-	if (angle >= (3 * M_PI / 2) && angle < (2 * M_PI)) // El rayo mira hacia la derecha
+	if (angle >= (3 * M_PI / 2) && angle < (M_PI / 2)) // El rayo mira hacia la derecha
 	{
 		map->line->line_v.intersection_x = floor(ray_x / 16) * (16) + 16;
 		map->line->line_v.xa = 16;
@@ -75,7 +75,7 @@ int find_vertical_intersection(t_map *map, double ray_x, double ray_y, double an
 				map->line->line_v.ya = 0;
 				// no pitágoras por rendimiento pero así perdemos un poco de precisión
 				// para mejorar precisión calculamos una intersección distinta para la distancia dependiendo de la dirección del rayo
-				if (angle >= (3 * M_PI / 2) && angle < (2 * M_PI))
+				if (angle >= (3 * M_PI / 2) && angle < (M_PI / 2))
 					map->line->line_v.perp_dist = fabs(ray_x - map->line->line_v.intersection_x) / cos(angle);
 				else
 					map->line->line_v.perp_dist = fabs(ray_y - map->line->line_v.intersection_y) / sin(angle);
@@ -96,13 +96,13 @@ int find_horizontal_intersection(t_map *map, double ray_x, double ray_y, double 
 {
 	double tan_value = tan(angle);
 
-	if (angle > (M_PI / 2) && angle < (3 * M_PI / 2)) // El rayo mira hacia arriba
+	if (angle > M_PI && angle < (M_PI * 2)) // El rayo mira hacia arriba
 	{
 		map->line->line_h.intersection_y = floor(ray_y / 16) * (16) - 1;
 		map->line->line_h.ya = -16;
 	}
 
-	else if (angle >= 0.0 && angle < (M_PI / 2)) // El rayo mira hacia abajo
+	else if (angle >= 0.0 && angle < M_PI) // El rayo mira hacia abajo
 	{
 		map->line->line_h.intersection_y = floor(ray_y / 16) * (16) + 16;
 		map->line->line_h.ya = 16;
@@ -129,7 +129,7 @@ int find_horizontal_intersection(t_map *map, double ray_x, double ray_y, double 
 				map->line->line_h.ya = 0;
 				// no pitágoras por rendimiento pero así perdemos un poco de precisión
 				// para mejorar precisión calculamos una intersección distinta para la distancia dependiendo de la dirección del rayo
-				if (angle > (M_PI / 2) && angle < (3 * M_PI / 2))
+				if (angle > M_PI && angle < (M_PI * 2))
 					map->line->line_h.perp_dist = fabs(ray_y - map->line->line_h.intersection_y) / sin(angle);
 				else
 					map->line->line_h.perp_dist = fabs(ray_x - map->line->line_h.intersection_x) / cos(angle);
@@ -150,23 +150,28 @@ int	raycast(t_map *map)
 {
 	int	projected_slice_height;
 	double angle;
+	double initial_angle;
 	
 	map->ray->current_col = 0;
 	projected_slice_height = 0;
+	initial_angle = map->ray->angle - (30 * M_PI / 180.0);
+	angle = initial_angle;
 	// Queremos lanzar el nº de rayos que tenga el ancho de pantalla
 	while(map->ray->current_col < map->screen_width)
 	{
-		// Entre rayo y rayo sabiendo que nuestro fov es 60 calculamos el ángulo de cada rayo sabiendo al distancia que hay entre ellos
-		angle = map->ray->angle + map->ray->angle_between_rays * map->ray->current_col;
-		find_horizontal_intersection(map, map->player->x * 16, map->player->y * 16, angle);
-		find_vertical_intersection(map, map->player->x * 16, map->player->y * 16, angle);
+		find_horizontal_intersection(map, map->player->x, map->player->y * 16, angle);
+		find_vertical_intersection(map, map->player->x, map->player->y * 16, angle);
 		if (map->line->line_h.correct_dist <= map->line->line_v.correct_dist && map->line->line_h.correct_dist != 0)
 			projected_slice_height = ceil(16 / map->line->line_h.correct_dist * map->ray->dist_player_projection_plane);
 		else if (map->line->line_h.correct_dist > map->line->line_v.correct_dist && map->line->line_v.correct_dist != 0)
 			projected_slice_height = ceil(16 / map->line->line_v.correct_dist * map->ray->dist_player_projection_plane);
 		draw_slice(map, map->ray->current_col, projected_slice_height);
 		map->ray->current_col++;
+		angle += map->ray->angle_between_rays * map->ray->current_col;
 	}
 	mlx_put_image_to_window(map->mlx_ptr, map->win_ptr, map->img, 0, 0);
 	return 0;
 }
+
+
+// PROBLEMA DE MOVIMIENTOS??? HORIZONTAL AND VERTICAL MOTIONS???
