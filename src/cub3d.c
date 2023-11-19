@@ -43,8 +43,8 @@ void	init_vars_map(t_map *map)
 {
 	map->y = map_height(map->map);
 	map->x = find_longest_line_length(map->map);
-	map->screen_width = map->x * 16;
-	map->screen_height = map->y * 16;
+	map->screen_width = 1000;
+	map->screen_height = 800;
 	map->mlx_ptr = NULL;
 	map->win_ptr = NULL;
 	map->img = (t_img *)malloc(sizeof(t_img));
