@@ -6,7 +6,7 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 08:57:02 by isromero          #+#    #+#             */
-/*   Updated: 2023/11/19 13:54:08 by isromero         ###   ########.fr       */
+/*   Updated: 2023/11/19 16:39:09 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,15 +159,14 @@ int	raycast(t_map *map)
 	// Queremos lanzar el nº de rayos que tenga el ancho de pantalla
 	while(map->ray->current_col < map->screen_width)
 	{
-		find_horizontal_intersection(map, map->player->x, map->player->y * 16, angle);
-		find_vertical_intersection(map, map->player->x, map->player->y * 16, angle);
+		find_horizontal_intersection(map, map->player->x * 16, map->player->y * 16, angle);
+		find_vertical_intersection(map, map->player->x * 16, map->player->y * 16, angle);
 		if (map->line->line_h.correct_dist <= map->line->line_v.correct_dist && map->line->line_h.correct_dist != 0)
-			projected_slice_height = ceil(16 / map->line->line_h.correct_dist * map->ray->dist_player_projection_plane);
+			projected_slice_height = ceil((16 / map->line->line_h.correct_dist) * map->ray->dist_player_projection_plane);
 		else if (map->line->line_h.correct_dist > map->line->line_v.correct_dist && map->line->line_v.correct_dist != 0)
-			projected_slice_height = ceil(16 / map->line->line_v.correct_dist * map->ray->dist_player_projection_plane);
+			projected_slice_height = ceil((16 / map->line->line_v.correct_dist) * map->ray->dist_player_projection_plane);
 		draw_slice(map, map->ray->current_col, projected_slice_height);
 		map->ray->current_col++;
-		angle += map->ray->angle_between_rays * map->ray->current_col;
 	}
 	mlx_put_image_to_window(map->mlx_ptr, map->win_ptr, map->img, 0, 0);
 	return 0;
