@@ -6,7 +6,7 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 13:17:53 by adgutier          #+#    #+#             */
-/*   Updated: 2023/11/19 22:01:12 by isromero         ###   ########.fr       */
+/*   Updated: 2023/11/20 08:07:10 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 void	create_window(t_map *map)
 {
 	map->mlx_ptr = mlx_init();
-	map->win_ptr = mlx_new_window(map->mlx_ptr, (1000),
-			(800), "cub3d");
+	map->win_ptr = mlx_new_window(map->mlx_ptr, 848,
+			480, "cub3d");
 }
 void	create_img(t_map *map)
 {

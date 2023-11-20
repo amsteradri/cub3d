@@ -6,7 +6,7 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 08:57:02 by isromero          #+#    #+#             */
-/*   Updated: 2023/11/19 22:04:36 by isromero         ###   ########.fr       */
+/*   Updated: 2023/11/20 08:50:47 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	my_mlx_pixel_put(t_map *map, int x, int y, int color)
 
 void	draw_slice(t_map *map, int x, int projected_slice_height)
 {
-	int ceiling_height = (map->y * 16 - projected_slice_height) / 2;
-    int floor_height = map->y * 16 - ceiling_height;
+	int ceiling_height = (map->screen_height - projected_slice_height) / 2;
+    int floor_height = map->screen_height - ceiling_height;
 
     // Dibuja el techo
     for (int y = 0; y < ceiling_height; y++)
@@ -34,7 +34,7 @@ void	draw_slice(t_map *map, int x, int projected_slice_height)
         mlx_pixel_put(map->mlx_ptr, map->win_ptr, x, y, 0x00FFFFFF);
 
     // Dibuja el suelo
-    for (int y = floor_height; y < map->y * 16; y++)
+    for (int y = floor_height; y < map->screen_height; y++)
         mlx_pixel_put(map->mlx_ptr, map->win_ptr, x, y, 0x00FF00);
 }
 
@@ -58,10 +58,10 @@ int find_vertical_intersection(t_map *map, double ray_x, double ray_y, double an
 	else
 		return 0;
 
-	map->line->line_v.ya = 16 * tan(angle);
+	map->line->line_v.ya = 16.0 * tan(angle);
 
 	int i = 0;
-	while (i < map->x)
+	while (i <= map->x)
 	{
 		int grid_y = map->line->line_v.intersection_y / 16;
 		int grid_x = map->line->line_v.intersection_x / 16;
@@ -110,10 +110,10 @@ int find_horizontal_intersection(t_map *map, double ray_x, double ray_y, double 
 	else
 		return 0;
 
-	map->line->line_h.xa = 16 / tan(angle);
+	map->line->line_h.xa = 16.0 / tan(angle);
 
 	int i = 0;
-	while (i < map->y)
+	while (i <= map->y)
 	{
 		int grid_y = map->line->line_h.intersection_y / 16;
 		int grid_x = map->line->line_h.intersection_x / 16;

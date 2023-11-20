@@ -81,7 +81,7 @@ void	fill_dir(t_map *map)
 				map->player->dir = 'E';
 				map->player->x = j;
 				map->player->y = i;
-				map->ray->angle = 0.0; // 0º
+				map->ray->angle = 0; // 0º
 				return ;
 			}
 			else if (map->map[i][j] == 'W')
