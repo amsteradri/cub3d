@@ -6,7 +6,7 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 08:55:56 by isromero          #+#    #+#             */
-/*   Updated: 2023/11/19 16:29:30 by isromero         ###   ########.fr       */
+/*   Updated: 2023/11/21 21:42:36 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,27 @@ int	move_character(int keycode, t_map *map)
 		move_camera_right(map);
 	return (0);
 }
+
+// int move_character(int keycode, t_map *map)
+// {
+//      if (keycode == KEY_ESC)
+//         handle_esc_screen(map);
+//     else if (keycode == KEY_A)
+//         move_left(map);
+//     else if (keycode == KEY_W)
+//         move_up(map);
+//     else if (keycode == KEY_D)
+//         move_right(map);
+//     else if (keycode == KEY_S)
+//         move_down(map);
+//     else if (keycode == KEY_LEFT_ARROW)
+//         move_camera_left(map);
+//     else if (keycode == KEY_RIGHT_ARROW)
+//         move_camera_right(map);
+
+//     return (0);
+// }
+
 
 // Esto de abajo es para probar con varias teclas, por ahora causa seg fault
 
