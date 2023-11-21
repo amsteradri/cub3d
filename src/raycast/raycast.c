@@ -6,7 +6,7 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 08:57:02 by isromero          #+#    #+#             */
-/*   Updated: 2023/11/20 08:50:47 by isromero         ###   ########.fr       */
+/*   Updated: 2023/11/21 08:56:22 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	my_mlx_pixel_put(t_map *map, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-void	draw_slice(t_map *map, int x, int projected_slice_height)
+/* void	draw_slice(t_map *map, int x, int projected_slice_height)
 {
 	int ceiling_height = (map->screen_height - projected_slice_height) / 2;
     int floor_height = map->screen_height - ceiling_height;
@@ -36,6 +36,87 @@ void	draw_slice(t_map *map, int x, int projected_slice_height)
     // Dibuja el suelo
     for (int y = floor_height; y < map->screen_height; y++)
         mlx_pixel_put(map->mlx_ptr, map->win_ptr, x, y, 0x00FF00);
+} */
+
+void	draw_image(t_map *map, int x, int projected_slice_height)
+{
+	int color_sky = 0xABCDEF;
+	
+	if (map->img->bits_per_pixel != 32)
+		color_sky = mlx_get_color_value(map->mlx_ptr, color_sky);
+	
+	int color_wall = 0x00FFFFFF;
+	
+	if (map->img->bits_per_pixel != 32)
+		color_wall = mlx_get_color_value(map->mlx_ptr, color_wall);
+
+	int color_floor = 0x00FF00;
+	
+	if (map->img->bits_per_pixel != 32)
+		color_floor = mlx_get_color_value(map->mlx_ptr, color_floor);
+	
+	int ceiling_height = (map->screen_height - projected_slice_height) / 2;
+    int floor_height = map->screen_height - ceiling_height;
+	
+	for (int y = 0; y < ceiling_height; y++)
+	{
+		int pixel = (y * map->img->line_length) + (x * 4);
+		
+		if (map->img->endian == 1)
+		{
+			map->img->addr[pixel + 0] = (color_sky >> 24);
+			map->img->addr[pixel + 1] = (color_sky >> 16) & 0xFF;
+			map->img->addr[pixel + 2] = (color_sky >> 8) & 0xFF;
+			map->img->addr[pixel + 3] = (color_sky) & 0xFF;
+		}
+		else if (map->img->endian == 0)
+		{
+			map->img->addr[pixel + 0] = (color_sky) & 0xFF;
+			map->img->addr[pixel + 1] = (color_sky >> 8) & 0xFF;
+			map->img->addr[pixel + 2] = (color_sky >> 16) & 0xFF;
+			map->img->addr[pixel + 3] = (color_sky >> 24);
+		}
+	}
+	
+	for (int y = ceiling_height; y < floor_height; y++)
+	{
+		int pixel = (y * map->img->line_length) + (x * 4);
+		
+		if (map->img->endian == 1)
+		{
+			map->img->addr[pixel + 0] = (color_wall >> 24);
+			map->img->addr[pixel + 1] = (color_wall >> 16) & 0xFF;
+			map->img->addr[pixel + 2] = (color_wall >> 8) & 0xFF;
+			map->img->addr[pixel + 3] = (color_wall) & 0xFF;
+		}
+		else if (map->img->endian == 0)
+		{
+			map->img->addr[pixel + 0] = (color_wall) & 0xFF;
+			map->img->addr[pixel + 1] = (color_wall >> 8) & 0xFF;
+			map->img->addr[pixel + 2] = (color_wall >> 16) & 0xFF;
+			map->img->addr[pixel + 3] = (color_wall >> 24);
+		}
+	}
+
+	for (int y = floor_height; y < map->screen_height; y++)
+	{
+		int pixel = (y * map->img->line_length) + (x * 4);
+		
+		if (map->img->endian == 1)
+		{
+			map->img->addr[pixel + 0] = (color_floor >> 24);
+			map->img->addr[pixel + 1] = (color_floor >> 16) & 0xFF;
+			map->img->addr[pixel + 2] = (color_floor >> 8) & 0xFF;
+			map->img->addr[pixel + 3] = (color_floor) & 0xFF;
+		}
+		else if (map->img->endian == 0)
+		{
+			map->img->addr[pixel + 0] = (color_floor) & 0xFF;
+			map->img->addr[pixel + 1] = (color_floor >> 8) & 0xFF;
+			map->img->addr[pixel + 2] = (color_floor >> 16) & 0xFF;
+			map->img->addr[pixel + 3] = (color_floor >> 24);
+		}
+	}
 }
 
 int find_vertical_intersection(t_map *map, double ray_x, double ray_y, double angle)
@@ -160,11 +241,11 @@ int	raycast(t_map *map)
 			projected_slice_height = ceil((16 / map->line->line_h.correct_dist) * map->ray->dist_player_projection_plane);
 		else if (map->line->line_h.correct_dist > map->line->line_v.correct_dist && map->line->line_v.correct_dist != 0 && map->line->line_h.correct_dist != 0)
 			projected_slice_height = ceil((16 / map->line->line_v.correct_dist) * map->ray->dist_player_projection_plane);
-		draw_slice(map, map->ray->current_col, projected_slice_height);
+		draw_image(map, map->ray->current_col, projected_slice_height);
 		angle += map->ray->angle_between_rays;
 		map->ray->current_col++;
 	}
-	mlx_put_image_to_window(map->mlx_ptr, map->win_ptr, map->img, 0, 0);
+	mlx_put_image_to_window(map->mlx_ptr, map->win_ptr, map->img->img, 0, 0);
 	return 0;
 }
 

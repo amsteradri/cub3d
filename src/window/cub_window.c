@@ -6,7 +6,7 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 13:17:53 by adgutier          #+#    #+#             */
-/*   Updated: 2023/11/20 08:07:10 by isromero         ###   ########.fr       */
+/*   Updated: 2023/11/21 08:38:34 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ void	create_window(t_map *map)
 }
 void	create_img(t_map *map)
 {
-	map->img->img = mlx_new_image(map->mlx_ptr, (1000), (800));
+	map->img->img = mlx_new_image(map->mlx_ptr, 848, 480);
+	// addr = buffer
 	map->img->addr = mlx_get_data_addr(map->img->img, &map->img->bits_per_pixel,
 			&map->img->line_length, &map->img->endian);
 }
