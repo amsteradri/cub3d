@@ -6,7 +6,7 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 08:57:02 by isromero          #+#    #+#             */
-/*   Updated: 2023/11/21 21:41:46 by isromero         ###   ########.fr       */
+/*   Updated: 2023/11/22 08:56:03 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,6 +196,7 @@ int find_horizontal_intersection(t_map *map, double ray_x, double ray_y, double 
 	map->line->line_h.xa = 16 / tan(angle);
 	
 	int i = -1;
+	/* printf("INSTERSECTION Y %d\n", map->line->line_h.intersection_y); */
 	while (++i <= map->y)
 	{
 		int grid_y = map->line->line_h.intersection_y;
@@ -241,7 +242,7 @@ int	raycast(t_map *map)
 		find_horizontal_intersection(map, map->player->x * 16, map->player->y * 16, angle);
 		printf("horizontal:%d\n", find_horizontal_intersection(map, map->player->x * 16, map->player->y * 16, angle));
 		find_vertical_intersection(map, map->player->x * 16, map->player->y * 16, angle);
-		printf("vertical:%d\n", find_vertical_intersection(map, map->player->x * 16, map->player->y * 16, angle)); 
+		printf("correct_dist: %f\n", map->line->line_h.correct_dist);
 		if (map->line->line_h.correct_dist <= map->line->line_v.correct_dist && map->line->line_h.correct_dist != 0 && map->line->line_v.correct_dist != 0)
 			projected_slice_height = ceil((16.0 / map->line->line_h.correct_dist) * map->ray->dist_player_projection_plane);
 		else if (map->line->line_h.correct_dist > map->line->line_v.correct_dist && map->line->line_v.correct_dist != 0 && map->line->line_h.correct_dist != 0)
