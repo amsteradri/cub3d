@@ -37,20 +37,20 @@
 
 typedef struct s_line_h
 {
-	int		intersection_x;
-	int		intersection_y;
-	int		xa;
-	int		ya;
+	double	intersection_x;
+	double	intersection_y;
+	double	xa;
+	double	ya;
 	double	perp_dist;
 	double	correct_dist;
 } 	t_line_h;
 
 typedef struct s_line_v
 {
-	int		intersection_x;
-	int		intersection_y;
-	int		xa;
-	int		ya;
+	double	intersection_x;
+	double	intersection_y;
+	double	xa;
+	double	ya;
 	double	perp_dist;
 	double	correct_dist;
 }	t_line_v;

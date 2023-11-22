@@ -6,7 +6,7 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 08:57:02 by isromero          #+#    #+#             */
-/*   Updated: 2023/11/22 21:04:47 by isromero         ###   ########.fr       */
+/*   Updated: 2023/11/22 21:45:26 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,33 +126,32 @@ int find_vertical_intersection(t_map *map, double ray_x, double ray_y, double an
 
 	if (angle >= (3 * M_PI / 2) && angle < (M_PI / 2)) // El rayo mira hacia la derecha
 	{
-		map->line->line_v.intersection_x = floor(ray_x / 16.0) * (16) + 16;
-		map->line->line_v.xa = 16;
+		map->line->line_v.intersection_x = floor(ray_x / 16.0) * (16.0) + 16.0;
+		map->line->line_v.xa = 16.0;
 		
 	}
 	else if (angle >= (M_PI / 2) && angle < (3 * M_PI / 2)) // el rayo mira hacia izquierda
 	{
-		map->line->line_v.intersection_x = floor(ray_x / 16.0) * (16) - 1;
-		map->line->line_v.xa = -16;
+		map->line->line_v.intersection_x = floor(ray_x / 16.0) * (16.0) - 1.0;
+		map->line->line_v.xa = -16.0;
 	}
 	
-	if (tan_value != 0.0)
+	if (tan_value != 0)
 		map->line->line_v.intersection_y = ray_y + (ray_x - map->line->line_v.intersection_x) * tan(angle);
-			
 	else
 		return 0;
 
-	map->line->line_v.ya = 16 * tan(angle);
+	map->line->line_v.ya = map->line->line_v.xa * tan(angle);
 
 	int i = -1;
 	while (++i <= map->x)
 	{
-		int grid_y = map->line->line_v.intersection_y;
-		int grid_x = map->line->line_v.intersection_x;
+		int grid_y = map->line->line_v.intersection_y / 16;
+		int grid_x = map->line->line_v.intersection_x / 16;
 
-		if (grid_y >= 0 && grid_y < map->y && grid_x >= 0 && grid_x < map->y)
+		if (grid_y >= 0 && grid_y < map->y && grid_x >= 0 && grid_x < map->x)
 		{
-			if (map->map[grid_y / 16][grid_x / 16] == '1')
+			if (map->map[grid_y][grid_x] == '1')
 			{
 				// no pitágoras por rendimiento pero así perdemos un poco de precisión
 				// para mejorar precisión calculamos una intersección distinta para la distancia dependiendo de la dirección del rayo
@@ -179,35 +178,33 @@ int find_horizontal_intersection(t_map *map, double ray_x, double ray_y, double 
 
 	if (angle >= 0.0 && angle < M_PI) // El rayo mira hacia arriba
 	{
-		map->line->line_h.intersection_y = floor(ray_y / 16.0) * (16) - 1;
-		map->line->line_h.ya = -16;
+		map->line->line_h.intersection_y = floor(ray_y / 16.0) * (16.0) - 1.0;
+		map->line->line_h.ya = -16.0;
 	}
 
 	else if (angle >= M_PI && angle < (M_PI * 2)) // El rayo mira hacia abajo
 	{
-		map->line->line_h.intersection_y = floor(ray_y / 16.0) * (16) + 16;
-		map->line->line_h.ya = 16;
+		map->line->line_h.intersection_y = floor(ray_y / 16.0) * (16.0) + 16.0;
+		map->line->line_h.ya = 16.0;
 	}
 
-	if (tan_value != 0.0)
+	if (tan_value != 0)
 		map->line->line_h.intersection_x = ray_x + (ray_y - map->line->line_h.intersection_y) / tan(angle);
 			
 	else
 		return 0;
 
-	map->line->line_h.xa = 16 / tan(angle);
+	map->line->line_h.xa = map->line->line_h.ya / tan(angle);
 	
 	int i = -1;
 	/* printf("INSTERSECTION Y %d\n", map->line->line_h.intersection_y); */
 	while (++i <= map->y)
 	{
-		int grid_y = map->line->line_h.intersection_y;
-		int grid_x = map->line->line_h.intersection_x;
-		// printf("AQUI XXXXXXXXXXXX%d\n", grid_x);
-		// printf("AQUI YYYYYYYYYYYY%d\n", grid_y);
+		int grid_y = map->line->line_h.intersection_y / 16;
+		int grid_x = map->line->line_h.intersection_x / 16;
 		if (grid_y >= 0 && grid_y < map->y && grid_x >= 0 && grid_x < map->x)
 		{
-			if (map->map[grid_y / 16][grid_x / 16] == '1')
+			if (map->map[grid_y][grid_x] == '1')
 			{
 				// printf("valor de i: %d\n", i);
 				// no pitágoras por rendimiento pero así perdemos un poco de precisión
@@ -215,6 +212,7 @@ int find_horizontal_intersection(t_map *map, double ray_x, double ray_y, double 
 				/* if (angle >= 0 && angle < M_PI)
 					map->line->line_h.perp_dist = fabs(ray_y - map->line->line_h.intersection_y) / sin(angle);
 				else */
+				
 				map->line->line_h.perp_dist = fabs(ray_x - map->line->line_h.intersection_x) / cos(angle);
 				// Para el fish eye
 				map->line->line_h.correct_dist = map->line->line_h.perp_dist * cos(angle);
@@ -237,15 +235,17 @@ int	raycast(t_map *map)
 	map->ray->current_col = 0;
 	projected_slice_height = 0;
 	initial_angle = map->ray->angle - (30.0 * M_PI / 180.0);
-	angle = initial_angle;
+	angle = round(initial_angle);
+	if (angle < 0.0)
+		angle += M_PI * 2;
 	// Queremos lanzar el nº de rayos que tenga el ancho de pantalla
 	while(map->ray->current_col < map->screen_width)
 	{
-		find_horizontal_intersection(map, map->player->x * 16, map->player->y * 16, angle);
-		find_vertical_intersection(map, map->player->x * 16, map->player->y * 16, angle);
-		if (map->line->line_h.correct_dist <= map->line->line_v.correct_dist && map->line->line_h.correct_dist != 0 && map->line->line_v.correct_dist != 0)
+		find_horizontal_intersection(map, map->player->x * 16.0, map->player->y * 16.0, angle);
+		find_vertical_intersection(map, map->player->x * 16.0, map->player->y * 16.0, angle);
+		if (map->line->line_h.correct_dist <= map->line->line_v.correct_dist && map->line->line_h.correct_dist != 0.0 && map->line->line_v.correct_dist != 0.0)
 			projected_slice_height = ceil((16.0 / map->line->line_h.correct_dist) * map->ray->dist_player_projection_plane);
-		else if (map->line->line_h.correct_dist > map->line->line_v.correct_dist && map->line->line_v.correct_dist != 0 && map->line->line_h.correct_dist != 0)
+		else if (map->line->line_h.correct_dist > map->line->line_v.correct_dist && map->line->line_v.correct_dist != 0.0 && map->line->line_h.correct_dist != 0.0)
 			projected_slice_height = ceil((16.0 / map->line->line_v.correct_dist) * map->ray->dist_player_projection_plane);
 		printf("correct_dist h: %f\n", map->line->line_h.correct_dist);
 		printf("correct_dist v: %f\n", map->line->line_v.correct_dist);
