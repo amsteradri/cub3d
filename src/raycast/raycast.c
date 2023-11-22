@@ -19,7 +19,7 @@ void	my_mlx_pixel_put(t_map *map, int x, int y, int color)
 	dst = map->img->addr + (y * map->img->line_length + x * (map->img->bits_per_pixel / 8));
 	*(unsigned int*)dst = color;
 }
-
+//COMENTARIO DE PRUEBA
 /* void	draw_slice(t_map *map, int x, int projected_slice_height)
 {
 	int ceiling_height = (map->screen_height - projected_slice_height) / 2;
