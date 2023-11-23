@@ -6,7 +6,7 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 08:57:02 by isromero          #+#    #+#             */
-/*   Updated: 2023/11/22 22:10:54 by isromero         ###   ########.fr       */
+/*   Updated: 2023/11/23 08:58:40 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,13 +140,13 @@ int find_vertical_intersection(t_map *map, double ray_x, double ray_y, double an
 	else
 		return 0;
 
-	map->line->line_v.ya = 16 * tan(angle);
+	map->line->line_v.ya = round(16.0 * tan(angle));
 
 	int i = -1;
 	while (++i <= map->x)
 	{
-		int grid_y = map->line->line_v.intersection_y / 16;
-		int grid_x = map->line->line_v.intersection_x / 16;
+		int grid_y = round(map->line->line_v.intersection_y / 16);
+		int grid_x = round(map->line->line_v.intersection_x / 16);
 
 		if (grid_y >= 0 && grid_y < map->y && grid_x >= 0 && grid_x < map->x)
 		{
@@ -160,6 +160,7 @@ int find_vertical_intersection(t_map *map, double ray_x, double ray_y, double an
 				map->line->line_v.perp_dist = sqrt(pow(ray_x - map->line->line_v.intersection_x, 2) + pow(ray_y - map->line->line_v.intersection_y, 2));
 				// Para el fish eye
 				/* map->line->line_v.correct_dist = map->line->line_v.perp_dist * cos(angle); */
+				printf("ESTO ES VERTICAL\n");
 				return 1;
 			}
 		}
@@ -193,14 +194,14 @@ int find_horizontal_intersection(t_map *map, double ray_x, double ray_y, double 
 	else
 		return 0;
 
-	map->line->line_h.xa = 16 / tan(angle);
+	map->line->line_h.xa = round(16.0 / tan(angle));
 	
 	int i = -1;
 	/* printf("INSTERSECTION Y %d\n", map->line->line_h.intersection_y); */
 	while (++i <= map->y)
 	{
-		int grid_y = map->line->line_h.intersection_y / 16;
-		int grid_x = map->line->line_h.intersection_x / 16;
+		int grid_y = round(map->line->line_h.intersection_y / 16);
+		int grid_x = round(map->line->line_h.intersection_x / 16);
 		if (grid_y >= 0 && grid_y < map->y && grid_x >= 0 && grid_x < map->x)
 		{
 			if (map->map[grid_y][grid_x] == '1')
@@ -214,6 +215,7 @@ int find_horizontal_intersection(t_map *map, double ray_x, double ray_y, double 
 				map->line->line_h.perp_dist = sqrt(pow(ray_x - map->line->line_h.intersection_x, 2) + pow(ray_y - map->line->line_h.intersection_y, 2));
 				// Para el fish eye
 				/* map->line->line_h.correct_dist = map->line->line_h.perp_dist * cos(angle); */
+				printf("ESTO ES HORIZONTAL\n");
 				return 1;
 			}
 		}
@@ -233,7 +235,7 @@ int	raycast(t_map *map)
 	map->ray->current_col = 0;
 	projected_slice_height = 0;
 	initial_angle = map->ray->angle - (30.0 * M_PI / 180.0);
-	angle = round(initial_angle);
+	angle = initial_angle;
 	if (angle < 0.0)
 		angle += M_PI * 2;
 	// Queremos lanzar el nº de rayos que tenga el ancho de pantalla
@@ -241,12 +243,10 @@ int	raycast(t_map *map)
 	{
 		find_horizontal_intersection(map, map->player->x * 16.0, map->player->y * 16.0, angle);
 		find_vertical_intersection(map, map->player->x * 16.0, map->player->y * 16.0, angle);
-		if (map->line->line_h.perp_dist <= map->line->line_v.perp_dist && map->line->line_h.perp_dist != 0.0 && map->line->line_v.perp_dist != 0.0)
+		if (map->line->line_h.perp_dist <= map->line->line_v.perp_dist)
 			projected_slice_height = ceil((16.0 / map->line->line_h.perp_dist) * map->ray->dist_player_projection_plane);
-		else if (map->line->line_h.perp_dist > map->line->line_v.perp_dist && map->line->line_v.perp_dist != 0.0 && map->line->line_h.perp_dist != 0.0)
+		else if (map->line->line_h.perp_dist > map->line->line_v.perp_dist)
 			projected_slice_height = ceil((16.0 / map->line->line_v.perp_dist) * map->ray->dist_player_projection_plane);
-		printf("perp_dist h: %f\n", map->line->line_h.perp_dist);
-		printf("perp_dist v: %f\n", map->line->line_v.perp_dist);
 		draw_image(map, map->ray->current_col, projected_slice_height);
 		angle += map->ray->angle_between_rays;
 		map->ray->current_col++;
@@ -254,6 +254,3 @@ int	raycast(t_map *map)
 	mlx_put_image_to_window(map->mlx_ptr, map->win_ptr, map->img->img, 0, 0);
 	return 0;
 }
-
-
-// PROBLEMA DE MOVIMIENTOS??? HORIZONTAL AND VERTICAL MOTIONS???
