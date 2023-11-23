@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movements.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: adgutier <adgutier@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 08:55:56 by isromero          #+#    #+#             */
-/*   Updated: 2023/11/21 21:42:36 by isromero         ###   ########.fr       */
+/*   Updated: 2023/11/23 11:28:06 by adgutier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ static void	move_left(t_map *map)
 		map->player->x--;
 		map->map[(int)map->player->y][(int)map->player->x] = 'E';
 	} */
-	map->player->x--;
+	if (is_valid_move((int)map->player->y, (int)map->player->x - 1, map))
+		map->player->x--;
 }
 
 static void	move_up(t_map *map)
@@ -41,7 +42,8 @@ static void	move_up(t_map *map)
 		
 		map->map[(int)map->player->y][(int)map->player->x] = 'E';
 	} */
-	map->player->y--;
+	if (is_valid_move((int)map->player->y - 1, (int)map->player->x, map))
+		map->player->y--;
 }
 
 static void	move_right(t_map *map)
@@ -52,7 +54,8 @@ static void	move_right(t_map *map)
 		
 		map->map[(int)map->player->y][(int)map->player->x] = 'E';
 	} */
-	map->player->x++;
+	if (is_valid_move((int)map->player->y, (int)map->player->x + 1, map))
+		map->player->x++;
 }
 
 static void	move_down(t_map *map)
@@ -63,7 +66,8 @@ static void	move_down(t_map *map)
 		
 		map->map[(int)map->player->y][(int)map->player->x] = 'E';
 	} */
-	map->player->y++;
+	if (is_valid_move((int)map->player->y + 1, (int)map->player->x, map))
+		map->player->y++;
 }
 
 static void	move_camera_left(t_map *map)

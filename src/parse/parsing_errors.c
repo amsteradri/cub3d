@@ -191,6 +191,7 @@ void	check_under_empty(t_map **map)
 				}
 				if(j + 1 <= len && (*map)->map[i][j + 1] != '1' && (*map)->map[i][j + 1] != '0' && (*map)->map[i][j + 1] != 'E'  && (*map)->map[i + 1][j] != 'N' && (*map)->map[i + 1][j] != 'S' && (*map)->map[i + 1][j] != 'W')
 				{
+					printf("%s", (*map)->map[i]);
 					perror("\033[1;31mERROR: No walls in right col\033[0m");
 					exit(1);
 				}
