@@ -12,15 +12,15 @@
 
 NAME		=	cub3d
 CC			=	gcc
-SRCS		=	src/cub3d.c src/parse/parsing_errors.c src/parse/parsing.c \
+SRCS		=	src/cub3d.c src/parse/parsing_errors.c src/parse/parsing.c src/parse/parsemap.c\
 				src/window/cub_window.c src/raycast/raycast.c src/movements/movements.c \
 				src/render/render.c src/render/render2d.c src/render/render3d.c
 
 LIBFT		=	libft/libft.a
 
 CFLAGS		=	-Wall -Werror -Wextra -O3 -fsanitize=address
-MLXFLAGS	=	-L ./mlx/ -lmlx -framework OpenGL -framework AppKit -lz # -> MAC. -L/usr/X11/lib -lXext -lX11  ## a partir de -L es para mi propio
-# MLXFLAGS	=	-L ./mlx/ -lmlx -lz -L/usr/X11/lib -lXext -lX11 -lm // LINUX
+#MLXFLAGS	=	-L ./mlx/ -lmlx -framework OpenGL -framework AppKit -lz # -> MAC. -L/usr/X11/lib -lXext -lX11  ## a partir de -L es para mi propio
+MLXFLAGS	=	-L ./mlx/ -lmlx -lz -L/usr/X11/lib -lXext -lX11 -lm
 RM			=	rm -f
 
 all:		$(NAME)

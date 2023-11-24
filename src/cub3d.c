@@ -94,6 +94,9 @@ int	main(int argc, char **argv)
 	error_args(argc);
 	check_ext(argv[1]);
 	map.map = read_map(argv[1]);
+	parse_top_map(&map);
+	// printf("color:%d\n", map.fr);
+	map.map = &map.map[find_first_map_row(&map)];
 	init_vars_map(&map);
 	all_checks(&map);
 	fill_dir(&map);

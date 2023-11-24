@@ -58,6 +58,7 @@ void	check_chars(t_map **map)
 				&& (*map)->map[y][x] != 'N' && (*map)->map[y][x] != 'E'
 				&& (*map)->map[y][x] != 'S' && (*map)->map[y][x] != 'W' && (*map)->map[y][x] != ' ')
 				{
+					printf("linea:%s\n", (*map)->map[y]);
                     perror("\033[1;31mERROR: Wrong map components\033[0m");
                     exit(1);
                 }

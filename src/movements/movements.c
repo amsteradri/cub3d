@@ -6,7 +6,7 @@
 /*   By: adgutier <adgutier@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 08:55:56 by isromero          #+#    #+#             */
-/*   Updated: 2023/11/23 11:28:06 by adgutier         ###   ########.fr       */
+/*   Updated: 2023/11/24 14:08:57 by adgutier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,44 +84,44 @@ static void move_camera_right(t_map *map)
 		map->ray->angle -= (2 * M_PI);
 }
 
-int	move_character(int keycode, t_map *map)
-{
-	if (keycode == 53)
-		handle_esc_screen(map);
-	else if (keycode == 0)
-		move_left(map);
-	else if (keycode == 13)
-		move_up(map);
-	else if (keycode == 2)
-		move_right(map);
-	else if (keycode == 1)
-		move_down(map);
-	else  if (keycode == 123)
-		move_camera_left(map);
-	else if (keycode == 124)
-		move_camera_right(map);
-	return (0);
-}
-
-// int move_character(int keycode, t_map *map)
+// int	move_character(int keycode, t_map *map)
 // {
-//      if (keycode == KEY_ESC)
-//         handle_esc_screen(map);
-//     else if (keycode == KEY_A)
-//         move_left(map);
-//     else if (keycode == KEY_W)
-//         move_up(map);
-//     else if (keycode == KEY_D)
-//         move_right(map);
-//     else if (keycode == KEY_S)
-//         move_down(map);
-//     else if (keycode == KEY_LEFT_ARROW)
-//         move_camera_left(map);
-//     else if (keycode == KEY_RIGHT_ARROW)
-//         move_camera_right(map);
-
-//     return (0);
+// 	if (keycode == 53)
+// 		handle_esc_screen(map);
+// 	else if (keycode == 0)
+// 		move_left(map);
+// 	else if (keycode == 13)
+// 		move_up(map);
+// 	else if (keycode == 2)
+// 		move_right(map);
+// 	else if (keycode == 1)
+// 		move_down(map);
+// 	else  if (keycode == 123)
+// 		move_camera_left(map);
+// 	else if (keycode == 124)
+// 		move_camera_right(map);
+// 	return (0);
 // }
+
+int move_character(int keycode, t_map *map)
+{
+     if (keycode == KEY_ESC)
+        handle_esc_screen(map);
+    else if (keycode == KEY_A)
+        move_left(map);
+    else if (keycode == KEY_W)
+        move_up(map);
+    else if (keycode == KEY_D)
+        move_right(map);
+    else if (keycode == KEY_S)
+        move_down(map);
+    else if (keycode == KEY_LEFT_ARROW)
+        move_camera_left(map);
+    else if (keycode == KEY_RIGHT_ARROW)
+        move_camera_right(map);
+
+    return (0);
+}
 
 
 // Esto de abajo es para probar con varias teclas, por ahora causa seg fault

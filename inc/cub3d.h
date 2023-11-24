@@ -91,6 +91,16 @@ typedef struct s_img
 typedef struct s_map
 {
 	char			**map;
+	char 			no[256];
+    char 			so[256];
+    char 			we[256];
+    char 			ea[256];
+	int				fr;
+	int				fg;
+	int				fb;
+	int				cr;
+	int				cg;
+	int				cb;
 	int				x;
 	int				y;
 	int				screen_width;
@@ -132,6 +142,10 @@ void	all_checks(t_map *map);
 void	default_error(void);
 char	**read_map(char *fmap);
 void	fill_dir(t_map *map);
+
+// parsemap.c //
+void parse_top_map(t_map *map);
+int find_first_map_row(t_map *map);
 
 // ray_casting.c //
 int		raycast(t_map *map);

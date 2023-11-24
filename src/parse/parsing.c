@@ -32,7 +32,7 @@ char	**read_map(char *fmap)
 	while (line)
 	{
 		line = get_next_line(fd);
-		if (line == NULL || line[0] == '\n')
+		if (line == NULL)
 			break ;
 		joined_lines = ft_strjoin(joined_lines, line);
 	}
