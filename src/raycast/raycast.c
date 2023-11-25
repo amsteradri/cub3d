@@ -6,7 +6,7 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 08:57:02 by isromero          #+#    #+#             */
-/*   Updated: 2023/11/25 14:21:55 by isromero         ###   ########.fr       */
+/*   Updated: 2023/11/25 15:49:20 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,27 +40,34 @@ void	my_mlx_pixel_put(t_map *map, int x, int y, int color)
 void	draw_image(t_map *map, int x, int projected_slice_height)
 {
 	int color_sky = 0xABCDEF;
-	
+	printf("HEYYY\n");
+
 	if (map->img->bits_per_pixel != 32)
 		color_sky = mlx_get_color_value(map->mlx_ptr, color_sky);
-	
+	printf("HEYYY222\n");
+
 	int color_wall = 0x00FFFFFF;
-	
+
 	if (map->img->bits_per_pixel != 32)
 		color_wall = mlx_get_color_value(map->mlx_ptr, color_wall);
+	printf("HEYYY3333\n");
 
 	int color_floor = 0x00FF00;
-	
+
 	if (map->img->bits_per_pixel != 32)
 		color_floor = mlx_get_color_value(map->mlx_ptr, color_floor);
-	
+	printf("HEYYY4444\n");
+	printf("%d\n", projected_slice_height);
 	int ceiling_height = (map->screen_height - projected_slice_height) / 2;
-    int floor_height = map->screen_height - ceiling_height;
-	
+	int floor_height = map->screen_height - ceiling_height;
+	printf("%d\n", ceiling_height);
+
 	for (int y = 0; y < ceiling_height; y++)
 	{
+		printf("HEYYY666\n");
 		int pixel = (y * map->img->line_length) + (x * 4);
 		
+
 		if (map->img->endian == 1)
 		{
 			map->img->addr[pixel + 0] = (color_sky >> 24);
@@ -76,7 +83,7 @@ void	draw_image(t_map *map, int x, int projected_slice_height)
 			map->img->addr[pixel + 3] = (color_sky >> 24);
 		}
 	}
-	
+
 
 	for (int y = ceiling_height; y < floor_height; y++)
 	{
@@ -122,19 +129,19 @@ void	draw_image(t_map *map, int x, int projected_slice_height)
 int find_vertical_intersection(t_map *map, double ray_x, double ray_y, double angle)
 {
 	double tan_value = tan(angle);
+	int grid_y = 0;
+	int grid_x = 0;
 
 	if (angle >= (3 * M_PI / 2.0) && angle < (M_PI / 2.0)) // El rayo mira hacia la derecha
 	{
-		//printf("DERECHAAAAAAAAAAA\n");
-		map->line->line_v.intersection_x = round(ray_x / 64.0) * (64.0) + 64.0;
-		map->line->line_v.xa = 64.0;
+		map->line->line_v.intersection_x = floor(ray_x / 64) * (64) + 64;
+		map->line->line_v.xa = 64;
 		
 	}
 	else if (angle >= (M_PI / 2.0) && angle < (3 * M_PI / 2.0)) // el rayo mira hacia izquierda
 	{
-		//printf("IZQIERDAAAAAAAAAA\n");
-		map->line->line_v.intersection_x = round(ray_x / 64.0) * (64.0) - 1.0;
-		map->line->line_v.xa = -64.0;
+		map->line->line_v.intersection_x = floor(ray_x / 64) * (64) - 1;
+		map->line->line_v.xa = -64;
 	}
 	
 	if (tan_value != 0)
@@ -142,17 +149,19 @@ int find_vertical_intersection(t_map *map, double ray_x, double ray_y, double an
 	else
 		return 0;
 
-	map->line->line_v.ya = 64.0 * tan_value;
+	map->line->line_v.ya = 64 * tan_value;
 	if (angle >= 0.0 && angle < M_PI)
 		map->line->line_v.ya *= -1;
 
 	int i = -1;
+	printf("VERT XXXX: %d\n", map->line->line_v.intersection_x / 64);
+	printf("VERT YYYY: %d\n", map->line->line_v.intersection_y / 64);
 	while (++i <= map->x)
 	{
-		int grid_y = map->line->line_v.intersection_y / 64.0;
-		int grid_x = map->line->line_v.intersection_x / 64.0;
+		grid_y = map->line->line_v.intersection_y / 64;
+		grid_x = map->line->line_v.intersection_x / 64;
 
-		if (grid_y >= 0 && grid_y <= map->y && grid_x >= 0 && grid_x <= map->x)
+		if (grid_y >= 0 && grid_y < map->y && grid_x >= 0 && grid_x < map->x)
 		{
 			if (map->map[grid_y][grid_x] == '1')
 			{
@@ -176,17 +185,19 @@ int find_vertical_intersection(t_map *map, double ray_x, double ray_y, double an
 int find_horizontal_intersection(t_map *map, double ray_x, double ray_y, double angle)
 {
 	double tan_value = tan(angle);
+	int grid_y = 0;
+	int grid_x = 0;
 
 	if (angle >= 0.0 && angle < M_PI) // El rayo mira hacia arriba
 	{	
-		map->line->line_h.intersection_y = round(ray_y / 64.0) * (64.0) - 1.0;
-		map->line->line_h.ya = -64.0;
+		map->line->line_h.intersection_y = floor(ray_y / 64) * (64) - 1;
+		map->line->line_h.ya = -64;
 	}
 
 	else if (angle >= M_PI && angle < (M_PI * 2.0)) // El rayo mira hacia abajo
 	{
-		map->line->line_h.intersection_y = round(ray_y / 64.0) * (64.0) + 64.0;
-		map->line->line_h.ya = 64.0;
+		map->line->line_h.intersection_y = floor(ray_y / 64) * (64) + 64;
+		map->line->line_h.ya = 64;
 	}
 
 	if (tan_value != 0)
@@ -194,16 +205,18 @@ int find_horizontal_intersection(t_map *map, double ray_x, double ray_y, double 
 	else
 		return 0;
 
-	map->line->line_h.xa = (64.0 / tan_value);
+	map->line->line_h.xa = (64 / tan_value);
 	if (angle >= (M_PI / 2.0) && angle < (3 * M_PI / 2.0))
 		map->line->line_h.xa *= -1;
 	
 	int i = -1;
+	printf("HOR XXXX: %d\n", map->line->line_h.intersection_x / 64);
+	printf("HOR YYYY: %d\n", map->line->line_h.intersection_y / 64);
 	while (++i <= map->y)
 	{
-		int grid_y = map->line->line_h.intersection_y / 64.0;
-		int grid_x = map->line->line_h.intersection_x / 64.0;
-		if (grid_y >= 0 && grid_y <= map->y && grid_x >= 0 && grid_x <= map->x)
+		grid_y = map->line->line_h.intersection_y / 64;
+		grid_x = map->line->line_h.intersection_x / 64;
+		if (grid_y >= 0 && grid_y < map->y && grid_x >= 0 && grid_x < map->x)
 		{
 			if (map->map[grid_y][grid_x] == '1')
 			{
@@ -240,12 +253,12 @@ int	raycast(t_map *map)
 	{
 		find_horizontal_intersection(map, (map->player->x + 0.5) * 64.0, (map->player->y + 0.5) * 64.0, angle);
 		find_vertical_intersection(map, (map->player->x + 0.5) * 64.0, (map->player->y + 0.5) * 64.0, angle);
-		//printf("Dist proect plane : %f\n", map->ray->dist_player_projection_plane);
 		if (map->line->line_h.perp_dist <= map->line->line_v.perp_dist)
 			projected_slice_height = ceil((64.0 / map->line->line_h.perp_dist) * map->ray->dist_player_projection_plane);
 		else if (map->line->line_h.perp_dist > map->line->line_v.perp_dist)
 			projected_slice_height = ceil((64.0 / map->line->line_v.perp_dist) * map->ray->dist_player_projection_plane);
 		draw_image(map, map->ray->current_col, projected_slice_height);
+		// El problema está en projected slice height cuando va
 		angle += map->ray->angle_between_rays;
 	}
 	mlx_put_image_to_window(map->mlx_ptr, map->win_ptr, map->img->img, 0, 0);
