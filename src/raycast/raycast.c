@@ -6,7 +6,7 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 08:57:02 by isromero          #+#    #+#             */
-/*   Updated: 2023/11/25 15:49:20 by isromero         ###   ########.fr       */
+/*   Updated: 2023/11/25 18:38:53 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,31 +40,23 @@ void	my_mlx_pixel_put(t_map *map, int x, int y, int color)
 void	draw_image(t_map *map, int x, int projected_slice_height)
 {
 	int color_sky = 0xABCDEF;
-	printf("HEYYY\n");
 
 	if (map->img->bits_per_pixel != 32)
 		color_sky = mlx_get_color_value(map->mlx_ptr, color_sky);
-	printf("HEYYY222\n");
 
 	int color_wall = 0x00FFFFFF;
 
 	if (map->img->bits_per_pixel != 32)
 		color_wall = mlx_get_color_value(map->mlx_ptr, color_wall);
-	printf("HEYYY3333\n");
 
 	int color_floor = 0x00FF00;
 
 	if (map->img->bits_per_pixel != 32)
 		color_floor = mlx_get_color_value(map->mlx_ptr, color_floor);
-	printf("HEYYY4444\n");
-	printf("%d\n", projected_slice_height);
 	int ceiling_height = (map->screen_height - projected_slice_height) / 2;
 	int floor_height = map->screen_height - ceiling_height;
-	printf("%d\n", ceiling_height);
-
 	for (int y = 0; y < ceiling_height; y++)
 	{
-		printf("HEYYY666\n");
 		int pixel = (y * map->img->line_length) + (x * 4);
 		
 
@@ -83,7 +75,6 @@ void	draw_image(t_map *map, int x, int projected_slice_height)
 			map->img->addr[pixel + 3] = (color_sky >> 24);
 		}
 	}
-
 
 	for (int y = ceiling_height; y < floor_height; y++)
 	{
@@ -168,9 +159,8 @@ int find_vertical_intersection(t_map *map, double ray_x, double ray_y, double an
 				// no pitágoras por rendimiento pero así perdemos un poco de precisión
 				// para mejorar precisión calculamos una intersección distinta para la distancia dependiendo de la dirección del rayo
 				map->line->line_v.perp_dist = sqrt(pow(ray_x - map->line->line_v.intersection_x, 2) + pow(ray_y - map->line->line_v.intersection_y, 2));
-				printf("perp vert: %f\n", map->line->line_v.perp_dist);
 				// Para el fish eye
-				/* map->line->line_v.correct_dist = map->line->line_v.perp_dist * cos(angle);  */
+				//map->line->line_v.correct_dist = map->line->line_v.perp_dist * cos(angle); 
 				return 1;
 			}
 		}
@@ -210,8 +200,6 @@ int find_horizontal_intersection(t_map *map, double ray_x, double ray_y, double 
 		map->line->line_h.xa *= -1;
 	
 	int i = -1;
-	printf("HOR XXXX: %d\n", map->line->line_h.intersection_x / 64);
-	printf("HOR YYYY: %d\n", map->line->line_h.intersection_y / 64);
 	while (++i <= map->y)
 	{
 		grid_y = map->line->line_h.intersection_y / 64;
@@ -223,9 +211,8 @@ int find_horizontal_intersection(t_map *map, double ray_x, double ray_y, double 
 				// no pitágoras por rendimiento pero así perdemos un poco de precisión
 				// para mejorar precisión calculamos una intersección distinta para la distancia dependiendo de la dirección del rayo
 				map->line->line_h.perp_dist = sqrt(pow(ray_x - map->line->line_h.intersection_x, 2) + pow(ray_y - map->line->line_h.intersection_y, 2));
-				printf("perp hor: %f\n", map->line->line_h.perp_dist);
 				// Para el fish eye
-				/* map->line->line_h.correct_dist = map->line->line_h.perp_dist * cos(angle); */
+				//map->line->line_h.correct_dist = map->line->line_h.perp_dist * cos(angle);
 				return 1;
 			}
 		}
@@ -258,7 +245,7 @@ int	raycast(t_map *map)
 		else if (map->line->line_h.perp_dist > map->line->line_v.perp_dist)
 			projected_slice_height = ceil((64.0 / map->line->line_v.perp_dist) * map->ray->dist_player_projection_plane);
 		draw_image(map, map->ray->current_col, projected_slice_height);
-		// El problema está en projected slice height cuando va
+		// El problema está en projected slice height, muchas veces es mayor que screen_height
 		angle += map->ray->angle_between_rays;
 	}
 	mlx_put_image_to_window(map->mlx_ptr, map->win_ptr, map->img->img, 0, 0);
