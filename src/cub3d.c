@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3d.h"
+#include "cub3d.h"
 
 int	map_height(char **map)
 {
@@ -43,8 +43,8 @@ void	init_vars_map(t_map *map)
 {
 	map->y = map_height(map->map);
 	map->x = find_longest_line_length(map->map);
-	map->screen_width = 848;
-	map->screen_height = 480;
+	map->screen_width = 1600;
+	map->screen_height = 900;
 	map->mlx_ptr = NULL;
 	map->win_ptr = NULL;
 	map->img = (t_img *)malloc(sizeof(t_img));
@@ -73,8 +73,7 @@ void	init_vars_map(t_map *map)
 	map->ray->x = 0.0;
 	map->ray->y = 0.0;
 	map->ray->angle = 0.0;
-	map->ray->angle_between_rays = (60.0 / map->screen_width * (M_PI / 180.0));
-	printf("angulo entrerayos%f\n", map->ray->angle_between_rays);
+	map->ray->angle_between_rays = (60.0 / map->screen_width) * (M_PI / 180.0);
 	map->ray->dist_player_projection_plane = (map->screen_width / 2) / tan(30 * (M_PI / 180.0));
 	map->ray->current_col = 0;
 	map->ray->dist_to_slice = 0.0;

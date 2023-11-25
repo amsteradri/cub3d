@@ -6,8 +6,8 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 18:39:23 by isromero          #+#    #+#             */
-/*   Updated: 2023/11/08 20:35:11 by isromero         ###   ########.fr       */
+/*   Updated: 2023/11/25 14:21:46 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/cub3d.h"
+#include "cub3d.h"

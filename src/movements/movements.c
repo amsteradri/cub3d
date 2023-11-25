@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   movements.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adgutier <adgutier@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 08:55:56 by isromero          #+#    #+#             */
-/*   Updated: 2023/11/24 14:08:57 by adgutier         ###   ########.fr       */
+/*   Updated: 2023/11/25 14:22:08 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/cub3d.h"
+#include "cub3d.h"
 
 int	is_valid_move(int fil, int col, t_map *map)
 {
@@ -84,26 +84,26 @@ static void move_camera_right(t_map *map)
 		map->ray->angle -= (2 * M_PI);
 }
 
-// int	move_character(int keycode, t_map *map)
-// {
-// 	if (keycode == 53)
-// 		handle_esc_screen(map);
-// 	else if (keycode == 0)
-// 		move_left(map);
-// 	else if (keycode == 13)
-// 		move_up(map);
-// 	else if (keycode == 2)
-// 		move_right(map);
-// 	else if (keycode == 1)
-// 		move_down(map);
-// 	else  if (keycode == 123)
-// 		move_camera_left(map);
-// 	else if (keycode == 124)
-// 		move_camera_right(map);
-// 	return (0);
-// }
+int	move_character(int keycode, t_map *map)
+{
+	if (keycode == 53)
+		handle_esc_screen(map);
+	else if (keycode == 0)
+		move_left(map);
+	else if (keycode == 13)
+		move_up(map);
+	else if (keycode == 2)
+		move_right(map);
+	else if (keycode == 1)
+		move_down(map);
+	else  if (keycode == 123)
+		move_camera_left(map);
+	else if (keycode == 124)
+		move_camera_right(map);
+	return (0);
+}
 
-int move_character(int keycode, t_map *map)
+/* int move_character(int keycode, t_map *map)
 {
      if (keycode == KEY_ESC)
         handle_esc_screen(map);
@@ -121,64 +121,4 @@ int move_character(int keycode, t_map *map)
         move_camera_right(map);
 
     return (0);
-}
-
-
-// Esto de abajo es para probar con varias teclas, por ahora causa seg fault
-
-// int	move_character(t_map *map)
-// {
-	
-// 	if (map->player->move_left == 1)
-// 		move_left(map);
-// 	else if (map->player->move_up == 1)
-// 		move_up(map);
-// 	else if (map->player->move_right == 1)
-// 		move_right(map);
-// 	else if (map->player->move_down == 1)
-// 		move_down(map);
-// 	else  if (map->player->move_camera_left == 1)
-// 		move_camera_left(map);
-// 	else if (map->player->move_camera_right == 1)
-// 		move_camera_right(map);
-	
-// 	return (0);
-// }
-
-// int	handle_key_press(int keycode, t_map *map)
-// {
-// 	if (keycode == 53)
-// 		handle_esc_screen(map);
-// 	else if (keycode == 0)
-// 		map->player->move_left = 1;
-// 	else if (keycode == 13)
-// 		map->player->move_up = 1;
-// 	else if (keycode == 2)
-// 		map->player->move_right = 1;
-// 	else if (keycode == 1)
-// 		map->player->move_down = 1;
-// 	else  if (keycode == 123)
-// 		map->player->move_camera_left = 1;
-// 	else if (keycode == 124)
-// 		map->player->move_camera_right = 1;
-// 	return (0);
-// }
-
-// int	handle_key_release(int keycode, t_map *map)
-// {
-// 	if (keycode == 53)
-// 		handle_esc_screen(map);
-// 	else if (keycode == 0 && map->player->move_left == 1)
-// 		map->player->move_left = 0;
-// 	else if (keycode == 13 && map->player->move_up == 1)
-// 		map->player->move_up = 0;
-// 	else if (keycode == 2 && map->player->move_right == 1)
-// 		map->player->move_right = 0;
-// 	else if (keycode == 1 && map->player->move_down == 1)
-// 		map->player->move_down = 0;
-// 	else  if (keycode == 123 && map->player->move_camera_left == 1)
-// 		map->player->move_camera_left = 0;
-// 	else if (keycode == 124 && map->player->move_right == 1)
-// 		map->player->move_camera_right = 0;
-// 	return (0);
-// }
+} */

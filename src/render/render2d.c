@@ -6,11 +6,11 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 18:35:54 by isromero          #+#    #+#             */
-/*   Updated: 2023/11/13 22:00:42 by isromero         ###   ########.fr       */
+/*   Updated: 2023/11/25 14:21:49 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/cub3d.h"
+#include "cub3d.h"
 
 void	render_background_2d(t_map *map)
 {

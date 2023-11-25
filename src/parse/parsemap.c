@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parsemap.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adgutier <adgutier@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 13:00:15 by adgutier          #+#    #+#             */
-/*   Updated: 2023/11/24 15:42:11 by adgutier         ###   ########.fr       */
+/*   Updated: 2023/11/25 14:22:04 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/cub3d.h"
+#include "cub3d.h"
 
 void parse_top_map(t_map *map)
 {
