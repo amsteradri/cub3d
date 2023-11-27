@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_window.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: adgutier <adgutier@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 13:17:53 by adgutier          #+#    #+#             */
-/*   Updated: 2023/11/25 16:01:03 by isromero         ###   ########.fr       */
+/*   Updated: 2023/11/27 20:53:19 by adgutier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
