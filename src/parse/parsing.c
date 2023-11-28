@@ -63,32 +63,32 @@ void	fill_dir(t_map *map)
 			if (map->map[i][j] == 'N')
 			{
 				map->player->dir = 'N';
-				map->player->x = j;
-				map->player->y = i;
+				map->player->x = j + 1;
+				map->player->y = i + 1;
 				map->ray->angle = M_PI / 2.0;
 				return ;
 			}
 			else if (map->map[i][j] == 'S')
 			{
 				map->player->dir = 'S';
-				map->player->x = j;
-				map->player->y = i;
+				map->player->x = j + 1;
+				map->player->y = i + 1;
 				map->ray->angle = 3 * M_PI / 2.0;
 				return ;
 			}
         	else if (map->map[i][j] == 'E')
 			{
 				map->player->dir = 'E';
-				map->player->x = j;
-				map->player->y = i;
+				map->player->x = j + 1;
+				map->player->y = i + 1;
 				map->ray->angle = 0; // 0º
 				return ;
 			}
 			else if (map->map[i][j] == 'W')
 			{
 				map->player->dir = 'W';
-				map->player->x = j;
-				map->player->y = i;
+				map->player->x = j + 1;
+				map->player->y = i + 1;
 				map->ray->angle = M_PI; // 180º
 				return ;
 			}

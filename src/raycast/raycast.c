@@ -6,7 +6,7 @@
 /*   By: adgutier <adgutier@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 08:57:02 by isromero          #+#    #+#             */
-/*   Updated: 2023/11/27 20:54:43 by adgutier         ###   ########.fr       */
+/*   Updated: 2023/11/28 14:38:24 by adgutier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	draw_image(t_map *map, int x, int projected_slice_height)
 	if (map->img->bits_per_pixel != 32)
 		color_sky = mlx_get_color_value(map->mlx_ptr, color_sky);
 
-	int color_wall = 0x00FFFFFF;
+	int color_wall = 0x00AA0000;
 
 	if (map->img->bits_per_pixel != 32)
 		color_wall = mlx_get_color_value(map->mlx_ptr, color_wall);
@@ -120,31 +120,36 @@ void	draw_image(t_map *map, int x, int projected_slice_height)
 int find_vertical_intersection(t_map *map, double ray_x, double ray_y, double angle)
 {
 	//SI PRUEBAS CON -1/TAN SE VE UN MURO DE PRIMERAS , PERO LUEGO SE VE GOD
-	double tan_value = tan(angle);
+	double tan_value = fabs(tan(angle));
 	int grid_y = 0;
 	int grid_x = 0;
+	map->line->line_v.intersection_x = 0;
+	map->line->line_v.intersection_y = 0;
 
 	if (angle >= (3 * M_PI / 2.0) && angle < (M_PI / 2.0)) // El rayo mira hacia la derecha
 	{
 		map->line->line_v.intersection_x = floor(ray_x / 64) * (64) + 64;
 		map->line->line_v.xa = 64;
+		//printf("VERT 11111XXXX: %d\n", map->line->line_v.intersection_x);
 		
 	}
 	else if (angle >= (M_PI / 2.0) && angle < (3 * M_PI / 2.0)) // el rayo mira hacia izquierda
 	{
 		map->line->line_v.intersection_x = floor(ray_x / 64) * (64) - 1;
 		map->line->line_v.xa = -64;
+		//printf("VERT 22222XXXX: %d\n", map->line->line_v.intersection_x);
 	}
 	//ESTO LO DEJAMOS??????????????????????????????????????
 	// if(map->line->line_v.intersection_x > map->screen_height)
 	// 	map->line->line_v.intersection_x = map->screen_height;
 	// if(map->line->line_v.intersection_x < 0)
 	// 	map->line->line_v.intersection_x = 0;
-	if (tan_value != 0)
-		map->line->line_v.intersection_y = ray_y + (ray_x - map->line->line_v.intersection_x) * tan_value;
+	if (tan_value != 0 && angle !=  4.712389)
+		map->line->line_v.intersection_y = ray_y + ((ray_x - map->line->line_v.intersection_x) * tan_value);
 	else
 		return 0;
-
+	//printf("HORI xxxx: %d se ha calcualdo con %f, con %f, con %f y inter %d\n", map->line->line_v.intersection_y, ray_x, ray_y, tan_value, map->line->line_v.intersection_x);
+	//printf("VERT YYYY: %d\n", map->line->line_v.intersection_y / 64);
 	//ESTO LO DEJAMOS??????????????????????????????????????
 	// if(map->line->line_v.intersection_y > map->screen_height)
 	// 	map->line->line_v.intersection_y = map->screen_width;
@@ -154,8 +159,8 @@ int find_vertical_intersection(t_map *map, double ray_x, double ray_y, double an
 	if (angle >= 0.0 && angle < M_PI)
 		map->line->line_v.ya *= -1;
 	int i = -1;
-	printf("VERT XXXX: %d\n", map->line->line_v.intersection_x / 64);
-	printf("VERT YYYY: %d\n", map->line->line_v.intersection_y / 64);
+	
+
 	while (++i <= map->x)
 	{
 		grid_y = map->line->line_v.intersection_y / 64;
@@ -167,6 +172,7 @@ int find_vertical_intersection(t_map *map, double ray_x, double ray_y, double an
 			{
 				// no pitágoras por rendimiento pero así perdemos un poco de precisión
 				// para mejorar precisión calculamos una intersección distinta para la distancia dependiendo de la dirección del rayo
+				//printf("YY: %d XX: %d\n", map->line->line_h.intersection_y, map->line->line_h.intersection_x);
 				map->line->line_v.perp_dist = sqrt(pow(ray_x - map->line->line_v.intersection_x, 2) + pow(ray_y - map->line->line_v.intersection_y, 2));
 				// Para el fish eye
 				//map->line->line_v.correct_dist = map->line->line_v.perp_dist * cos(angle); 
@@ -176,39 +182,44 @@ int find_vertical_intersection(t_map *map, double ray_x, double ray_y, double an
 		// Actualizar coordenadas solo si no hay colisión
 		map->line->line_v.intersection_x += map->line->line_v.xa;
 		map->line->line_v.intersection_y += map->line->line_v.ya;
-
+	
     }
 	return 0; // Nunca debería llegar aquí, ya que la función siempre debería salir con una colisión
 }
 
 int find_horizontal_intersection(t_map *map, double ray_x, double ray_y, double angle)
 {
-	double tan_value = tan(angle);
+	double tan_value = fabs(tan(angle));
+	printf("angulo: %f, y su tangente: %f\n",(angle), tan_value);
 	int grid_y = 0;
 	int grid_x = 0;
-
+	map->line->line_h.intersection_y = 0;
+	map->line->line_h.intersection_x = 0;
 	if (angle >= 0.0 && angle < M_PI) // El rayo mira hacia arriba
 	{	
 		map->line->line_h.intersection_y = floor(ray_y / 64) * (64) - 1;
 		map->line->line_h.ya = -64;
+		//printf("HORI 1111YYYY: %d\n", map->line->line_h.intersection_y);
 	}
 
 	else if (angle >= M_PI && angle < (M_PI * 2.0)) // El rayo mira hacia abajo
 	{
 		map->line->line_h.intersection_y = floor(ray_y / 64) * (64) + 64;
 		map->line->line_h.ya = 64;
+		
 	}
 	//ESTO LO DEJAMOS??????????????????????????????????????
 	// if(map->line->line_h.intersection_y > map->screen_height)
 	// 	map->line->line_h.intersection_y = map->screen_width;
 	// else if(map->line->line_h.intersection_y < 0)
 	// 	map->line->line_h.intersection_y = 0;
-	if (tan_value != 0)
+	if (tan_value != 0 && angle !=  4.712389)
 	{
-		map->line->line_h.intersection_x = ray_x + (ray_y - map->line->line_h.intersection_y) / tan_value;
+		map->line->line_h.intersection_x = ray_x + ((ray_y - map->line->line_h.intersection_y) / tan_value);
 	}
 	else
 		return 0;
+	// printf("HORI xxxx: %d se ha calcualdo con %f, con %f, con %f y inter %d\n", map->line->line_h.intersection_x, ray_x, ray_y, tan_value, map->line->line_h.intersection_y);
 	//ESTO LO DEJAMOS??????????????????????????????????????
 	// if(map->line->line_h.intersection_x > map->screen_height)
 	// 	map->line->line_h.intersection_x = map->screen_height;
@@ -229,6 +240,7 @@ int find_horizontal_intersection(t_map *map, double ray_x, double ray_y, double 
 			{
 				// no pitágoras por rendimiento pero así perdemos un poco de precisión
 				// para mejorar precisión calculamos una intersección distinta para la distancia dependiendo de la dirección del rayo
+				//printf("YY: %d XX: %d\n", map->line->line_h.intersection_y, map->line->line_h.intersection_x);
 				map->line->line_h.perp_dist = sqrt(pow(ray_x - map->line->line_h.intersection_x, 2) + pow(ray_y - map->line->line_h.intersection_y, 2));
 				// Para el fish eye
 				//map->line->line_h.correct_dist = map->line->line_h.perp_dist * cos(angle);
@@ -255,6 +267,7 @@ int	raycast(t_map *map)
 	if (angle < 0.0)
 		angle += M_PI * 2.0;
 	// Queremos lanzar el nº de rayos que tenga el ancho de pantalla
+	//printf("POS X : %f, POS Y: %f\n", map->player->x, map->player->y);
 	while(++map->ray->current_col < map->screen_width)
 	{
 		find_horizontal_intersection(map, (map->player->x + 0.5) * 64.0, (map->player->y + 0.5) * 64.0, angle);
@@ -271,10 +284,11 @@ int	raycast(t_map *map)
         //     // Ensure that projected_slice_height does not exceed the screen height
         //     projected_slice_height = 0;
         // }
-		printf("slice:%d\n", projected_slice_height);
+		//printf("slice:%d\n", projected_slice_height);
 		draw_image(map, map->ray->current_col, projected_slice_height);
 		// El problema está en projected slice height, muchas veces es mayor que screen_height
 		angle += map->ray->angle_between_rays;
+		
 	}
 	mlx_put_image_to_window(map->mlx_ptr, map->win_ptr, map->img->img, 0, 0);
 	return 0;
