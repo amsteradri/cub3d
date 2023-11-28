@@ -6,7 +6,7 @@
 /*   By: adgutier <adgutier@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 08:57:02 by isromero          #+#    #+#             */
-/*   Updated: 2023/11/28 14:38:24 by adgutier         ###   ########.fr       */
+/*   Updated: 2023/11/28 15:31:33 by adgutier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ void	draw_image(t_map *map, int x, int projected_slice_height)
 int find_vertical_intersection(t_map *map, double ray_x, double ray_y, double angle)
 {
 	//SI PRUEBAS CON -1/TAN SE VE UN MURO DE PRIMERAS , PERO LUEGO SE VE GOD
-	double tan_value = fabs(tan(angle));
+	double tan_value = (tan(angle));
 	int grid_y = 0;
 	int grid_x = 0;
 	map->line->line_v.intersection_x = 0;
@@ -189,7 +189,7 @@ int find_vertical_intersection(t_map *map, double ray_x, double ray_y, double an
 
 int find_horizontal_intersection(t_map *map, double ray_x, double ray_y, double angle)
 {
-	double tan_value = fabs(tan(angle));
+	double tan_value = (tan(angle));
 	printf("angulo: %f, y su tangente: %f\n",(angle), tan_value);
 	int grid_y = 0;
 	int grid_x = 0;
@@ -264,11 +264,11 @@ int	raycast(t_map *map)
 	projected_slice_height = 0;
 	initial_angle = map->ray->angle - (30.0 * M_PI / 180.0);
 	angle = initial_angle;
-	if (angle < 0.0)
+	if (angle < 0.0 && angle >= -M_PI * 2.0)
 		angle += M_PI * 2.0;
 	// Queremos lanzar el nº de rayos que tenga el ancho de pantalla
 	//printf("POS X : %f, POS Y: %f\n", map->player->x, map->player->y);
-	while(++map->ray->current_col < map->screen_width)
+	while(map->ray->current_col++ < map->screen_width - 1)
 	{
 		find_horizontal_intersection(map, (map->player->x + 0.5) * 64.0, (map->player->y + 0.5) * 64.0, angle);
 		find_vertical_intersection(map, (map->player->x + 0.5) * 64.0, (map->player->y + 0.5) * 64.0, angle);
@@ -279,11 +279,11 @@ int	raycast(t_map *map)
         if (projected_slice_height > map->screen_height)
             projected_slice_height = map->screen_height;
 		//ESTO LO DEJAMOS??????????????????????????????????????
-		// else if (projected_slice_height < 0)
-        // {
-        //     // Ensure that projected_slice_height does not exceed the screen height
-        //     projected_slice_height = 0;
-        // }
+		else if (projected_slice_height < 0)
+        {
+            // Ensure that projected_slice_height does not exceed the screen height
+            projected_slice_height = 0;
+        }
 		//printf("slice:%d\n", projected_slice_height);
 		draw_image(map, map->ray->current_col, projected_slice_height);
 		// El problema está en projected slice height, muchas veces es mayor que screen_height
