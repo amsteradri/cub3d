@@ -14,7 +14,7 @@ NAME		=	cub3d
 CC			=	gcc
 SRCS		=	src/cub3d.c src/parse/parsing_errors.c src/parse/parsing.c src/parse/parsemap.c\
 				src/window/cub_window.c src/raycast/raycast.c src/movements/movements.c \
-				src/render/render.c src/render/render2d.c src/render/render3d.c
+				src/render/render.c src/render/render2d.c src/render/render3d.c src/utils/utils.c \
 
 LIBFT		=	libft/libft.a
 

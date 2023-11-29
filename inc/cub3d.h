@@ -163,4 +163,8 @@ void	render_char_2d(t_map *map);
 
 // render3d.c //
 
+
+// utils.c //
+int	ft_vertical_len(t_map *map, int col, int row);
+
 #endif

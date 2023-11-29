@@ -6,7 +6,7 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 08:57:02 by isromero          #+#    #+#             */
-/*   Updated: 2023/11/28 21:59:55 by isromero         ###   ########.fr       */
+/*   Updated: 2023/11/29 22:01:11 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ int find_vertical_intersection(t_map *map, double ray_x, double ray_y, double an
 		grid_y = floor(map->line->line_v.intersection_y) / 64;
 		grid_x = floor(map->line->line_v.intersection_x) / 64;
 
-		if (grid_y >= 0 && grid_y < map->y && grid_x >= 0 && grid_x < map->x)
+		if (grid_y >= 0 && grid_y < ft_vertical_len(map, grid_x, grid_y) && grid_x >= 0 && grid_x < (int)ft_strlen(map->map[grid_y]))
 		{
 			if (map->map[grid_y][grid_x] == '1')
 			{
@@ -197,7 +197,7 @@ int find_horizontal_intersection(t_map *map, double ray_x, double ray_y, double 
 	{
 		grid_y = floor(map->line->line_h.intersection_y) / 64;
 		grid_x = floor(map->line->line_h.intersection_x) / 64;
-		if (grid_y >= 0 && grid_y < map->y && grid_x >= 0 && grid_x < map->x)
+		if (grid_y >= 0 && grid_y < ft_vertical_len(map, grid_x, grid_y) && grid_x >= 0 && grid_x < (int)ft_strlen(map->map[grid_y]))
 		{
 			if (map->map[grid_y][grid_x] == '1')
 			{
