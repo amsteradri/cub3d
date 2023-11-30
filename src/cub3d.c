@@ -98,6 +98,7 @@ int	main(int argc, char **argv)
 	int i = 0;
 	while(map.map[i])
 		printf("%s\n", map.map[++i]);
+	printf("ESTO ES LA i %d\n", i);
 	map.map = &map.map[find_first_map_row(&map)];
 	init_vars_map(&map);
 	all_checks(&map);
