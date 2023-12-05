@@ -86,6 +86,8 @@ typedef struct s_img
 	int				bits_per_pixel;
 	int				line_length;
 	int				endian;
+	int width;
+	int height;
 }	t_img;
 
 typedef struct s_map
@@ -111,6 +113,7 @@ typedef struct s_map
 	void			*win_ptr;
 	void			*mlx_ptr;
 	t_img			*img;
+	t_img		*texture;
 }	t_map;
 
 // cub_window.c //

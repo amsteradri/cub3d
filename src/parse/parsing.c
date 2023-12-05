@@ -65,7 +65,7 @@ void	fill_dir(t_map *map)
 				map->player->dir = 'N';
 				map->player->x = j + 1;
 				map->player->y = i + 1;
-				map->ray->angle = M_PI / 2.0;
+				map->ray->angle = (M_PI / 2.0);
 				return ;
 			}
 			else if (map->map[i][j] == 'S')
@@ -73,7 +73,8 @@ void	fill_dir(t_map *map)
 				map->player->dir = 'S';
 				map->player->x = j + 1;
 				map->player->y = i + 1;
-				map->ray->angle = 3 * M_PI / 2.0;
+				map->ray->angle = (3 * M_PI / 2.0);
+				//printf("Angulo: %f", map->ray->angle);
 				return ;
 			}
         	else if (map->map[i][j] == 'E')

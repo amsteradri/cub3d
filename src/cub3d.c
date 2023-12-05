@@ -53,6 +53,12 @@ void	init_vars_map(t_map *map)
 	map->img->bits_per_pixel = 0;
 	map->img->line_length = 0;
 	map->img->endian = 0;
+	map->texture = (t_img *)malloc(sizeof(t_img));
+	map->texture->img = NULL;
+	map->texture->addr = NULL;
+	map->texture->bits_per_pixel = 0;
+	map->texture->line_length = 0;
+	map->texture->endian = 0;
 	map->player = (t_player *)malloc(sizeof(t_player));
 	map->player->y = 0.0;
 	map->player->x = 0.0;
@@ -74,7 +80,7 @@ void	init_vars_map(t_map *map)
 	map->ray->y = 0.0;
 	map->ray->angle = 0.0;
 	map->ray->angle_between_rays = (60.0 / map->screen_width) * (M_PI / 180.0);
-	map->ray->dist_player_projection_plane = (map->screen_width) / tan(30 * (M_PI / 180.0));
+	map->ray->dist_player_projection_plane = (map->screen_width / 2) / tan(30 * (M_PI / 180.0));
 	map->ray->current_col = 0;
 	map->ray->dist_to_slice = 0.0;
 }
@@ -95,10 +101,10 @@ int	main(int argc, char **argv)
 	map.map = read_map(argv[1]);
 	parse_top_map(&map);
 	// printf("color:%d\n", map.fr);
-	int i = 0;
-	while(map.map[i])
-		printf("%s\n", map.map[++i]);
-	printf("ESTO ES LA i %d\n", i);
+	// int i = 0;
+	// while(map.map[i])
+	// 	printf("%s\n", map.map[++i]);
+	// printf("ESTO ES LA i %d\n", i);
 	map.map = &map.map[find_first_map_row(&map)];
 	init_vars_map(&map);
 	all_checks(&map);
