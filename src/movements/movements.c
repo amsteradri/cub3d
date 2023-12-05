@@ -6,7 +6,7 @@
 /*   By: adgutier <adgutier@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 08:55:56 by isromero          #+#    #+#             */
-/*   Updated: 2023/11/28 15:19:56 by adgutier         ###   ########.fr       */
+/*   Updated: 2023/12/05 15:36:14 by adgutier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,65 +21,64 @@ int	is_valid_move(int fil, int col, t_map *map)
 	return (1);
 }
 
-static void	move_left(t_map *map)
+static void move_forward(t_map *map)
 {
-/* 	if (is_valid_move((int)map->player->y, (int)map->player->x - 1, map))
-	{
-		map->map[(int)map->player->y][(int)map->player->x] = '0';
-		map->player->x--;
-		map->map[(int)map->player->y][(int)map->player->x] = 'E';
-	} */
-	if (is_valid_move((int)map->player->y, (int)map->player->x - 1, map))
-		map->player->x--;
+    double new_x = map->player->x + cos(map->ray->angle);
+    double new_y = map->player->y + sin(map->ray->angle);
+
+    if (is_valid_move((int)new_y, (int)new_x, map))
+    {
+        map->player->x = new_x;
+        map->player->y = new_y;
+    }
 }
 
-static void	move_up(t_map *map)
+static void move_backward(t_map *map)
 {
-	/* if (is_valid_move((int)map->player->y - 1, (int)map->player->x, map))
-	{
-		
-		map->map[(int)map->player->y][(int)map->player->x] = '0';
-		
-		map->map[(int)map->player->y][(int)map->player->x] = 'E';
-	} */
-	if (is_valid_move((int)map->player->y - 1, (int)map->player->x, map))
-		map->player->y--;
+    double new_x = map->player->x - cos(map->ray->angle);
+    double new_y = map->player->y - sin(map->ray->angle);
+
+    if (is_valid_move((int)new_y, (int)new_x, map))
+    {
+        map->player->x = new_x;
+        map->player->y = new_y;
+    }
 }
 
-static void	move_right(t_map *map)
+static void move_left(t_map *map)
 {
-	/* if (is_valid_move((int)map->player->y, (int)map->player->x + 1, map))
-	{
-		map->map[(int)map->player->y][(int)map->player->x] = '0';
-		
-		map->map[(int)map->player->y][(int)map->player->x] = 'E';
-	} */
-	if (is_valid_move((int)map->player->y, (int)map->player->x + 1, map))
-		map->player->x++;
+    double new_x = map->player->x - sin(map->ray->angle);
+    double new_y = map->player->y + cos(map->ray->angle);
+
+    if (is_valid_move((int)new_y, (int)new_x, map))
+    {
+        map->player->x = new_x;
+        map->player->y = new_y;
+    }
 }
 
-static void	move_down(t_map *map)
+static void move_right(t_map *map)
 {
-	/* if (is_valid_move((int)map->player->y + 1, (int)map->player->x, map))
-	{
-		map->map[(int)map->player->y][(int)map->player->x] = '0';
-		
-		map->map[(int)map->player->y][(int)map->player->x] = 'E';
-	} */
-	if (is_valid_move((int)map->player->y + 1, (int)map->player->x, map))
-		map->player->y++;
+    double new_x = map->player->x + sin(map->ray->angle);
+    double new_y = map->player->y - cos(map->ray->angle);
+
+    if (is_valid_move((int)new_y, (int)new_x, map))
+    {
+        map->player->x = new_x;
+        map->player->y = new_y;
+    }
 }
 
 static void	move_camera_left(t_map *map)
 {
-	map->ray->angle -= 5 * DR;
+	map->ray->angle -= 3 * DR;
 	if (map->ray->angle < 0)
 		map->ray->angle += (2 * M_PI);
 }
 
 static void move_camera_right(t_map *map)
 {
-	map->ray->angle += 5 * DR;
+	map->ray->angle += 3 * DR;
 	if (map->ray->angle >= M_PI * 2)
 		map->ray->angle -= (2 * M_PI);
 }
@@ -89,13 +88,13 @@ int	move_character(int keycode, t_map *map)
 	if (keycode == 53)
 		handle_esc_screen(map);
 	else if (keycode == 0)
-		move_left(map);
-	else if (keycode == 13)
-		move_up(map);
-	else if (keycode == 2)
 		move_right(map);
+	else if (keycode == 13)
+		move_forward(map);
+	else if (keycode == 2)
+		move_left(map);
 	else if (keycode == 1)
-		move_down(map);
+		move_backward(map);
 	else  if (keycode == 123)
 		move_camera_left(map);
 	else if (keycode == 124)

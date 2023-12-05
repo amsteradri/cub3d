@@ -105,11 +105,14 @@ void	first_line(char *line)
 	{
 		if (line[i] != '1' && line[i] != ' ')
 		{
+			printf("ME SALGO AQUI:%s\n", line);
 			perror("\033[1;31mERROR: No walls in top or bot\033[0m");
             exit(1);
 		}
 	}
 }
+
+
 
 int	ft_spacelen(char *str) 
 {

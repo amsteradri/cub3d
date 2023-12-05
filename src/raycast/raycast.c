@@ -6,7 +6,7 @@
 /*   By: adgutier <adgutier@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 08:57:02 by isromero          #+#    #+#             */
-/*   Updated: 2023/12/05 13:20:04 by adgutier         ###   ########.fr       */
+/*   Updated: 2023/12/05 14:41:04 by adgutier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,7 @@ void	my_mlx_pixel_put(t_map *map, int x, int y, int color)
 // }
 
 
+
 void	draw_image(t_map *map, int x, int projected_slice_height)
 {
 	int color_sky = 0xABCDEF;
@@ -170,6 +171,7 @@ void	draw_image(t_map *map, int x, int projected_slice_height)
 		color_floor = mlx_get_color_value(map->mlx_ptr, color_floor);
 	int ceiling_height = (map->screen_height - projected_slice_height) / 2;
 	int floor_height = map->screen_height - ceiling_height;
+	
 	for (int y = 0; y < ceiling_height; y++)
 	{
 		int pixel = (y * map->img->line_length) + (x * 4);
@@ -346,6 +348,7 @@ int	raycast(t_map *map)
 	angle = initial_angle;
 	if (angle < 0.0 && angle >= -M_PI * 2.0)
 		angle += M_PI * 2.0;
+	
 	while(++map->ray->current_col < map->screen_width)
 	{
 		find_horizontal_intersection(map, (map->player->x + 0.5) * 64.0, (map->player->y + 0.5) * 64.0, angle);

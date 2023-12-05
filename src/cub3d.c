@@ -39,6 +39,7 @@ int	find_longest_line_length(char **map)
     return longest_length;
 }
 
+
 void	init_vars_map(t_map *map)
 {
 	map->y = map_height(map->map);
@@ -59,6 +60,8 @@ void	init_vars_map(t_map *map)
 	map->texture->bits_per_pixel = 0;
 	map->texture->line_length = 0;
 	map->texture->endian = 0;
+	map->texture->height = 0;
+	map->texture->width = 0;
 	map->player = (t_player *)malloc(sizeof(t_player));
 	map->player->y = 0.0;
 	map->player->x = 0.0;
@@ -102,10 +105,22 @@ int	main(int argc, char **argv)
 	parse_top_map(&map);
 	// printf("color:%d\n", map.fr);
 	// int i = 0;
+	// int j = 0;
 	// while(map.map[i])
-	// 	printf("%s\n", map.map[++i]);
+	// {
+	// 	j = 0;
+	// 	while(map.map[i][j])
+	// 	{
+	// 		printf("%d ", map.map[i][j]);
+	// 		j++;
+	// 	}
+	// 	printf("\n");
+	// 	i++;
+	// }
+		
 	// printf("ESTO ES LA i %d\n", i);
 	map.map = &map.map[find_first_map_row(&map)];
+	//printf("LINE:%s\n", map.map[0]);
 	init_vars_map(&map);
 	all_checks(&map);
 	fill_dir(&map);
