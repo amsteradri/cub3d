@@ -37,22 +37,22 @@
 
 typedef struct s_line_h
 {
-	double	intersection_x;
-	double	intersection_y;
+	double		intersection_x;
+	double		intersection_y;
 	double		xa;
 	double		ya;
-	double	perp_dist;
-	double	correct_dist;
+	double		perp_dist;
+	double		correct_dist;
 } 	t_line_h;
 
 typedef struct s_line_v
 {
-	double	intersection_x;
-	double	intersection_y;
+	double		intersection_x;
+	double		intersection_y;
 	double		xa;
 	double		ya;
-	double	perp_dist;
-	double	correct_dist;
+	double		perp_dist;
+	double		correct_dist;
 }	t_line_v;
 
 typedef struct	s_lines
@@ -127,7 +127,6 @@ int		find_longest_line_length(char **map);
 void	init_vars_map(t_map *map);
 
 // movements.c //
-int		is_valid_move(int fil, int col, t_map *map);
 int		move_character(int keycode, t_map *map);
 
 // parsing_errors.c //

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movements.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adgutier <adgutier@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/28 08:55:56 by isromero          #+#    #+#             */
-/*   Updated: 2023/12/05 15:36:14 by adgutier         ###   ########.fr       */
+/*   Created: 2023/0.1/28 08:55:56 by isromero          #+#    #+#             */
+/*   Updated: 2023/12/06 14:01:29 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ int	is_valid_move(int fil, int col, t_map *map)
 
 static void move_forward(t_map *map)
 {
-    double new_x = map->player->x + cos(map->ray->angle);
-    double new_y = map->player->y + sin(map->ray->angle);
+    double new_x = map->player->x + (cos(map->ray->angle) * 0.5);
+    double new_y = map->player->y + (sin(map->ray->angle) * 0.5);
 
     if (is_valid_move((int)new_y, (int)new_x, map))
     {
@@ -35,8 +35,8 @@ static void move_forward(t_map *map)
 
 static void move_backward(t_map *map)
 {
-    double new_x = map->player->x - cos(map->ray->angle);
-    double new_y = map->player->y - sin(map->ray->angle);
+    double new_x = map->player->x - (cos(map->ray->angle) * 0.5);
+    double new_y = map->player->y - (sin(map->ray->angle) * 0.5);
 
     if (is_valid_move((int)new_y, (int)new_x, map))
     {
@@ -47,8 +47,8 @@ static void move_backward(t_map *map)
 
 static void move_left(t_map *map)
 {
-    double new_x = map->player->x - sin(map->ray->angle);
-    double new_y = map->player->y + cos(map->ray->angle);
+    double new_x = map->player->x - (sin(map->ray->angle) * 0.5);
+    double new_y = map->player->y + (cos(map->ray->angle) * 0.5);
 
     if (is_valid_move((int)new_y, (int)new_x, map))
     {
@@ -59,10 +59,10 @@ static void move_left(t_map *map)
 
 static void move_right(t_map *map)
 {
-    double new_x = map->player->x + sin(map->ray->angle);
-    double new_y = map->player->y - cos(map->ray->angle);
+    double new_x = map->player->x + (sin(map->ray->angle) * 0.5);
+    double new_y = map->player->y - (cos(map->ray->angle) * 0.5);
 
-    if (is_valid_move((int)new_y, (int)new_x, map))
+    if (is_valid_move(new_y, new_x, map))
     {
         map->player->x = new_x;
         map->player->y = new_y;
@@ -71,14 +71,14 @@ static void move_right(t_map *map)
 
 static void	move_camera_left(t_map *map)
 {
-	map->ray->angle -= 3 * DR;
+	map->ray->angle -= 8 * DR;
 	if (map->ray->angle < 0)
 		map->ray->angle += (2 * M_PI);
 }
 
 static void move_camera_right(t_map *map)
 {
-	map->ray->angle += 3 * DR;
+	map->ray->angle += 8 * DR;
 	if (map->ray->angle >= M_PI * 2)
 		map->ray->angle -= (2 * M_PI);
 }

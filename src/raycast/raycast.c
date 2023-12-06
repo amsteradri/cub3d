@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adgutier <adgutier@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 08:57:02 by isromero          #+#    #+#             */
-/*   Updated: 2023/12/05 14:41:04 by adgutier         ###   ########.fr       */
+/*   Updated: 2023/12/06 14:09:41 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,7 +236,6 @@ void	draw_image(t_map *map, int x, int projected_slice_height)
 
 int find_vertical_intersection(t_map *map, double ray_x, double ray_y, double angle)
 {
-	//SI PRUEBAS CON -1/TAN SE VE UN MURO DE PRIMERAS , PERO LUEGO SE VE GOD
 	double tan_value = (tan(angle));
 	double face = ray_x + (100.0 * cos(angle));
 	int grid_y = 0;
@@ -297,7 +296,7 @@ int find_horizontal_intersection(t_map *map, double ray_x, double ray_y, double 
 	int grid_x = 0;
 	map->line->line_h.intersection_y = 0;
 	map->line->line_h.intersection_x = 0;
-	if (face <=  ray_y) // El rayo mira hacia arriba
+	if (face <= ray_y) // El rayo mira hacia arriba
 	{	
 		map->line->line_h.intersection_y = floor(ray_y / 64) * (64) - 1;
 		map->line->line_h.ya = -64;
@@ -351,17 +350,14 @@ int	raycast(t_map *map)
 	
 	while(++map->ray->current_col < map->screen_width)
 	{
-		find_horizontal_intersection(map, (map->player->x + 0.5) * 64.0, (map->player->y + 0.5) * 64.0, angle);
-		find_vertical_intersection(map, (map->player->x + 0.5) * 64.0, (map->player->y + 0.5) * 64.0, angle);
+		find_horizontal_intersection(map, (map->player->x) * 64.0, (map->player->y) * 64.0, angle);
+		find_vertical_intersection(map, (map->player->x) * 64.0, (map->player->y) * 64.0, angle);
 		if (map->line->line_h.perp_dist <= map->line->line_v.perp_dist)
 			projected_slice_height = floor((64.0 / map->line->line_h.perp_dist) * map->ray->dist_player_projection_plane);
 		else if (map->line->line_h.perp_dist > map->line->line_v.perp_dist)
 			projected_slice_height = floor((64.0 / map->line->line_v.perp_dist) * map->ray->dist_player_projection_plane);
         if (projected_slice_height > map->screen_height)
             projected_slice_height = map->screen_height;
-		//ESTO LO DEJAMOS??????????????????????????????????????
-		else if (projected_slice_height < 0)
-            projected_slice_height = 0;
 		draw_image(map, map->ray->current_col, projected_slice_height);
 		angle += map->ray->angle_between_rays;
 		
