@@ -86,6 +86,7 @@ void	init_vars_map(t_map *map)
 	map->ray->dist_player_projection_plane = (map->screen_width / 2) / tan(30 * (M_PI / 180.0));
 	map->ray->current_col = 0;
 	map->ray->dist_to_slice = 0.0;
+	
 }
 
 // void   leak_check(void)
@@ -126,6 +127,7 @@ int	main(int argc, char **argv)
 	fill_dir(&map);
 	create_window(&map);
 	create_img(&map);
+	load_texture(&map, map.no);
 	render_all(&map);
 	mlx_hook(map.win_ptr, 2, 1L << 0, move_character, &map);
 	mlx_hook(map.win_ptr, 17, 1L << 0, handle_esc_screen, &map);

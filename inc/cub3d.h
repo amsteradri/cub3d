@@ -145,6 +145,12 @@ void	default_error(void);
 char	**read_map(char *fmap);
 void	fill_dir(t_map *map);
 
+// textures.c //
+void 	load_texture(t_map *map, char *path);
+int 	get_texture_pixel_color(t_map *map, int x, int y);
+void 	draw_vertical_line_with_texture(t_map *map, int x, int y, int texture_y);
+void 	draw_image_with_textures(t_map *map, int x, int projected_slice_height);
+
 // parsemap.c //
 void parse_top_map(t_map *map);
 int find_first_map_row(t_map *map);

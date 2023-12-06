@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_window.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adgutier <adgutier@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 13:17:53 by adgutier          #+#    #+#             */
-/*   Updated: 2023/11/27 20:53:19 by adgutier         ###   ########.fr       */
+/*   Updated: 2023/12/06 14:31:56 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	create_window(t_map *map)
 void	create_img(t_map *map)
 {
 	map->img->img = mlx_new_image(map->mlx_ptr, 1600, 900);
-	// addr = buffer
 	map->img->addr = mlx_get_data_addr(map->img->img, &map->img->bits_per_pixel,
 			&map->img->line_length, &map->img->endian);
 }
