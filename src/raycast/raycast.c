@@ -6,7 +6,7 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 08:57:02 by isromero          #+#    #+#             */
-/*   Updated: 2023/12/06 14:34:41 by isromero         ###   ########.fr       */
+/*   Updated: 2023/12/06 18:04:46 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,6 +207,10 @@ int	raycast(t_map *map)
 	int		projected_slice_height;
 	double 	angle;
 	double 	initial_angle;
+	/* int	texture_offset_x;
+	int	texture_offset_y;
+	int	texture_color;
+	int	distance_from_top; */
 	
 	map->ray->current_col = -1;
 	projected_slice_height = 0;
@@ -220,9 +224,28 @@ int	raycast(t_map *map)
 		find_horizontal_intersection(map, (map->player->x) * 64.0, (map->player->y) * 64.0, angle);
 		find_vertical_intersection(map, (map->player->x) * 64.0, (map->player->y) * 64.0, angle);
 		if (map->line->line_h.perp_dist <= map->line->line_v.perp_dist)
+		{
 			projected_slice_height = floor((64.0 / map->line->line_h.perp_dist) * map->ray->dist_player_projection_plane);
+			map->ray->side = 1;
+		}
+			
 		else if (map->line->line_h.perp_dist > map->line->line_v.perp_dist)
+		{
 			projected_slice_height = floor((64.0 / map->line->line_v.perp_dist) * map->ray->dist_player_projection_plane);
+			map->ray->side = 0;
+		}
+		
+		///////////// TEXTURAS ////////////////////
+		/* if (map->ray->side == 1)
+		{
+			texture_offset_x = (int)((map->line->line_h.perp_dist / 64.0) * 64) % 64;
+		}
+		else if (map->ray->side == 0)
+		{
+			texture_offset_x = (int)((map->line->line_v.perp_dist / 64.0) * 64) % 64;
+		} */
+		/////////////////////////////////////////
+		
         if (projected_slice_height > map->screen_height)
             projected_slice_height = map->screen_height;
 		draw_image_with_textures(map, map->ray->current_col, projected_slice_height);

@@ -77,6 +77,7 @@ typedef struct	s_ray
 	double			dist_player_projection_plane;
 	int				current_col;
 	double			dist_to_slice;
+	int				side; // 1 es NS(horizontal) y 0 es EW(vertical)
 }	t_ray;
 
 typedef struct s_img
@@ -86,8 +87,8 @@ typedef struct s_img
 	int				bits_per_pixel;
 	int				line_length;
 	int				endian;
-	int width;
-	int height;
+	int 			width;
+	int 			height;			
 }	t_img;
 
 typedef struct s_map
@@ -113,7 +114,7 @@ typedef struct s_map
 	void			*win_ptr;
 	void			*mlx_ptr;
 	t_img			*img;
-	t_img		*texture;
+	t_img			*texture;
 }	t_map;
 
 // cub_window.c //

@@ -86,7 +86,7 @@ void	init_vars_map(t_map *map)
 	map->ray->dist_player_projection_plane = (map->screen_width / 2) / tan(30 * (M_PI / 180.0));
 	map->ray->current_col = 0;
 	map->ray->dist_to_slice = 0.0;
-	
+	map->ray->side = 0;
 }
 
 // void   leak_check(void)
