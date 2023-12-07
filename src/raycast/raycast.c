@@ -6,7 +6,7 @@
 /*   By: adgutier <adgutier@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 08:57:02 by isromero          #+#    #+#             */
-/*   Updated: 2023/12/07 13:04:00 by adgutier         ###   ########.fr       */
+/*   Updated: 2023/12/07 13:55:59 by adgutier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,87 +103,103 @@ void	my_mlx_pixel_put(t_map *map, int x, int y, int color)
 
 int find_vertical_intersection(t_map *map, double ray_x, double ray_y, double angle)
 {
-    double tan_value = tan(angle);
-    double face = ray_x + (100.0 * cos(angle));
-    int grid_y = 0;
-    int grid_x = 0;
-    map->line->line_v.intersection_x = 0;
-    map->line->line_v.intersection_y = 0;
+	double tan_value = (tan(angle));
+	double face = ray_x + (100.0 * cos(angle));
+	int grid_y = 0;
+	int grid_x = 0;
+	map->line->line_v.intersection_x = 0;
+	map->line->line_v.intersection_y = 0;
 
-    if (face <= ray_x) // El rayo mira hacia la derecha
-    {
-        map->line->line_v.intersection_x = floor(ray_x / 64) * 64 - 1;
-        map->line->line_v.xa = -64;
-        map->line->line_v.ya = (64 * tan_value) * -1;
-    }
-    else // el rayo mira hacia izquierda
-    {
-        map->line->line_v.intersection_x = floor(ray_x / 64) * 64 + 64;
-        map->line->line_v.xa = 64;
-        map->line->line_v.ya = 64 * tan_value;
-    }
-    map->line->line_v.intersection_y = ray_y - (ray_x - map->line->line_v.intersection_x) * tan_value;
+	if (face <= ray_x) // El rayo mira hacia la derecha
+	{
+		map->line->line_v.intersection_x = floor(ray_x / 64) * (64) - 1;
+		map->line->line_v.xa = -64;
+		map->line->line_v.ya = (64 * tan_value) * -1;
+	}
+	else// el rayo mira hacia izquierda
+	{
+		map->line->line_v.intersection_x = floor(ray_x / 64) * (64) + 64;
+		map->line->line_v.xa = 64;
+		map->line->line_v.ya = 64 * tan_value;
+	}
+	/* if (tan_value != 0 && angle !=  4.712389) */
+		map->line->line_v.intersection_y = ray_y - (ray_x - map->line->line_v.intersection_x) * tan_value;
+	/* else
+		return 0; */
+	int i = -1;
+	while (++i <= map->x)
+	{
+		grid_y = floor(map->line->line_v.intersection_y) / 64;
+		grid_x = floor(map->line->line_v.intersection_x) / 64;
 
-    int i = -1;
-    while (++i <= map->x)
-    {
-        grid_y = floor(map->line->line_v.intersection_y) / 64;
-        grid_x = floor(map->line->line_v.intersection_x) / 64;
-
-        if (grid_y >= 0 && grid_y < map->y && grid_x >= 0 && grid_x < (int)ft_strlen(map->map[grid_y]))
-        {
-            if (map->map[grid_y][grid_x] == '1')
-            {
-                map->line->line_v.perp_dist = fabs(sqrt(pow(ray_x - map->line->line_v.intersection_x, 2) + pow(ray_y - map->line->line_v.intersection_y, 2)));
-                return 1;
-            }
-        }
-        map->line->line_v.intersection_x += map->line->line_v.xa;
-        map->line->line_v.intersection_y += map->line->line_v.ya;
+		if (grid_y >= 0 && grid_y < map->y && grid_x >= 0 && grid_x < (int)ft_strlen(map->map[grid_y]))
+		{
+			if (map->map[grid_y][grid_x] == '1')
+			{
+				map->line->line_v.perp_dist = fabs(sqrt(pow(ray_x - map->line->line_v.intersection_x, 2) + pow(ray_y - map->line->line_v.intersection_y, 2)));
+				// Para el fish eye
+				//map->line->line_v.correct_dist = map->line->line_v.perp_dist * cos(angle); 
+				return 1;
+			}
+		}
+		// Actualizar coordenadas solo si no hay colisión
+		map->line->line_v.intersection_x += map->line->line_v.xa;
+		map->line->line_v.intersection_y += map->line->line_v.ya;
+	
     }
-    return 0;
+	return 0; // Nunca debería llegar aquí, ya que la función siempre debería salir con una colisión
 }
+
+
+
+//SE VE MAS O MENOS IGUL CON EL FABS EN LA SQRT , NO SE SI DEJARLO
 
 int find_horizontal_intersection(t_map *map, double ray_x, double ray_y, double angle)
 {
-    double tan_value = tan(angle);
-    double face = ray_y + (100 * sin(angle));
-    int grid_y = 0;
-    int grid_x = 0;
-    map->line->line_h.intersection_y = 0;
-    map->line->line_h.intersection_x = 0;
-
-    if (face <= ray_y) // El rayo mira hacia arriba
-    {
-        map->line->line_h.intersection_y = floor(ray_y / 64) * 64 - 1;
-        map->line->line_h.ya = -64;
-        map->line->line_h.xa = (64 / tan_value) * -1;
+	double tan_value = (tan(angle));
+	double face = ray_y + (100 * sin(angle));
+	//printf("path textura: %s\n", map->no);
+	int grid_y = 0;
+	int grid_x = 0;
+	map->line->line_h.intersection_y = 0;
+	map->line->line_h.intersection_x = 0;
+	if (face <= ray_y) // El rayo mira hacia arriba
+	{	
+		map->line->line_h.intersection_y = floor(ray_y / 64) * (64) - 1;
+		map->line->line_h.ya = -64;
+		map->line->line_h.xa = (64 / tan_value) * -1;
+	}
+	else// El rayo mira hacia abajo
+	{
+		map->line->line_h.intersection_y = floor(ray_y / 64) * (64) + 64;
+		map->line->line_h.ya = 64;
+		map->line->line_h.xa = 64 / tan_value;
+	}
+	/* if (tan_value != 0 && angle !=  4.712389) */
+		map->line->line_h.intersection_x = ray_x - (ray_y - map->line->line_h.intersection_y) / tan_value;
+	/* else
+		return 0; */
+	
+	int i = -1;
+	while (++i <= map->y)
+	{
+		grid_y = floor(map->line->line_h.intersection_y) / 64;
+		grid_x = floor(map->line->line_h.intersection_x) / 64;
+		if (grid_y >= 0 && grid_y < map->y && grid_x >= 0 && grid_x < (int)ft_strlen(map->map[grid_y]))
+		{
+			if (map->map[grid_y][grid_x] == '1')
+			{
+				map->line->line_h.perp_dist = fabs(sqrt(pow(ray_x - map->line->line_h.intersection_x, 2) + pow(ray_y - map->line->line_h.intersection_y, 2)));
+				// Para el fish eye
+				//map->line->line_h.correct_dist = map->line->line_h.perp_dist * cos(angle);
+				return 1;
+			}
+		}
+		// Actualizar coordenadas solo si no hay colisión
+		map->line->line_h.intersection_x += map->line->line_h.xa;
+		map->line->line_h.intersection_y += map->line->line_h.ya;
     }
-    else // El rayo mira hacia abajo
-    {
-        map->line->line_h.intersection_y = floor(ray_y / 64) * 64 + 64;
-        map->line->line_h.ya = 64;
-        map->line->line_h.xa = 64 / tan_value;
-    }
-    map->line->line_h.intersection_x = ray_x - (ray_y - map->line->line_h.intersection_y) / tan_value;
-
-    int i = -1;
-    while (++i <= map->y)
-    {
-        grid_y = floor(map->line->line_h.intersection_y) / 64;
-        grid_x = floor(map->line->line_h.intersection_x) / 64;
-        if (grid_y >= 0 && grid_y < map->y && grid_x >= 0 && grid_x < (int)ft_strlen(map->map[grid_y]))
-        {
-            if (map->map[grid_y][grid_x] == '1')
-            {
-                map->line->line_h.perp_dist = fabs(sqrt(pow(ray_x - map->line->line_h.intersection_x, 2) + pow(ray_y - map->line->line_h.intersection_y, 2)));
-                return 1;
-            }
-        }
-        map->line->line_h.intersection_x += map->line->line_h.xa;
-        map->line->line_h.intersection_y += map->line->line_h.ya;
-    }
-    return 0;
+	return 0;
 }
 
 int	raycast(t_map *map)
