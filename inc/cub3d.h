@@ -34,50 +34,22 @@
 #define KEY_LEFT_ARROW 65361
 #define KEY_RIGHT_ARROW 65363
 
-
-typedef struct s_line_h
-{
-	double		intersection_x;
-	double		intersection_y;
-	double		xa;
-	double		ya;
-	double		perp_dist;
-	double		correct_dist;
-} 	t_line_h;
-
-typedef struct s_line_v
-{
-	double		intersection_x;
-	double		intersection_y;
-	double		xa;
-	double		ya;
-	double		perp_dist;
-	double		correct_dist;
-}	t_line_v;
-
-typedef struct	s_lines
-{
-	t_line_h	line_h;
-	t_line_v	line_v;
-}	t_lines;
-
 typedef struct	s_player
 {
-	char			dir; // N, S, W, E
+	char			dir;
+	double 			dir_x;
+	double 			dir_y;
+	double 			plane_x;
+	double 			plane_y;
 	double			x;
 	double			y;
 }	t_player;
 
 typedef struct	s_ray
 {
-	double			x;
-	double			y;
-	double			angle_between_rays;
-	double			angle;
-	double			dist_player_projection_plane;
-	int				current_col;
-	double			dist_to_slice;
-	int				side; // 1 es NS(horizontal) y 0 es EW(vertical)
+	double 			dir_x;
+	double 			dir_y;
+	int				side;
 }	t_ray;
 
 typedef struct s_img
@@ -110,7 +82,6 @@ typedef struct s_map
 	int				screen_height;
 	t_player		*player;
 	t_ray			*ray;
-	t_lines			*line;
 	void			*win_ptr;
 	void			*mlx_ptr;
 	t_img			*img;
@@ -147,10 +118,6 @@ char	**read_map(char *fmap);
 void	fill_dir(t_map *map);
 
 // textures.c //
-void 	load_texture(t_map *map, char *path);
-int 	get_texture_pixel_color(t_map *map, int x, int y);
-void 	draw_vertical_line_with_texture(t_map *map, int x, int y, int texture_y);
-void 	draw_image_with_textures(t_map *map, int x, int projected_slice_height);
 
 // parsemap.c //
 void parse_top_map(t_map *map);
@@ -158,8 +125,6 @@ int find_first_map_row(t_map *map);
 
 // ray_casting.c //
 int		raycast(t_map *map);
-int		find_vertical_intersection(t_map *map, double ray_x, double ray_y, double angle);
-int		find_horizontal_intersection(t_map *map, double ray_x, double ray_y, double angle);
 
 // render.c //
 int		render_all(t_map *map);
@@ -174,6 +139,5 @@ void	render_char_2d(t_map *map);
 
 
 // utils.c //
-int	ft_vertical_len(t_map *map, int col, int row);
 
 #endif

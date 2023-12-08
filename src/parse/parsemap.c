@@ -6,7 +6,7 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 13:00:15 by adgutier          #+#    #+#             */
-/*   Updated: 2023/11/25 14:22:04 by isromero         ###   ########.fr       */
+/*   Updated: 2023/12/07 21:45:21 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,6 @@ void parse_top_map(t_map *map)
         i++;
     }
 }
-
 
 int find_first_map_row(t_map *map)
 {

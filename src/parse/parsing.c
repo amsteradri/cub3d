@@ -65,7 +65,10 @@ void	fill_dir(t_map *map)
 				map->player->dir = 'N';
 				map->player->x = j + 1;
 				map->player->y = i + 1;
-				map->ray->angle = (M_PI / 2.0);
+				map->player->dir_x = 0;
+				map->player->dir_y = -1;
+				map->player->plane_x = 0.66;
+				map->player->plane_y = 0;
 				return ;
 			}
 			else if (map->map[i][j] == 'S')
@@ -73,8 +76,10 @@ void	fill_dir(t_map *map)
 				map->player->dir = 'S';
 				map->player->x = j + 1;
 				map->player->y = i + 1;
-				map->ray->angle = (3 * M_PI / 2.0);
-				//printf("Angulo: %f", map->ray->angle);
+				map->player->dir_x = 0;
+				map->player->dir_y = 1;
+				map->player->plane_x = -0.66;
+				map->player->plane_y = 0;
 				return ;
 			}
         	else if (map->map[i][j] == 'E')
@@ -82,7 +87,10 @@ void	fill_dir(t_map *map)
 				map->player->dir = 'E';
 				map->player->x = j + 1;
 				map->player->y = i + 1;
-				map->ray->angle = 0; // 0º
+				map->player->dir_x = 1;
+				map->player->dir_y = 0;
+				map->player->plane_x = 0;
+				map->player->plane_y = 0.66;
 				return ;
 			}
 			else if (map->map[i][j] == 'W')
@@ -90,7 +98,10 @@ void	fill_dir(t_map *map)
 				map->player->dir = 'W';
 				map->player->x = j + 1;
 				map->player->y = i + 1;
-				map->ray->angle = M_PI; // 180º
+				map->player->dir_x = -1;
+				map->player->dir_y = 0;
+				map->player->plane_x = 0;
+				map->player->plane_y = -0.66;
 				return ;
 			}
 			j++;
