@@ -63,44 +63,44 @@ void	fill_dir(t_map *map)
 			if (map->map[i][j] == 'N')
 			{
 				map->player->dir = 'N';
-				map->player->x = j + 1;
-				map->player->y = i + 1;
-				map->player->dir_x = 0;
-				map->player->dir_y = -1;
+				map->player->x = j + 0.5;
+				map->player->y = i + 0.5;
+				map->player->dir_x = 0.0;
+				map->player->dir_y = -1.0;
 				map->player->plane_x = 0.66;
-				map->player->plane_y = 0;
+				map->player->plane_y = 0.0;
 				return ;
 			}
 			else if (map->map[i][j] == 'S')
 			{
 				map->player->dir = 'S';
-				map->player->x = j + 1;
-				map->player->y = i + 1;
-				map->player->dir_x = 0;
-				map->player->dir_y = 1;
+				map->player->x = j + 0.5;
+				map->player->y = i + 0.5;
+				map->player->dir_x = 0.0;
+				map->player->dir_y = 1.0;
 				map->player->plane_x = -0.66;
-				map->player->plane_y = 0;
+				map->player->plane_y = 0.0;
 				return ;
 			}
         	else if (map->map[i][j] == 'E')
 			{
 				map->player->dir = 'E';
-				map->player->x = j + 1;
-				map->player->y = i + 1;
-				map->player->dir_x = 1;
-				map->player->dir_y = 0;
-				map->player->plane_x = 0;
+				map->player->x = j + 0.5;
+				map->player->y = i + 0.5;
+				map->player->dir_x = 1.0;
+				map->player->dir_y = 0.0;
+				map->player->plane_x = 0.0;
 				map->player->plane_y = 0.66;
 				return ;
 			}
 			else if (map->map[i][j] == 'W')
 			{
 				map->player->dir = 'W';
-				map->player->x = j + 1;
-				map->player->y = i + 1;
-				map->player->dir_x = -1;
-				map->player->dir_y = 0;
-				map->player->plane_x = 0;
+				map->player->x = j + 0.5;
+				map->player->y = i + 0.5;
+				map->player->dir_x = -1.0;
+				map->player->dir_y = 0.0;
+				map->player->plane_x = 0.0;
 				map->player->plane_y = -0.66;
 				return ;
 			}

@@ -6,7 +6,7 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 08:57:02 by isromero          #+#    #+#             */
-/*   Updated: 2023/12/08 11:04:55 by isromero         ###   ########.fr       */
+/*   Updated: 2023/12/08 11:55:10 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,7 @@ void	draw_image(t_map *map, int x, int perpWallDist)
 	for (int y = 0; y < ceiling_height; y++)
 	{
 		int pixel = (y * map->img->line_length) + (x * 4);
-		
-
+	
 		if (map->img->endian == 1)
 		{
 			map->img->addr[pixel + 0] = (color_sky >> 24);
@@ -105,26 +104,30 @@ int	raycast(t_map *map)
 	x = -1;
 	while(++x < map->screen_width)
 	{
-		double camera_x = 2 * x / (double)map->screen_width - 1;
+		double camera_x = 2.0 * x / (double)map->screen_width - 1.0;
 		map->ray->dir_x = map->player->dir_x + map->player->plane_x * camera_x;
 		map->ray->dir_y = map->player->dir_y + map->player->plane_y * camera_x;
 
 		int map_x = (int)map->player->x;
 		int map_y = (int)map->player->y;
 
-		double side_dist_x;
-		double side_dist_y;
-		
-		double delta_dist_x = (map->ray->dir_x == 0) ? INFINITY : fabs(1 / map->ray->dir_x);
-		double delta_dist_y = (map->ray->dir_y == 0) ? INFINITY : fabs(1 / map->ray->dir_y);
-		double perp_wall_dist;
+		double delta_dist_x;
+		double delta_dist_y;
+		if (map->ray->dir_x == 0)
+			delta_dist_x = INFINITY;
+		else
+			delta_dist_x = fabs(1 / map->ray->dir_x);
+		if (map->ray->dir_y == 0)
+			delta_dist_y = INFINITY;
+		else
+			delta_dist_y = fabs(1 / map->ray->dir_y);
 
 		int step_x;
 		int step_y;
-
-		int hit = 0;
-
+		
 		// Calculate step and initial sideDist
+		double side_dist_x;
+		double side_dist_y;
 		if (map->ray->dir_x < 0)
 		{
 			step_x = -1;
@@ -147,6 +150,8 @@ int	raycast(t_map *map)
 		}
 		
 		// DDA
+		double perp_wall_dist;
+		int hit = 0;
 		while (hit == 0)
 		{
 			if (side_dist_x < side_dist_y)
