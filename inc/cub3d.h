@@ -34,6 +34,16 @@
 #define KEY_LEFT_ARROW 65361
 #define KEY_RIGHT_ARROW 65363
 
+typedef struct s_line
+{
+	int x;
+	int y;
+	int y0;
+	int y1;
+	int tex_x;
+	int tex_y;
+} t_line;
+
 typedef struct	s_player
 {
 	char			dir;
@@ -50,6 +60,16 @@ typedef struct	s_ray
 	double 			dir_x;
 	double 			dir_y;
 	int				side;
+	double			delta_dist_x;
+	double			delta_dist_y;
+	double			side_dist_x;
+	double			side_dist_y;
+	double			perp_wall_dist;
+	int				step_x;
+	int				step_y;
+	int				map_x;
+	int				map_y;
+	int				hit;
 }	t_ray;
 
 typedef struct s_img
@@ -62,6 +82,13 @@ typedef struct s_img
 	int 			width;
 	int 			height;			
 }	t_img;
+
+typedef struct s_draw
+{
+	int				line_height;
+	int				draw_start;
+	int				draw_end;
+}	t_draw;
 
 typedef struct s_map
 {
@@ -86,6 +113,8 @@ typedef struct s_map
 	void			*mlx_ptr;
 	t_img			*img;
 	t_img			*texture;
+	t_line			*line;
+	t_draw			*draw;
 }	t_map;
 
 // cub_window.c //

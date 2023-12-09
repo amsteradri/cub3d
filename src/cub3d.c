@@ -54,6 +54,8 @@ void	init_vars_map(t_map *map)
 	map->img->bits_per_pixel = 0;
 	map->img->line_length = 0;
 	map->img->endian = 0;
+	map->img->height = 0;
+	map->img->width = 0;
 	map->texture = (t_img *)malloc(sizeof(t_img));
 	map->texture->img = NULL;
 	map->texture->addr = NULL;
@@ -71,6 +73,29 @@ void	init_vars_map(t_map *map)
 	map->player->plane_y = 0.0;
 	map->ray = (t_ray *)malloc(sizeof(t_ray));
 	map->ray->side = 0;
+	map->ray->dir_x = 0.0;
+	map->ray->dir_y = 0.0;
+	map->ray->delta_dist_x = 0.0;
+	map->ray->delta_dist_y = 0.0;
+	map->ray->side_dist_x = 0.0;
+	map->ray->side_dist_y = 0.0;
+	map->ray->perp_wall_dist = 0.0;
+	map->ray->step_x = 0;
+	map->ray->step_y = 0;
+	map->ray->map_x = 0;
+	map->ray->map_y = 0;
+	map->ray->hit = 0;
+	map->line = (t_line *)malloc(sizeof(t_line));
+	map->line->x = 0;
+	map->line->y = 0;
+	map->line->y0 = 0;
+	map->line->y1 = 0;
+	map->line->tex_x = 0;
+	map->line->tex_y = 0;
+	map->draw = (t_draw *)malloc(sizeof(t_draw));
+	map->draw->line_height = 0;
+	map->draw->draw_start = 0;
+	map->draw->draw_end = 0;
 }
 
 // void   leak_check(void)

@@ -6,13 +6,13 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 08:57:02 by isromero          #+#    #+#             */
-/*   Updated: 2023/12/08 11:55:10 by isromero         ###   ########.fr       */
+/*   Updated: 2023/12/09 11:17:18 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	draw_image(t_map *map, int x, int perpWallDist)
+void	draw_image(t_map *map, int x)
 {
 	int color_sky = 0xABCDEF;
 
@@ -28,7 +28,7 @@ void	draw_image(t_map *map, int x, int perpWallDist)
 
 	if (map->img->bits_per_pixel != 32)
 		color_floor = mlx_get_color_value(map->mlx_ptr, color_floor);
-	int line_height = (int)(map->screen_height / perpWallDist);
+	int line_height = (int)(map->screen_height / map->ray->perp_wall_dist);
 	int ceiling_height = -line_height / 2 + map->screen_height / 2;
 	if (ceiling_height < 0)
 		ceiling_height = 0;
@@ -97,6 +97,17 @@ void	draw_image(t_map *map, int x, int perpWallDist)
 	}
 }
 
+void	calculate_draw_values(t_map *map)
+{
+	map->draw->line_height = (int)(map->screen_height / map->ray->perp_wall_dist);
+	map->draw->draw_start = -map->draw->line_height / 2 + map->screen_height / 2;
+	if (map->draw->draw_start < 0)
+		map->draw->draw_start = 0;
+	map->draw->draw_end = map->draw->line_height / 2 + map->screen_height / 2;
+	if (map->draw->draw_end >= map->screen_height)
+		map->draw->draw_end = map->screen_height - 1;
+}
+
 int	raycast(t_map *map)
 {
 	int x;
@@ -108,74 +119,71 @@ int	raycast(t_map *map)
 		map->ray->dir_x = map->player->dir_x + map->player->plane_x * camera_x;
 		map->ray->dir_y = map->player->dir_y + map->player->plane_y * camera_x;
 
-		int map_x = (int)map->player->x;
-		int map_y = (int)map->player->y;
+		map->ray->map_x = (int)map->player->x;
+		map->ray->map_y = (int)map->player->y;
 
-		double delta_dist_x;
-		double delta_dist_y;
 		if (map->ray->dir_x == 0)
-			delta_dist_x = INFINITY;
+			map->ray->delta_dist_x = INFINITY;
 		else
-			delta_dist_x = fabs(1 / map->ray->dir_x);
+			map->ray->delta_dist_x = fabs(1 / map->ray->dir_x);
 		if (map->ray->dir_y == 0)
-			delta_dist_y = INFINITY;
+			map->ray->delta_dist_y = INFINITY;
 		else
-			delta_dist_y = fabs(1 / map->ray->dir_y);
-
-		int step_x;
-		int step_y;
-		
+			map->ray->delta_dist_y = fabs(1 / map->ray->dir_y);
+	
 		// Calculate step and initial sideDist
-		double side_dist_x;
-		double side_dist_y;
 		if (map->ray->dir_x < 0)
 		{
-			step_x = -1;
-			side_dist_x = (map->player->x - map_x) * delta_dist_x;
+			map->ray->step_x = -1;
+			map->ray->side_dist_x = (map->player->x - (float)map->ray->map_x) * map->ray->delta_dist_x;
 		}
 		else
 		{
-			step_x = 1;
-			side_dist_x = (map_x + 1.0 - map->player->x) * delta_dist_x;
+			map->ray->step_x = 1;
+			map->ray->side_dist_x = ((float)map->ray->map_x + 1.0 - map->player->x) * map->ray->delta_dist_x;
 		}
 		if (map->ray->dir_y < 0)
 		{
-			step_y = -1;
-			side_dist_y = (map->player->y - map_y) * delta_dist_y;
+			map->ray->step_y = -1;
+			map->ray->side_dist_y = (map->player->y - map->ray->map_y) * map->ray->delta_dist_y;
 		}
 		else
 		{
-			step_y = 1;
-			side_dist_y = (map_y + 1.0 - map->player->y) * delta_dist_y;
+			map->ray->step_y = 1;
+			map->ray->side_dist_y = (map->ray->map_y + 1.0 - map->player->y) * map->ray->delta_dist_y;
 		}
 		
 		// DDA
-		double perp_wall_dist;
 		int hit = 0;
 		while (hit == 0)
 		{
-			if (side_dist_x < side_dist_y)
+			if (map->ray->side_dist_x < map->ray->side_dist_y)
 			{
-				side_dist_x += delta_dist_x;
-				map_x += step_x;
+				map->ray->side_dist_x += map->ray->delta_dist_x;
+				map->ray->map_x += map->ray->step_x;
 				map->ray->side = 0;
 			}
 			else
 			{
-				side_dist_y += delta_dist_y;
-				map_y += step_y;
+				map->ray->side_dist_y += map->ray->delta_dist_y;
+				map->ray->map_y += map->ray->step_y;
 				map->ray->side = 1;
 			}
 			// Check if ray has hit a wall
-			if (map->map[map_y][map_x] == '1')
+			if (map->map[map->ray->map_y][map->ray->map_x] == '1')
 				hit = 1;
 		}
 
 		if (map->ray->side == 0)
-			perp_wall_dist = side_dist_x - delta_dist_x;
+			map->ray->perp_wall_dist = map->ray->side_dist_x - map->ray->delta_dist_x;
 		else
-			perp_wall_dist = side_dist_y - delta_dist_y;
-		draw_image(map, x, perp_wall_dist);
+			map->ray->perp_wall_dist = map->ray->side_dist_y - map->ray->delta_dist_y;
+
+		draw_image(map, x);
+		
+		// Con texturas (haciendo)
+		/* calculate_draw_values(map); */
+		/* draw_textures(map, x); */
 	}
 	mlx_put_image_to_window(map->mlx_ptr, map->win_ptr, map->img->img, 0, 0);
 	return 0;
