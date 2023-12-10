@@ -28,10 +28,39 @@ static void move_forward(t_map *map)
 
     if (is_valid_move((int)(new_y), (int)(new_x), map))
     {
+        // Movimiento hacia adelante si la nueva posición es válida
         map->player->x = new_x;
         map->player->y = new_y;
     }
+    else
+    {
+        // Ajusta el factor de separación para reducir la distancia al muro
+        double separation_factor = 0.01;
+
+        // Intenta moverse a lo largo del muro (ajusta según sea necesario)
+        new_x = map->player->x + map->player->dir_y * separation_factor;
+        new_y = map->player->y - map->player->dir_x * separation_factor;
+
+        if (is_valid_move((int)(new_y), (int)(new_x), map))
+        {
+            map->player->x = new_x;
+            map->player->y = new_y;
+        }
+        else
+        {
+            // Intenta moverse en la dirección opuesta a lo largo del muro
+            new_x = map->player->x - map->player->dir_y * separation_factor;
+            new_y = map->player->y + map->player->dir_x * separation_factor;
+
+            if (is_valid_move((int)(new_y), (int)(new_x), map))
+            {
+                map->player->x = new_x;
+                map->player->y = new_y;
+            }
+        }
+    }
 }
+
 
 static void move_backward(t_map *map)
 {
@@ -114,12 +143,8 @@ int	move_character(int keycode, t_map *map)
 // {
 //      if (keycode == KEY_ESC)
 //         handle_esc_screen(map);
-//     else if (keycode == KEY_A)
-//         move_left(map);
 //     else if (keycode == KEY_W)
 //         move_forward(map);
-//     else if (keycode == KEY_D)
-//         move_right(map);
 //     else if (keycode == KEY_S)
 //         move_backward(map);
 //     else if (keycode == KEY_LEFT_ARROW)

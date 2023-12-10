@@ -6,7 +6,7 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 08:57:02 by isromero          #+#    #+#             */
-/*   Updated: 2023/12/10 15:40:07 by isromero         ###   ########.fr       */
+/*   Updated: 2023/12/10 22:00:09 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,62 +121,126 @@ void	calculate_draw_values(t_map *map)
 	if (map->draw->draw_end >= map->screen_height)
 		map->draw->draw_end = map->screen_height - 1;
 }
-
-void	calculate_tex_x(t_map *map)
+void	texture_on_img(t_map *map, t_img *img)
 {
-	int	x;
+	int	scale;
 
-	x = 0;
-	if (map->ray->side == 0)
-		map->ray->wall_x = map->player->y + map->ray->perp_wall_dist * map->ray->dir_y;
+	scale = map->line->y * img->line_length
+		- (900 * 1.0) * img->line_length
+		/ 2 + map->draw->line_height * img->line_length / 2;
+	map->line->tex_y = ((scale * img->height) / map->draw->line_height)
+		/ img->line_length;
+	map->img->addr[map->line->y * map->img->line_length + map->line->x
+		* map->img->bits_per_pixel / 8] = img->addr[map->line->tex_y
+		* img->line_length + map->line->tex_x * (img->bits_per_pixel / 8)];
+	map->img->addr[map->line->y * map->img->line_length + map->line->x
+		* (map->img->bits_per_pixel / 8) + 1] = img->addr[map->line->tex_y
+		* img->line_length + map->line->tex_x
+		* (img->bits_per_pixel / 8) + 1];
+	map->img->addr[map->line->y * map->img->line_length + map->line->x
+		* (map->img->bits_per_pixel / 8) + 2] = img->addr[map->line->tex_y
+		* img->line_length + map->line->tex_x
+		* (img->bits_per_pixel / 8) + 2];
+}
+
+static void	pixel_on_img(t_map *map, int rgb, int x, int y)
+{
+	int	r;
+	int	g;
+	int	b;
+
+	r = (rgb >> 16) & 0xFF;
+	g = (rgb >> 8) & 0xFF;
+	b = rgb & 0xFF;
+	map->img->addr[y * map->img->line_length + x * map->img->bits_per_pixel / 8] = b;
+	map->img->addr[y * map->img->line_length + x * map->img->bits_per_pixel / 8 + 1] = g;
+	map->img->addr[y * map->img->line_length + x * map->img->bits_per_pixel / 8 + 2] = r;
+}
+void	paint_line(t_map *map, int rgb)
+{
+	int	y;
+	int	y_max;
+
+	if (map->line->y0 < map->line->y1)
+	{
+		y = map->line->y0;
+		y_max = map->line->y1;
+	}
 	else
-		map->ray->wall_x = map->player->x + map->ray->perp_wall_dist * map->ray->dir_x;
-	map->ray->wall_x -= floor(map->ray->wall_x);
-	x = map->ray->wall_x + 64.0;
-	map->line->tex_x = (int)x;
-
-	if (map->ray->side == 0 && map->ray->dir_x > 0)
-		map->line->tex_x = 64 - map->line->tex_x - 1;
-	if (map->ray->side == 1 && map->ray->dir_y < 0)
-		map->line->tex_x = 64 - map->line->tex_x - 1;
+	{
+		y = map->line->y1;
+		y_max = map->line->y0;
+	}
+	if (y >= 0)
+	{
+		while (y < y_max)
+		{
+			pixel_on_img(map, rgb, map->line->x, y);
+			y++;
+		}
+	}
 }
 
-void	draw_wall(t_map *map, int *y, double *step, double *tex_pos)
+void	draw_texture_image(t_map *map, t_img *img)
 {
-	map->line->tex_y = (int)(*tex_pos) & (64 - 1);
-    (*tex_pos) += (*step);
+	int	y_max;
 
-    int tex_offset = (map->line->tex_y * map->textures[0]->line_length) + (map->line->tex_x * (map->textures[0]->bits_per_pixel / 8));
-    int texture_color = *(int *)(map->textures[0]->addr + tex_offset);
-  
-    my_img_pixel_put(map, map->ray->col, *y, texture_color);
+	if (map->line->y0 < map->line->y1)
+	{
+		map->line->y = map->line->y0;
+		y_max = map->line->y1;
+	}
+	else
+	{
+		map->line->y = map->line->y1;
+		y_max = map->line->y0;
+	}
+	if (map->line->y >= 0)
+	{
+		map->line->y--;
+		while (++map->line->y < y_max)
+			texture_on_img(map, img);
+	}
 }
 
-void	paint_pixels(t_map *map)
+void	paint_texture_line(t_map *map, double wall_x)
 {
-	double	step;
-	int		y;
-	double	tex_pos;
+	int	tex_x;
+	t_img	*img;
 
-	step = 64.0 / map->draw->line_height;
-	tex_pos = (map->draw->draw_start - 1900 / 2 + map->draw->line_height / 2) * step;
+	img = map->no_img;
 
-	y = 0;
-	while (y < map->draw->draw_start)
-	{
-		my_img_pixel_put(map, map->ray->col, y, create_rgb_color(135, 206, 235));
-		y++;
-	}
-	while (y < map->draw->draw_end)
-	{
-		draw_wall(map, &y, &step, &tex_pos);
-		y++;
-	}
-	while (y < 900)
-	{
-		my_img_pixel_put(map, map->ray->col, y, create_rgb_color(160, 82, 45));
-		y++;
-	}
+	tex_x = (int)(wall_x * (double)img->width);
+	if (map->ray->side == 0 && map->ray->dir_y < 0)
+		tex_x = img->width - tex_x - 1;
+	else if (map->ray->side == 1 && map->ray->dir_x > 0)
+		tex_x = img->width - tex_x - 1;
+	map->line->y0 = map->draw->draw_start;
+	map->line->y1 = map->draw->draw_end;
+	map->line->tex_x = tex_x;
+	draw_texture_image(map, img);
+}
+
+void	draw_textures(t_map *map)
+{
+	double wall_x;
+
+	if (map->ray->side == 0) // NS
+		wall_x = map->player->x + map->ray->perp_wall_dist * map->ray->dir_x;
+	else // EW
+		wall_x = map->player->y + map->ray->perp_wall_dist * map->ray->dir_y;
+	wall_x -= floor(wall_x);
+	
+	map->line->x = map->ray->col;
+	if (map->map[map->ray->map_y][map->ray->map_x] == '1')
+		paint_texture_line(map, wall_x);
+	
+	map->line->y0 = 0;
+	map->line->y1 = map->draw->draw_start;
+	paint_line(map, create_rgb_color(0, 0, 255));
+	map->line->y0 = 900;
+	map->line->y1 = map->draw->draw_end;
+	paint_line(map, create_rgb_color(255, 0, 255));
 }
 
 int	raycast(t_map *map)
@@ -252,8 +316,7 @@ int	raycast(t_map *map)
 		
 		// Con texturas (haciendo)
 		calculate_draw_values(map);
-		calculate_tex_x(map);
-		paint_pixels(map);
+		draw_textures(map);
 	}
 	mlx_put_image_to_window(map->mlx_ptr, map->win_ptr, map->img->img, 0, 0);
 	return 0;

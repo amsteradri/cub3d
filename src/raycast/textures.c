@@ -6,35 +6,27 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 14:28:36 by isromero          #+#    #+#             */
-/*   Updated: 2023/12/10 14:38:47 by isromero         ###   ########.fr       */
+/*   Updated: 2023/12/10 21:29:53 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-t_img *load_texture(t_map *map, char *path)
+void	load_texture(t_map *map, char *path)
 {
-    t_img *texture = (t_img *)malloc(sizeof(t_img));  // Asigna memoria para la estructura
-    if (!texture)
+	int	width;
+	int	height;
+
+    //printf("%p\n", map->texture->img);
+	map->texture->img = mlx_xpm_file_to_image(map->mlx_ptr, path, &width, &height);
+    //printf("%d\n", width);
+	if (!map->texture->img)
     {
-        perror("Error en la asignación de memoria para la textura");
-        exit(EXIT_FAILURE);
+        printf("Error loading texture\n");
+        exit(1);
     }
-    int width, height, unused;
-
-    // Carga la textura con MLX
-    texture->img = mlx_xpm_file_to_image(map->mlx_ptr, path, &width, &height);
-    if (!texture->img)
-    {
-        // Manejo de error si la carga falla
-        perror("Error cargando textura");
-        exit(EXIT_FAILURE);
-    }
-
-    // Extrae la información de la textura
-    texture->addr = mlx_get_data_addr(texture->img, &unused, &width, &unused);
-    texture->width = width;
-    texture->height = height;
-
-    return texture;
+	map->texture->width = width;
+	map->texture->height = height;
+	map->texture->addr = mlx_get_data_addr(map->texture->img, &map->texture->bits_per_pixel,
+			&map->texture->line_length, &map->texture->endian);
 }

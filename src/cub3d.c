@@ -20,12 +20,12 @@ void initialize_textures(t_map *map)
         perror("Error asignando memoria para texturas");
         exit(1);
     } */
-    map->textures[0] = load_texture(map, map->no); 
+	
+    load_texture(map, map->no);
     /* map->textures[1] = load_texture(map, map->so); 
     map->textures[2] = load_texture(map, map->we);
     map->textures[3] = load_texture(map, map->ea); */
 }
-
 
 int	map_height(char **map)
 {
@@ -53,7 +53,6 @@ int	find_longest_line_length(char **map)
     }
     return longest_length;
 }
-
 
 void	init_vars_map(t_map *map)
 {
@@ -113,6 +112,7 @@ void	init_vars_map(t_map *map)
 	map->draw->line_height = 0;
 	map->draw->draw_start = 0;
 	map->draw->draw_end = 0;
+	map->no_img = (t_img *)malloc(sizeof(t_img));
 }
 
 // void   leak_check(void)
