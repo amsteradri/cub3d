@@ -70,6 +70,8 @@ typedef struct	s_ray
 	int				map_x;
 	int				map_y;
 	int				hit;
+	double			wall_x;
+	int				col;
 }	t_ray;
 
 typedef struct s_img
@@ -113,6 +115,7 @@ typedef struct s_map
 	void			*mlx_ptr;
 	t_img			*img;
 	t_img			*texture;
+	t_img 			*textures[4];
 	t_line			*line;
 	t_draw			*draw;
 }	t_map;
@@ -147,6 +150,7 @@ char	**read_map(char *fmap);
 void	fill_dir(t_map *map);
 
 // textures.c //
+t_img	*load_texture(t_map *map, char *path);
 
 // parsemap.c //
 void parse_top_map(t_map *map);

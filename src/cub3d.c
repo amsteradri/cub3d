@@ -12,6 +12,21 @@
 
 #include "cub3d.h"
 
+void initialize_textures(t_map *map)
+{
+	/* map->textures = (int **)malloc(4 * sizeof(int *));
+	if (!map->textures)
+    {
+        perror("Error asignando memoria para texturas");
+        exit(1);
+    } */
+    map->textures[0] = load_texture(map, map->no); 
+    /* map->textures[1] = load_texture(map, map->so); 
+    map->textures[2] = load_texture(map, map->we);
+    map->textures[3] = load_texture(map, map->ea); */
+}
+
+
 int	map_height(char **map)
 {
 	int	i;
@@ -85,6 +100,8 @@ void	init_vars_map(t_map *map)
 	map->ray->map_x = 0;
 	map->ray->map_y = 0;
 	map->ray->hit = 0;
+	map->ray->wall_x = 0.0;
+	map->ray->col = 0;
 	map->line = (t_line *)malloc(sizeof(t_line));
 	map->line->x = 0;
 	map->line->y = 0;
@@ -136,7 +153,7 @@ int	main(int argc, char **argv)
 	fill_dir(&map);
 	create_window(&map);
 	create_img(&map);
-	/* load_texture(&map, map.no); */
+	initialize_textures(&map);
 	render_all(&map);
 	mlx_hook(map.win_ptr, 2, 1L << 0, move_character, &map);
 	mlx_hook(map.win_ptr, 17, 1L << 0, handle_esc_screen, &map);
