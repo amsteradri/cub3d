@@ -82,7 +82,7 @@ typedef struct s_img
 	int				line_length;
 	int				endian;
 	int 			width;
-	int 			height;			
+	int 			height;
 }	t_img;
 
 typedef struct s_draw
@@ -99,6 +99,10 @@ typedef struct s_map
     char 			so[256];
     char 			we[256];
     char 			ea[256];
+	t_img			*no_img;
+	// t_img			*so_img;
+	// t_img			*we_img;
+	// t_img			*ea_img;
 	int				fr;
 	int				fg;
 	int				fb;
@@ -115,7 +119,6 @@ typedef struct s_map
 	void			*mlx_ptr;
 	t_img			*img;
 	t_img			*texture;
-	t_img 			*textures[4];
 	t_line			*line;
 	t_draw			*draw;
 }	t_map;
@@ -150,7 +153,7 @@ char	**read_map(char *fmap);
 void	fill_dir(t_map *map);
 
 // textures.c //
-t_img	*load_texture(t_map *map, char *path);
+void	load_texture(t_map *map, char *path);
 
 // parsemap.c //
 void parse_top_map(t_map *map);

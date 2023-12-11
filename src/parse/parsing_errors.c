@@ -83,6 +83,7 @@ void check_nsew(t_map **map)
             if ((*map)->map[y][x] == 'N' || (*map)->map[y][x] == 'S' ||
                 (*map)->map[y][x] == 'E' || (*map)->map[y][x] == 'W')
             {
+				//printf("encuentro esto:%c\n", (*map)->map[y][x]);
                 direction_count++;
             }
             x++;
