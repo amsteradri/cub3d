@@ -153,7 +153,7 @@ char	**read_map(char *fmap);
 void	fill_dir(t_map *map);
 
 // textures.c //
-void	load_texture(t_map *map, char *path);
+void	load_texture(t_map *map, t_img *img, char *path);
 
 // parsemap.c //
 void parse_top_map(t_map *map);

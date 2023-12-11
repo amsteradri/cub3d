@@ -21,7 +21,7 @@ void initialize_textures(t_map *map)
         exit(1);
     } */
 	
-    load_texture(map, map->no);
+    load_texture(map,map->no_img, map->no);
     /* map->textures[1] = load_texture(map, map->so); 
     map->textures[2] = load_texture(map, map->we);
     map->textures[3] = load_texture(map, map->ea); */

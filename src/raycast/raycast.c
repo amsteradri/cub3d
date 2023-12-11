@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: adgutier <adgutier@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 08:57:02 by isromero          #+#    #+#             */
-/*   Updated: 2023/12/10 22:00:09 by isromero         ###   ########.fr       */
+/*   Updated: 2023/12/11 20:56:50 by adgutier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,8 @@ void	calculate_draw_values(t_map *map)
 	if (map->draw->draw_end >= map->screen_height)
 		map->draw->draw_end = map->screen_height - 1;
 }
-void	texture_on_img(t_map *map, t_img *img)
+
+void texture_on_img(t_map *map, t_img *img)
 {
 	int	scale;
 
@@ -209,15 +210,20 @@ void	paint_texture_line(t_map *map, double wall_x)
 	t_img	*img;
 
 	img = map->no_img;
-
+	
 	tex_x = (int)(wall_x * (double)img->width);
+	// printf("tex %d\n", tex_x);
 	if (map->ray->side == 0 && map->ray->dir_y < 0)
 		tex_x = img->width - tex_x - 1;
 	else if (map->ray->side == 1 && map->ray->dir_x > 0)
 		tex_x = img->width - tex_x - 1;
+	// printf("tex %d\n", tex_x);
 	map->line->y0 = map->draw->draw_start;
+	// printf("y0 %d\n", map->line->y0);
 	map->line->y1 = map->draw->draw_end;
+	// printf("y1 %d\n",map->line->y1);
 	map->line->tex_x = tex_x;
+	// printf("tex %d\n",map->line->tex_x);
 	draw_texture_image(map, img);
 }
 
@@ -225,7 +231,7 @@ void	draw_textures(t_map *map)
 {
 	double wall_x;
 
-	if (map->ray->side == 0) // NS
+	if (map->ray->side == 1) // NS
 		wall_x = map->player->x + map->ray->perp_wall_dist * map->ray->dir_x;
 	else // EW
 		wall_x = map->player->y + map->ray->perp_wall_dist * map->ray->dir_y;
