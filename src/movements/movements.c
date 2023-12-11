@@ -23,8 +23,8 @@ int	is_valid_move(int fil, int col, t_map *map)
 
 static void move_forward(t_map *map)
 {
-    double new_x = map->player->x + map->player->dir_x * 0.5;
-    double new_y = map->player->y + map->player->dir_y * 0.5;
+    double new_x = map->player->x + map->player->dir_x * 0.2;
+    double new_y = map->player->y + map->player->dir_y * 0.2;
 
     if (is_valid_move((int)(new_y), (int)(new_x), map))
     {
@@ -32,7 +32,7 @@ static void move_forward(t_map *map)
         map->player->x = new_x;
         map->player->y = new_y;
     }
-    else
+   /*  else
     {
         // Ajusta el factor de separación para reducir la distancia al muro
         double separation_factor = 0.01;
@@ -58,14 +58,14 @@ static void move_forward(t_map *map)
                 map->player->y = new_y;
             }
         }
-    }
+    } */
 }
 
 
 static void move_backward(t_map *map)
 {
-    double new_x = map->player->x - map->player->dir_x * 0.5;
-    double new_y = map->player->y - map->player->dir_y * 0.5;
+    double new_x = map->player->x - map->player->dir_x * 0.2;
+    double new_y = map->player->y - map->player->dir_y * 0.2;
 
     if (is_valid_move((int)floor(new_y), (int)floor(new_x), map))
     {
@@ -119,27 +119,27 @@ static void move_camera_right(t_map *map)
     map->player->plane_y = old_plane_x * sin(8 * DR) + map->player->plane_y * cos(8 * DR);
 }
 
-// int	move_character(int keycode, t_map *map)
-// {
-// 	if (keycode == 53)
-// 		handle_esc_screen(map);
-// 	else if (keycode == 13)
-// 		move_forward(map);
-// 	else if (keycode == 1)
-// 		move_backward(map);
-// 	else  if (keycode == 123)
-// 		move_camera_left(map);
-// 	else if (keycode == 124)
-// 		move_camera_right(map);
-// 	return (0);
-// }
+int	move_character(int keycode, t_map *map)
+{
+	if (keycode == 53)
+		handle_esc_screen(map);
+	else if (keycode == 13)
+		move_forward(map);
+	else if (keycode == 1)
+		move_backward(map);
+	else  if (keycode == 123)
+		move_camera_left(map);
+	else if (keycode == 124)
+		move_camera_right(map);
+	return (0);
+}
 
 	/* else if (keycode == 2)
 		move_left(map);
         else if (keycode == 0)
 		move_right(map); */
 
-int move_character(int keycode, t_map *map)
+/* int move_character(int keycode, t_map *map)
 {
      if (keycode == KEY_ESC)
         handle_esc_screen(map);
@@ -152,4 +152,4 @@ int move_character(int keycode, t_map *map)
     else if (keycode == KEY_RIGHT_ARROW)
         move_camera_right(map);
     return (0);
-}
+} */
