@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adgutier <adgutier@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 08:57:02 by isromero          #+#    #+#             */
-/*   Updated: 2023/12/12 15:22:58 by adgutier         ###   ########.fr       */
+/*   Updated: 2023/12/12 21:57:52 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,13 +125,19 @@ void	paint_texture_line(t_map *map, double wall_x)
 	t_img	*img;
 
 	img = map->no_img;
+	if (map->ray->side == EAST)
+		img = map->ea_img;
+	else if (map->ray->side == NORTH)
+		img = map->no_img;
+	else if (map->ray->side == WEST)
+		img = map->we_img;
+	else if (map->ray->side == SOUTH)
+		img = map->so_img;
 	tex_x = (int)(wall_x * (double)img->width);
-	if (map->ray->side == 0 && map->ray->dir_y < 0)
+	if ((map->ray->side ==  NORTH || map->ray->side == SOUTH) && map->ray->dir_x < 0)
 		tex_x = img->width - tex_x - 1;
-	else // HAY QUE HACER LOS DISTINTOS ELSE IF PARA CADA TEXTURA
+	else if ((map->ray->side == EAST || map->ray->side == WEST) && map->ray->dir_x > 0)
 		tex_x = img->width - tex_x - 1; 
-	/* else if (map->ray->side == 1 && map->ray->dir_x > 0) */
-		tex_x = img->width - tex_x - 1;
 	map->line->y0 = map->draw->draw_start;
 	map->line->y1 = map->draw->draw_end;
 	map->line->tex_x = tex_x;
@@ -142,9 +148,10 @@ void	draw_textures(t_map *map)
 {
 	double wall_x;
 
-	if (map->ray->side == 1)
+	wall_x = 0.0;
+	if (map->ray->side == NORTH || map->ray->side == SOUTH)
 		wall_x = map->player->x + map->ray->perp_wall_dist * map->ray->dir_x;
-	else
+	else if (map->ray->side == EAST || map->ray->side == WEST)
 		wall_x = map->player->y + map->ray->perp_wall_dist * map->ray->dir_y;
 	wall_x -= floor(wall_x);
 	
@@ -217,22 +224,28 @@ int	raycast(t_map *map)
 			{
 				map->ray->side_dist_x += map->ray->delta_dist_x;
 				map->ray->map_x += map->ray->step_x;
-				map->ray->side = 0;
+				if (map->ray->step_x == -1)
+					map->ray->side = WEST;
+				else
+					map->ray->side = EAST;
 			}
 			else
 			{
 				map->ray->side_dist_y += map->ray->delta_dist_y;
 				map->ray->map_y += map->ray->step_y;
-				map->ray->side = 1;
+				if (map->ray->step_y == -1)
+					map->ray->side = NORTH;
+				else
+					map->ray->side = SOUTH;
 			}
 			// Check if ray has hit a wall
 			if (map->map[map->ray->map_y][map->ray->map_x] == '1')
 				hit = 1;
 		}
 
-		if (map->ray->side == 0)
+		if (map->ray->side == EAST || map->ray->side == WEST)
 			map->ray->perp_wall_dist = map->ray->side_dist_x - map->ray->delta_dist_x;
-		else
+		else if (map->ray->side == NORTH || map->ray->side == SOUTH)
 			map->ray->perp_wall_dist = map->ray->side_dist_y - map->ray->delta_dist_y;
 		/* draw_image(map); */
 		

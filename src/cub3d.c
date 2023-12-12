@@ -28,7 +28,6 @@ void initialize_textures(t_map *map)
     }
 	else 
 	{
-        printf("Error: the texture \"%s\" does not exist.\nLoading default texture\n", map->we);
         load_texture(map, map->we_img, "assets/default.xpm");
     }
     if (access(map->ea, F_OK) != -1) {

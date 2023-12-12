@@ -76,7 +76,7 @@ static void move_backward(t_map *map)
 
 static void move_right(t_map *map)
 {
-    double move_speed = 0.5;  // Ajusta esta velocidad según sea necesario
+    double move_speed = 0.2;
     double new_x = map->player->x - map->player->dir_y * move_speed;
     double new_y = map->player->y + map->player->dir_x * move_speed;
 
@@ -89,7 +89,7 @@ static void move_right(t_map *map)
 
 static void move_left(t_map *map)
 {
-    double move_speed = 0.5;  // Ajusta esta velocidad según sea necesario
+    double move_speed = 0.2;
     double new_x = map->player->x + map->player->dir_y * move_speed;
     double new_y = map->player->y - map->player->dir_x * move_speed;
 
@@ -99,31 +99,6 @@ static void move_left(t_map *map)
         map->player->y = new_y;
     }
 }
-
-/* static void move_left(t_map *map)
-{
-    double new_x = map->player->x - (sin(map->ray->angle) * 0.5);
-    double new_y = map->player->y + (cos(map->ray->angle) * 0.5);
-
-    if (is_valid_move((int)floor(new_y), (int)floor(new_x), map))
-    {
-        map->player->x = new_x;
-        map->player->y = new_y;
-    }
-}
-
-static void move_right(t_map *map)
-{
-    double new_x = map->player->x + (sin(map->ray->angle) * 0.5);
-    double new_y = map->player->y - (cos(map->ray->angle) * 0.5);
-
-    if (is_valid_move((int)floor(new_y), (int)floor(new_x), map))
-    {
-        map->player->x = new_x;
-        map->player->y = new_y;
-    }
-} */
-
 
 static void	move_camera_left(t_map *map)
 {
@@ -163,11 +138,6 @@ int	move_character(int keycode, t_map *map)
 		move_camera_right(map);
 	return (0);
 }
-
-	/* else if (keycode == 2)
-		move_left(map);
-        else if (keycode == 0)
-		move_right(map); */
 
 // int move_character(int keycode, t_map *map)
 // {

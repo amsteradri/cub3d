@@ -33,6 +33,10 @@
 #define KEY_ESC 65307
 #define KEY_LEFT_ARROW 65361
 #define KEY_RIGHT_ARROW 65363
+#define NORTH 1
+#define SOUTH 2
+#define EAST 3
+#define WEST 4
 
 typedef struct s_line
 {
