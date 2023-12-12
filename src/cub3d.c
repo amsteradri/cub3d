@@ -14,17 +14,40 @@
 
 void initialize_textures(t_map *map)
 {
-	/* map->textures = (int **)malloc(4 * sizeof(int *));
-	if (!map->textures)
-    {
-        perror("Error asignando memoria para texturas");
-        exit(1);
-    } */
-	
-    load_texture(map,map->no_img, map->no);
-    /* map->textures[1] = load_texture(map, map->so); 
-    map->textures[2] = load_texture(map, map->we);
-    map->textures[3] = load_texture(map, map->ea); */
+    if (access(map->no, F_OK) != -1) {
+        load_texture(map, map->no_img, map->no);
+    }
+	else
+	{
+        printf("Error: the texture \"%s\" does not exist.\nLoading default texture\n", map->no);
+        load_texture(map, map->no_img, "assets/default.xpm");
+    }
+
+    if (access(map->we, F_OK) != -1) {
+        load_texture(map, map->we_img, map->we);
+    }
+	else 
+	{
+        printf("Error: the texture \"%s\" does not exist.\nLoading default texture\n", map->we);
+        load_texture(map, map->we_img, "assets/default.xpm");
+    }
+    if (access(map->ea, F_OK) != -1) {
+        load_texture(map, map->ea_img, map->ea);
+    }
+	else 
+	{
+        printf("Error: the texture \"%s\" does not exist.\nLoading default texture\n", map->ea);
+        load_texture(map, map->ea_img, "assets/default.xpm");
+    }
+
+    if (access(map->so, F_OK) != -1) {
+        load_texture(map, map->so_img, map->so);
+    }
+	else 
+	{
+        printf("Error: the texture \"%s\" does not exist.\nLoading default texture\n", map->so);
+        load_texture(map, map->so_img, "assets/default.xpm");
+    }
 }
 
 int	map_height(char **map)
@@ -113,6 +136,10 @@ void	init_vars_map(t_map *map)
 	map->draw->draw_start = 0;
 	map->draw->draw_end = 0;
 	map->no_img = (t_img *)malloc(sizeof(t_img));
+	map->we_img = (t_img *)malloc(sizeof(t_img));
+	map->ea_img = (t_img *)malloc(sizeof(t_img));
+	map->so_img = (t_img *)malloc(sizeof(t_img));
+	
 }
 
 // void   leak_check(void)

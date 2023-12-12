@@ -100,9 +100,9 @@ typedef struct s_map
     char 			we[256];
     char 			ea[256];
 	t_img			*no_img;
-	// t_img			*so_img;
-	// t_img			*we_img;
-	// t_img			*ea_img;
+	t_img			*so_img;
+	t_img			*we_img;
+	t_img			*ea_img;
 	int				fr;
 	int				fg;
 	int				fb;

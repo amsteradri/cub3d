@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: adgutier <adgutier@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 08:57:02 by isromero          #+#    #+#             */
-/*   Updated: 2023/12/11 21:56:03 by isromero         ###   ########.fr       */
+/*   Updated: 2023/12/12 15:22:58 by adgutier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,91 +24,6 @@ void	my_img_pixel_put(t_map *map, int x, int y, int color)
 int create_rgb_color(int red, int green, int blue)
 {
     return (red << 16) | (green << 8) | blue;
-}
-
-void	draw_image(t_map *map)
-{
-	int color_sky = 0xABCDEF;
-
-	if (map->img->bits_per_pixel != 32)
-		color_sky = mlx_get_color_value(map->mlx_ptr, color_sky);
-
-	int color_wall = 0x00AA0000;
-
-	if (map->img->bits_per_pixel != 32)
-		color_wall = mlx_get_color_value(map->mlx_ptr, color_wall);
-
-	int color_floor = 0x00FF00;
-
-	if (map->img->bits_per_pixel != 32)
-		color_floor = mlx_get_color_value(map->mlx_ptr, color_floor);
-	int line_height = (int)(map->screen_height / map->ray->perp_wall_dist);
-	int ceiling_height = -line_height / 2 + map->screen_height / 2;
-	if (ceiling_height < 0)
-		ceiling_height = 0;
-	int floor_height = line_height / 2 + map->screen_height / 2;
-	if (floor_height >= map->screen_height)
-		floor_height = map->screen_height - 1;
-	
-	for (int y = 0; y < ceiling_height; y++)
-	{
-		int pixel = (y * map->img->line_length) + (map->ray->col * 4);
-	
-		if (map->img->endian == 1)
-		{
-			map->img->addr[pixel + 0] = (color_sky >> 24);
-			map->img->addr[pixel + 1] = (color_sky >> 16) & 0xFF;
-			map->img->addr[pixel + 2] = (color_sky >> 8) & 0xFF;
-			map->img->addr[pixel + 3] = (color_sky) & 0xFF;
-		}
-		else if (map->img->endian == 0)
-		{
-			map->img->addr[pixel + 0] = (color_sky) & 0xFF;
-			map->img->addr[pixel + 1] = (color_sky >> 8) & 0xFF;
-			map->img->addr[pixel + 2] = (color_sky >> 16) & 0xFF;
-			map->img->addr[pixel + 3] = (color_sky >> 24);
-		}
-	}
-
-	for (int y = ceiling_height; y < floor_height; y++)
-	{
-		int pixel = (y * map->img->line_length) + (map->ray->col * 4);
-		
-		if (map->img->endian == 1)
-		{
-			map->img->addr[pixel + 0] = (color_wall >> 24);
-			map->img->addr[pixel + 1] = (color_wall >> 16) & 0xFF;
-			map->img->addr[pixel + 2] = (color_wall >> 8) & 0xFF;
-			map->img->addr[pixel + 3] = (color_wall) & 0xFF;
-		}
-		else if (map->img->endian == 0)
-		{
-			map->img->addr[pixel + 0] = (color_wall) & 0xFF;
-			map->img->addr[pixel + 1] = (color_wall >> 8) & 0xFF;
-			map->img->addr[pixel + 2] = (color_wall >> 16) & 0xFF;
-			map->img->addr[pixel + 3] = (color_wall >> 24);
-		}
-	}
-
-	for (int y = floor_height; y < map->screen_height; y++)
-	{
-		int pixel = (y * map->img->line_length) + (map->ray->col * 4);
-		
-		if (map->img->endian == 1)
-		{
-			map->img->addr[pixel + 0] = (color_floor >> 24);
-			map->img->addr[pixel + 1] = (color_floor >> 16) & 0xFF;
-			map->img->addr[pixel + 2] = (color_floor >> 8) & 0xFF;
-			map->img->addr[pixel + 3] = (color_floor) & 0xFF;
-		}
-		else if (map->img->endian == 0)
-		{
-			map->img->addr[pixel + 0] = (color_floor) & 0xFF;
-			map->img->addr[pixel + 1] = (color_floor >> 8) & 0xFF;
-			map->img->addr[pixel + 2] = (color_floor >> 16) & 0xFF;
-			map->img->addr[pixel + 3] = (color_floor >> 24);
-		}
-	}
 }
 
 void	calculate_draw_values(t_map *map)
@@ -239,10 +154,16 @@ void	draw_textures(t_map *map)
 	
 	map->line->y0 = 0;
 	map->line->y1 = map->draw->draw_start;
-	paint_line(map, create_rgb_color(0, 0, 255));
+	if((map->cr >= 0 && map->cr <= 255) && (map->cg >= 0 && map->cg <= 255) && (map->cb >= 0 && map->cb <= 255))
+		paint_line(map, create_rgb_color(map->cr, map->cg, map->cb));
+	else
+		paint_line(map, create_rgb_color(0, 0, 255));
 	map->line->y0 = 900;
 	map->line->y1 = map->draw->draw_end;
-	paint_line(map, create_rgb_color(255, 0, 255));
+	if((map->fr >= 0 && map->fr <= 255) && (map->fg >= 0 && map->fg <= 255) && (map->fb >= 0 && map->fb <= 255))
+		paint_line(map, create_rgb_color(map->fr, map->fg, map->fb));
+	else
+		paint_line(map, create_rgb_color(255, 0, 255));
 }
 
 int	raycast(t_map *map)
