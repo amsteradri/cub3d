@@ -16,88 +16,57 @@ int	is_valid_move(int fil, int col, t_map *map)
 {
 	if (fil < 0 || fil >= map->y || col < 0 || col >= map->x)
 		return (0);
+        
 	if (map->map[fil][col] == '1')
 		return (0);
 	return (1);
 }
 
-static void move_forward(t_map *map)
-{
-    double new_x = map->player->x + map->player->dir_x * 0.2;
-    double new_y = map->player->y + map->player->dir_y * 0.2;
+static void move_forward(t_map *map) {
+    double new_x = map->player->x + map->player->dir_x * 0.1;
+    double new_y = map->player->y + map->player->dir_y * 0.1;
 
-    if (is_valid_move((int)(new_y), (int)(new_x), map))
-    {
-        // Movimiento hacia adelante si la nueva posición es válida
+    // Verificar colisión por separado para X y Y (Esto permite deslizarse por las paredes y no quedarse atascado)
+    if (is_valid_move((int)map->player->y, (int)new_x, map))
         map->player->x = new_x;
+    if (is_valid_move((int)new_y, (int)map->player->x, map))
         map->player->y = new_y;
-    }
-   /*  else
-    {
-        // Ajusta el factor de separación para reducir la distancia al muro
-        double separation_factor = 0.01;
-
-        // Intenta moverse a lo largo del muro (ajusta según sea necesario)
-        new_x = map->player->x + map->player->dir_y * separation_factor;
-        new_y = map->player->y - map->player->dir_x * separation_factor;
-
-        if (is_valid_move((int)(new_y), (int)(new_x), map))
-        {
-            map->player->x = new_x;
-            map->player->y = new_y;
-        }
-        else
-        {
-            // Intenta moverse en la dirección opuesta a lo largo del muro
-            new_x = map->player->x - map->player->dir_y * separation_factor;
-            new_y = map->player->y + map->player->dir_x * separation_factor;
-
-            if (is_valid_move((int)(new_y), (int)(new_x), map))
-            {
-                map->player->x = new_x;
-                map->player->y = new_y;
-            }
-        }
-    } */
 }
-
 
 static void move_backward(t_map *map)
 {
-    double new_x = map->player->x - map->player->dir_x * 0.2;
-    double new_y = map->player->y - map->player->dir_y * 0.2;
+    double new_x = map->player->x - map->player->dir_x * 0.1;
+    double new_y = map->player->y - map->player->dir_y * 0.1;
 
-    if (is_valid_move((int)floor(new_y), (int)floor(new_x), map))
-    {
+    // Verificar colisión por separado para X y Y (Esto permite deslizarse por las paredes y no quedarse atascado)
+    if (is_valid_move((int)map->player->y, (int)new_x, map))
         map->player->x = new_x;
+    if (is_valid_move((int)new_y, (int)map->player->x, map))
         map->player->y = new_y;
-    }
 }
 
 static void move_right(t_map *map)
 {
-    double move_speed = 0.2;
-    double new_x = map->player->x - map->player->dir_y * move_speed;
-    double new_y = map->player->y + map->player->dir_x * move_speed;
+    double new_x = map->player->x - map->player->dir_y * 0.1;
+    double new_y = map->player->y + map->player->dir_x * 0.1;
 
-    if (is_valid_move((int)floor(new_y), (int)floor(new_x), map))
-    {
+     // Verificar colisión por separado para X y Y (Esto permite deslizarse por las paredes y no quedarse atascado)
+    if (is_valid_move((int)map->player->y, (int)new_x, map))
         map->player->x = new_x;
+    if (is_valid_move((int)new_y, (int)map->player->x, map))
         map->player->y = new_y;
-    }
 }
 
 static void move_left(t_map *map)
 {
-    double move_speed = 0.2;
-    double new_x = map->player->x + map->player->dir_y * move_speed;
-    double new_y = map->player->y - map->player->dir_x * move_speed;
+    double new_x = map->player->x + map->player->dir_y * 0.1;
+    double new_y = map->player->y - map->player->dir_x * 0.1;
 
-    if (is_valid_move((int)floor(new_y), (int)floor(new_x), map))
-    {
+     // Verificar colisión por separado para X y Y (Esto permite deslizarse por las paredes y no quedarse atascado)
+    if (is_valid_move((int)map->player->y, (int)new_x, map))
         map->player->x = new_x;
+    if (is_valid_move((int)new_y, (int)map->player->x, map))
         map->player->y = new_y;
-    }
 }
 
 static void	move_camera_left(t_map *map)
