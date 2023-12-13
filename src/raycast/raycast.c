@@ -6,7 +6,7 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 08:57:02 by isromero          #+#    #+#             */
-/*   Updated: 2023/12/13 20:41:19 by isromero         ###   ########.fr       */
+/*   Updated: 2023/12/13 21:00:35 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,15 @@ void	calculate_draw_values(t_map *map)
 void texture_on_img(t_map *map, t_img *img)
 {
 	int	scale;
-
+	
 	scale = map->line->y * img->line_length
 		- (900 * 1.0) * img->line_length
 		/ 2 + map->draw->line_height * img->line_length / 2;
 	map->line->tex_y = ((scale * img->height) / map->draw->line_height)
 		/ img->line_length;
+	
+	if (map->line->tex_y < 0 || map->line->tex_y >= img->height || map->line->tex_x < 0 || map->line->tex_x >= img->width) // Solución de seg fault por límites de textura
+        return;
 	map->img->addr[map->line->y * map->img->line_length + map->line->x
 		* map->img->bits_per_pixel / 8] = img->addr[map->line->tex_y
 		* img->line_length + map->line->tex_x * (img->bits_per_pixel / 8)];
@@ -134,10 +137,22 @@ void	paint_texture_line(t_map *map, double wall_x)
 	else if (map->ray->side == SOUTH)
 		img = map->so_img;
 	tex_x = (int)(wall_x * (double)img->width);
-	if ((map->ray->side ==  NORTH || map->ray->side == SOUTH) && map->ray->dir_x < 0)
+	if ((map->ray->side == NORTH || map->ray->side == SOUTH) && map->ray->dir_x < 0)
+	{
 		tex_x = img->width - tex_x - 1;
+		if (tex_x < 0)
+			tex_x = 0;
+		else if (tex_x >= img->width)
+			tex_x = img->width - 1;
+	}
 	else
-		tex_x = img->width - tex_x - 1; 
+	{
+		tex_x = img->width - tex_x - 1;
+		if (tex_x < 0)
+			tex_x = 0;
+		else if (tex_x >= img->width)
+			tex_x = img->width - 1;
+	}
 	map->line->y0 = map->draw->draw_start;
 	map->line->y1 = map->draw->draw_end;
 	map->line->tex_x = tex_x;
