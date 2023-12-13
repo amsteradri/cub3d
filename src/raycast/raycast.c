@@ -6,7 +6,7 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 08:57:02 by isromero          #+#    #+#             */
-/*   Updated: 2023/12/12 21:57:52 by isromero         ###   ########.fr       */
+/*   Updated: 2023/12/13 20:41:19 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ void	paint_texture_line(t_map *map, double wall_x)
 	tex_x = (int)(wall_x * (double)img->width);
 	if ((map->ray->side ==  NORTH || map->ray->side == SOUTH) && map->ray->dir_x < 0)
 		tex_x = img->width - tex_x - 1;
-	else if ((map->ray->side == EAST || map->ray->side == WEST) && map->ray->dir_x > 0)
+	else
 		tex_x = img->width - tex_x - 1; 
 	map->line->y0 = map->draw->draw_start;
 	map->line->y1 = map->draw->draw_end;
