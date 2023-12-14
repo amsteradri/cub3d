@@ -12,41 +12,46 @@
 
 #include "cub3d.h"
 
-void initialize_textures(t_map *map)
+void	initialize_textures(t_map *map)
 {
-    if (access(map->no, F_OK) != -1) {
-        load_texture(map, map->no_img, map->no);
-    }
+	if (access(map->no, F_OK) != -1)
+	{
+		load_texture(map, map->no_img, map->no);
+	}
 	else
 	{
-        printf("Error: the texture \"%s\" does not exist.\nLoading default texture\n", map->no);
-        load_texture(map, map->no_img, "assets/default.xpm");
-    }
-
-    if (access(map->we, F_OK) != -1) {
-        load_texture(map, map->we_img, map->we);
-    }
-	else 
+		printf("Error: the texture \"%s\" does not exist.\nLoading default texture\n",
+				map->no);
+		load_texture(map, map->no_img, "assets/default.xpm");
+	}
+	if (access(map->we, F_OK) != -1)
 	{
-        load_texture(map, map->we_img, "assets/default.xpm");
-    }
-    if (access(map->ea, F_OK) != -1) {
-        load_texture(map, map->ea_img, map->ea);
-    }
-	else 
+		load_texture(map, map->we_img, map->we);
+	}
+	else
 	{
-        printf("Error: the texture \"%s\" does not exist.\nLoading default texture\n", map->ea);
-        load_texture(map, map->ea_img, "assets/default.xpm");
-    }
-
-    if (access(map->so, F_OK) != -1) {
-        load_texture(map, map->so_img, map->so);
-    }
-	else 
+		load_texture(map, map->we_img, "assets/default.xpm");
+	}
+	if (access(map->ea, F_OK) != -1)
 	{
-        printf("Error: the texture \"%s\" does not exist.\nLoading default texture\n", map->so);
-        load_texture(map, map->so_img, "assets/default.xpm");
-    }
+		load_texture(map, map->ea_img, map->ea);
+	}
+	else
+	{
+		printf("Error: the texture \"%s\" does not exist.\nLoading default texture\n",
+				map->ea);
+		load_texture(map, map->ea_img, "assets/default.xpm");
+	}
+	if (access(map->so, F_OK) != -1)
+	{
+		load_texture(map, map->so_img, map->so);
+	}
+	else
+	{
+		printf("Error: the texture \"%s\" does not exist.\nLoading default texture\n",
+				map->so);
+		load_texture(map, map->so_img, "assets/default.xpm");
+	}
 }
 
 int	map_height(char **map)
@@ -61,19 +66,21 @@ int	map_height(char **map)
 
 int	find_longest_line_length(char **map)
 {
-    int longest_length = 0;
+	int	longest_length;
+	int	current_length;
 
-    if (map == NULL) {
-        return longest_length;
-    }
-
-    for (int i = 0; map[i] != NULL; i++) {
-        int current_length = strlen(map[i]);
-
-        if (current_length > longest_length)
-            longest_length = current_length;
-    }
-    return longest_length;
+	longest_length = 0;
+	if (map == NULL)
+	{
+		return (longest_length);
+	}
+	for (int i = 0; map[i] != NULL; i++)
+	{
+		current_length = strlen(map[i]);
+		if (current_length > longest_length)
+			longest_length = current_length;
+	}
+	return (longest_length);
 }
 
 void	init_vars_map(t_map *map)
@@ -138,19 +145,18 @@ void	init_vars_map(t_map *map)
 	map->we_img = (t_img *)malloc(sizeof(t_img));
 	map->ea_img = (t_img *)malloc(sizeof(t_img));
 	map->so_img = (t_img *)malloc(sizeof(t_img));
-	
 }
 
 // void   leak_check(void)
 // {
-//     system("leaks cub3d");
+//     system("leaks -q cub3d");
 // }
 
 int	main(int argc, char **argv)
 {
-	// atexit(leak_check);
+	//atexit(leak_check);
 	(void)argv;
-	t_map	map;
+	t_map map;
 
 	error_args(argc);
 	check_ext(argv[1]);
@@ -170,7 +176,7 @@ int	main(int argc, char **argv)
 	// 	printf("\n");
 	// 	i++;
 	// }
-		
+
 	// printf("ESTO ES LA i %d\n", i);
 	map.map = &map.map[find_first_map_row(&map)];
 	//printf("LINE:%s\n", map.map[0]);

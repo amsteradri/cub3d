@@ -19,7 +19,7 @@ SRCS		=	src/cub3d.c src/parse/parsing_errors.c src/parse/parsing.c src/parse/par
 
 LIBFT		=	libft/libft.a
 
-CFLAGS		=	-Wall -Werror -Wextra -O3 -I inc -fsanitize=address
+CFLAGS		=	-Wall -Werror -Wextra -O3 -I inc
 MLXFLAGS	=	-L ./mlx/ -lmlx -framework OpenGL -framework AppKit -lz # -> MAC. -L/usr/X11/lib -lXext -lX11  ## a partir de -L es para mi propio
 #MLXFLAGS	=	-L ./mlx/ -lmlx -lz -L/usr/X11/lib -lXext -lX11 -lm
 RM			=	rm -f

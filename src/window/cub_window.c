@@ -15,8 +15,7 @@
 void	create_window(t_map *map)
 {
 	map->mlx_ptr = mlx_init();
-	map->win_ptr = mlx_new_window(map->mlx_ptr, 1600,
-			900, "cub3d");
+	map->win_ptr = mlx_new_window(map->mlx_ptr, 1600, 900, "cub3d");
 }
 void	create_img(t_map *map)
 {

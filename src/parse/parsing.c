@@ -44,10 +44,10 @@ char	**read_map(char *fmap)
 
 void	fill_dir(t_map *map)
 {
-	int		i;
-	int		aux;
-	int		j;
-	int		len;
+	int i;
+	int aux;
+	int j;
+	int len;
 
 	i = 1;
 	j = 0;
@@ -57,8 +57,8 @@ void	fill_dir(t_map *map)
 	{
 		j = 0;
 		len = ft_strlen(map->map[i]) - 1;
-		
-		while(j < len)
+
+		while (j < len)
 		{
 			if (map->map[i][j] == 'N')
 			{
@@ -82,7 +82,7 @@ void	fill_dir(t_map *map)
 				map->player->plane_y = 0.0;
 				return ;
 			}
-        	else if (map->map[i][j] == 'E')
+			else if (map->map[i][j] == 'E')
 			{
 				map->player->dir = 'E';
 				map->player->x = j + 0.5;
