@@ -6,7 +6,7 @@
 /*   By: adgutier <adgutier@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 18:35:54 by isromero          #+#    #+#             */
-/*   Updated: 2023/12/14 13:12:25 by adgutier         ###   ########.fr       */
+/*   Updated: 2023/12/14 14:49:22 by adgutier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,15 @@ void	render_background_2d(t_map *map)
 									"assets/fondo.xpm",
 									&width,
 									&height);
-	while (j < (map->y * 16))
+	while (j < (map->y * 4))
 	{
 		i = 0;
-		while (i < (map->x * 16))
+		while (i < (map->x * 4))
 		{
 			mlx_put_image_to_window(map->mlx_ptr, map->win_ptr, img_ptr, i, j);
-			i = i + 16;
+			i = i + 4;
 		}
-		j = j + 16;
+		j = j + 4;
 	}
 	mlx_destroy_image(map->mlx_ptr, img_ptr);
 }
@@ -61,7 +61,7 @@ void	render_empty_2d(t_map *map)
 												&width,
 												&height);
 				mlx_put_image_to_window(map->mlx_ptr, map->win_ptr, img_ptr, j
-						* 16, i * 16);
+						* 4, i * 4);
 				mlx_destroy_image(map->mlx_ptr, img_ptr);
 			}
 			j++;
@@ -92,7 +92,7 @@ void	render_walls_2d(t_map *map)
 												&width,
 												&height);
 				mlx_put_image_to_window(map->mlx_ptr, map->win_ptr, img_ptr, j
-						* 16, i * 16);
+						* 4, i * 4);
 				mlx_destroy_image(map->mlx_ptr, img_ptr);
 			}
 			j++;
@@ -120,11 +120,11 @@ void	render_char_2d(t_map *map)
 				|| map->map[i][j] == 'S' || map->map[i][j] == 'W')
 			{
 				img_ptr = mlx_xpm_file_to_image(map->mlx_ptr,
-												"assets/player.xpm",
+												"assets/empty.xpm",
 												&width,
 												&height);
 				mlx_put_image_to_window(map->mlx_ptr, map->win_ptr, img_ptr, j
-						* 16, i * 16);
+						* 4, i * 4);
 				mlx_destroy_image(map->mlx_ptr, img_ptr);
 			}
 			j++;

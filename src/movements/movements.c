@@ -31,13 +31,15 @@ static void	move_forward(t_map *map)
 	double	new_x;
 	double	new_y;
 
-	new_x = map->player->x + map->player->dir_x * 0.3;
-	new_y = map->player->y + map->player->dir_y * 0.3;
+    map->map[(int)map->player->y][(int)map->player->x] = '0';
+	new_x = map->player->x + map->player->dir_x * 0.6;
+	new_y = map->player->y + map->player->dir_y * 0.6;
 	// Verificar colisión por separado para X y Y (Esto permite deslizarse por las paredes y no quedarse atascado)
 	if (is_valid_move((int)map->player->y, (int)new_x, map))
 		map->player->x = new_x;
 	if (is_valid_move((int)new_y, (int)map->player->x, map))
 		map->player->y = new_y;
+    map->map[(int)map->player->y][(int)map->player->x] = 'N';
 }
 
 static void	move_backward(t_map *map)
@@ -45,13 +47,15 @@ static void	move_backward(t_map *map)
 	double	new_x;
 	double	new_y;
 
-	new_x = map->player->x - map->player->dir_x * 0.3;
-	new_y = map->player->y - map->player->dir_y * 0.3;
+    map->map[(int)map->player->y][(int)map->player->x] = '0';
+	new_x = map->player->x - map->player->dir_x * 0.6;
+	new_y = map->player->y - map->player->dir_y * 0.6;
 	// Verificar colisión por separado para X y Y (Esto permite deslizarse por las paredes y no quedarse atascado)
 	if (is_valid_move((int)map->player->y, (int)new_x, map))
 		map->player->x = new_x;
 	if (is_valid_move((int)new_y, (int)map->player->x, map))
 		map->player->y = new_y;
+    map->map[(int)map->player->y][(int)map->player->x] = 'N';
 }
 
 static void	move_right(t_map *map)
@@ -59,13 +63,15 @@ static void	move_right(t_map *map)
 	double	new_x;
 	double	new_y;
 
-	new_x = map->player->x - map->player->dir_y * 0.3;
-	new_y = map->player->y + map->player->dir_x * 0.3;
+    map->map[(int)map->player->y][(int)map->player->x] = '0';
+	new_x = map->player->x - map->player->dir_y * 0.6;
+	new_y = map->player->y + map->player->dir_x * 0.6;
 	// Verificar colisión por separado para X y Y (Esto permite deslizarse por las paredes y no quedarse atascado)
 	if (is_valid_move((int)map->player->y, (int)new_x, map))
 		map->player->x = new_x;
 	if (is_valid_move((int)new_y, (int)map->player->x, map))
 		map->player->y = new_y;
+    map->map[(int)map->player->y][(int)map->player->x] = 'N';
 }
 
 static void	move_left(t_map *map)
@@ -73,13 +79,15 @@ static void	move_left(t_map *map)
 	double	new_x;
 	double	new_y;
 
-	new_x = map->player->x + map->player->dir_y * 0.3;
-	new_y = map->player->y - map->player->dir_x * 0.3;
+    map->map[(int)map->player->y][(int)map->player->x] = '0';
+	new_x = map->player->x + map->player->dir_y * 0.6;
+	new_y = map->player->y - map->player->dir_x * 0.6;
 	// Verificar colisión por separado para X y Y (Esto permite deslizarse por las paredes y no quedarse atascado)
 	if (is_valid_move((int)map->player->y, (int)new_x, map))
 		map->player->x = new_x;
 	if (is_valid_move((int)new_y, (int)map->player->x, map))
 		map->player->y = new_y;
+    map->map[(int)map->player->y][(int)map->player->x] = 'N';
 }
 
 static void	move_camera_left(t_map *map)
@@ -88,15 +96,15 @@ static void	move_camera_left(t_map *map)
 	double	old_plane_x;
 
 	old_dir_x = map->player->dir_x;
-	map->player->dir_x = map->player->dir_x * cos(-(8 * DR))
-		- map->player->dir_y * sin(-(8 * DR));
-	map->player->dir_y = old_dir_x * sin(-(8 * DR)) + map->player->dir_y
-		* cos(-(8 * DR));
+	map->player->dir_x = map->player->dir_x * cos(-(16 * DR))
+		- map->player->dir_y * sin(-(16 * DR));
+	map->player->dir_y = old_dir_x * sin(-(16 * DR)) + map->player->dir_y
+		* cos(-(16 * DR));
 	old_plane_x = map->player->plane_x;
-	map->player->plane_x = map->player->plane_x * cos(-(8 * DR))
-		- map->player->plane_y * sin(-(8 * DR));
-	map->player->plane_y = old_plane_x * sin(-(8 * DR)) + map->player->plane_y
-		* cos(-(8 * DR));
+	map->player->plane_x = map->player->plane_x * cos(-(16 * DR))
+		- map->player->plane_y * sin(-(16 * DR));
+	map->player->plane_y = old_plane_x * sin(-(16 * DR)) + map->player->plane_y
+		* cos(-(16 * DR));
 }
 
 static void	move_camera_right(t_map *map)
@@ -105,15 +113,15 @@ static void	move_camera_right(t_map *map)
 	double	old_plane_x;
 
 	old_dir_x = map->player->dir_x;
-	map->player->dir_x = map->player->dir_x * cos(8 * DR) - map->player->dir_y
-		* sin(8 * DR);
-	map->player->dir_y = old_dir_x * sin(8 * DR) + map->player->dir_y * cos(8
+	map->player->dir_x = map->player->dir_x * cos(16 * DR) - map->player->dir_y
+		* sin(16 * DR);
+	map->player->dir_y = old_dir_x * sin(16 * DR) + map->player->dir_y * cos(16
 			* DR);
 	old_plane_x = map->player->plane_x;
-	map->player->plane_x = map->player->plane_x * cos(8 * DR)
-		- map->player->plane_y * sin(8 * DR);
-	map->player->plane_y = old_plane_x * sin(8 * DR) + map->player->plane_y
-		* cos(8 * DR);
+	map->player->plane_x = map->player->plane_x * cos(16 * DR)
+		- map->player->plane_y * sin(16 * DR);
+	map->player->plane_y = old_plane_x * sin(16 * DR) + map->player->plane_y
+		* cos(16 * DR);
 }
 
 int	move_character(int keycode, t_map *map)
