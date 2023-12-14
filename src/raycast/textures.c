@@ -6,7 +6,7 @@
 /*   By: adgutier <adgutier@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 14:28:36 by isromero          #+#    #+#             */
-/*   Updated: 2023/12/14 12:35:10 by adgutier         ###   ########.fr       */
+/*   Updated: 2023/12/14 15:20:09 by adgutier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,7 @@ void	load_texture(t_map *map, t_img *img, char *path)
 	int	width;
 	int	height;
 
-	//printf("%p\n", map->texture->img);
 	img->img = mlx_xpm_file_to_image(map->mlx_ptr, path, &width, &height);
-	//printf("%d\n", width);
 	if (!img->img)
 	{
 		printf("Error loading texture\n");
@@ -30,6 +28,7 @@ void	load_texture(t_map *map, t_img *img, char *path)
 	img->addr = mlx_get_data_addr(img->img, &img->bits_per_pixel,
 			&img->line_length, &img->endian);
 }
+
 void	my_img_pixel_put(t_map *map, int x, int y, int color)
 {
 	char	*dst;
@@ -67,7 +66,6 @@ void	texture_on_img(t_map *map, t_img *img)
 		/ img->line_length;
 	if (map->line->tex_y < 0 || map->line->tex_y >= img->height
 		|| map->line->tex_x < 0 || map->line->tex_x >= img->width)
-	// Solución de seg fault por límites de textura
 		return ;
 	map->img->addr[map->line->y * map->img->line_length + map->line->x
 		* map->img->bits_per_pixel / 8] = img->addr[map->line->tex_y
@@ -183,7 +181,7 @@ void	paint_texture_line(t_map *map, double wall_x)
 
 void	draw_textures(t_map *map)
 {
-	double	wall_x;
+	double wall_x;
 
 	wall_x = 0.0;
 	if (map->ray->side == NORTH || map->ray->side == SOUTH)

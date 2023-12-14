@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_window.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: adgutier <adgutier@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 13:17:53 by adgutier          #+#    #+#             */
-/*   Updated: 2023/12/10 21:28:15 by isromero         ###   ########.fr       */
+/*   Updated: 2023/12/14 15:19:07 by adgutier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	create_window(t_map *map)
 	map->mlx_ptr = mlx_init();
 	map->win_ptr = mlx_new_window(map->mlx_ptr, 1600, 900, "cub3d");
 }
+
 void	create_img(t_map *map)
 {
 	map->img->img = mlx_new_image(map->mlx_ptr, 1600, 900);
