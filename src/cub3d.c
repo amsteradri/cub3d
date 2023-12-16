@@ -6,7 +6,7 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 18:15:36 by adgutier          #+#    #+#             */
-/*   Updated: 2023/12/16 17:06:40 by isromero         ###   ########.fr       */
+/*   Updated: 2023/12/16 17:34:28 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,20 @@ void	initialize_textures(t_map *map)
         ft_strncpy(map->no, "assets/default.xpm", sizeof(map->no) - 1);
 	load_texture(map, map->no_img, map->no);
 	if (!map->we[0])
-        ft_strncpy(map->we, "assets/default.xpm", sizeof(map->we) - 1);
+		ft_strncpy(map->we, "assets/default.xpm", sizeof(map->we) - 1);
 	load_texture(map, map->we_img, map->we);
 	if (!map->ea[0])
-        ft_strncpy(map->ea, "assets/default.xpm", sizeof(map->ea) - 1);
+		ft_strncpy(map->ea, "assets/default.xpm", sizeof(map->ea) - 1);
 	load_texture(map, map->ea_img, map->ea);
 	if (!map->so[0])
-        ft_strncpy(map->so, "assets/default.xpm", sizeof(map->so) - 1);
+		ft_strncpy(map->so, "assets/default.xpm", sizeof(map->so) - 1);
 	load_texture(map, map->so_img, map->so);
+}
+
+void	initialize_images_2d(t_map *map)
+{
+	load_texture(map, map->char_2d, "assets/empty.xpm");
+	load_texture(map, map->wall_2d, "assets/wall.xpm");
 }
 
 int	map_height(char **map)
@@ -119,6 +125,8 @@ void	init_vars_map(t_map *map)
 	map->we_img = (t_img *)malloc(sizeof(t_img));
 	map->ea_img = (t_img *)malloc(sizeof(t_img));
 	map->so_img = (t_img *)malloc(sizeof(t_img));
+	map->char_2d = (t_img *)malloc(sizeof(t_img));
+	map->wall_2d = (t_img *)malloc(sizeof(t_img));
 }
 
 // void   leak_check(void)
@@ -160,6 +168,7 @@ int	main(int argc, char **argv)
 	create_window(&map);
 	create_img(&map);
 	initialize_textures(&map);
+	initialize_images_2d(&map); // Causa seg fault al utilizarlo en las funciones del minimapa (render2d.c)
 	render_all(&map);
 	mlx_hook(map.win_ptr, 2, 1L << 0, move_character, &map);
 	mlx_hook(map.win_ptr, 17, 1L << 0, handle_esc_screen, &map);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adgutier <adgutier@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 18:15:34 by adgutier          #+#    #+#             */
-/*   Updated: 2023/10/07 18:15:34 by adgutier         ###   ########.fr       */
+/*   Updated: 2023/12/16 17:08:56 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,8 @@ typedef struct s_map
 	t_img		*so_img;
 	t_img		*we_img;
 	t_img		*ea_img;
+	t_img		*char_2d;
+	t_img		*wall_2d;
 	int			fr;
 	int			fg;
 	int			fb;
