@@ -56,6 +56,7 @@ int		ft_strlcpy(char *dest, char *src, unsigned int size);
 size_t	ft_strlen(char *str);
 char	*ft_strmapi(char const	*s, char (*f)(unsigned int, char));
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
+char	*ft_strncpy(char *dest, const char *src, size_t n);
 char	*ft_strtrim(char *s1, char *set);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 int		ft_tolower(int c);

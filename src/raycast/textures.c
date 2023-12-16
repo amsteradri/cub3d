@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adgutier <adgutier@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 14:28:36 by isromero          #+#    #+#             */
-/*   Updated: 2023/12/14 15:20:09 by adgutier         ###   ########.fr       */
+/*   Updated: 2023/12/16 17:01:26 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	load_texture(t_map *map, t_img *img, char *path)
 	img->img = mlx_xpm_file_to_image(map->mlx_ptr, path, &width, &height);
 	if (!img->img)
 	{
-		printf("Error loading texture\n");
+		printf("Error loading texture, check if it exists\n");
 		exit(1);
 	}
 	img->width = width;

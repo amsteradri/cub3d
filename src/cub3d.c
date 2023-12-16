@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adgutier <adgutier@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 18:15:36 by adgutier          #+#    #+#             */
-/*   Updated: 2023/10/07 18:15:36 by adgutier         ###   ########.fr       */
+/*   Updated: 2023/12/16 17:06:40 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,44 +14,18 @@
 
 void	initialize_textures(t_map *map)
 {
-	if (access(map->no, F_OK) != -1)
-	{
-		load_texture(map, map->no_img, map->no);
-	}
-	else
-	{
-		printf("Error: the texture \"%s\" does not exist.\nLoading default texture\n",
-				map->no);
-		load_texture(map, map->no_img, "assets/default.xpm");
-	}
-	if (access(map->we, F_OK) != -1)
-	{
-		load_texture(map, map->we_img, map->we);
-	}
-	else
-	{
-		load_texture(map, map->we_img, "assets/default.xpm");
-	}
-	if (access(map->ea, F_OK) != -1)
-	{
-		load_texture(map, map->ea_img, map->ea);
-	}
-	else
-	{
-		printf("Error: the texture \"%s\" does not exist.\nLoading default texture\n",
-				map->ea);
-		load_texture(map, map->ea_img, "assets/default.xpm");
-	}
-	if (access(map->so, F_OK) != -1)
-	{
-		load_texture(map, map->so_img, map->so);
-	}
-	else
-	{
-		printf("Error: the texture \"%s\" does not exist.\nLoading default texture\n",
-				map->so);
-		load_texture(map, map->so_img, "assets/default.xpm");
-	}
+	if (!map->no[0])
+        ft_strncpy(map->no, "assets/default.xpm", sizeof(map->no) - 1);
+	load_texture(map, map->no_img, map->no);
+	if (!map->we[0])
+        ft_strncpy(map->we, "assets/default.xpm", sizeof(map->we) - 1);
+	load_texture(map, map->we_img, map->we);
+	if (!map->ea[0])
+        ft_strncpy(map->ea, "assets/default.xpm", sizeof(map->ea) - 1);
+	load_texture(map, map->ea_img, map->ea);
+	if (!map->so[0])
+        ft_strncpy(map->so, "assets/default.xpm", sizeof(map->so) - 1);
+	load_texture(map, map->so_img, map->so);
 }
 
 int	map_height(char **map)
