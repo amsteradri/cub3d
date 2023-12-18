@@ -6,7 +6,7 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 18:35:54 by isromero          #+#    #+#             */
-/*   Updated: 2023/12/18 22:00:22 by isromero         ###   ########.fr       */
+/*   Updated: 2023/12/18 22:01:45 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,9 @@ void	render_walls_2d(t_map *map)
 		j = 0;
 		while (j < (int)ft_strlen(map->map[i]) - 1)
 		{
-			
 			if (map->map[i][j] == '1')
 				mlx_put_image_to_window(map->mlx_ptr, map->win_ptr, map->wall_2d->img, j
 					* 4, i * 4);	
-			
 			j++;
 		}
 		i++;
@@ -48,32 +46,14 @@ void	render_back_2d(t_map *map)
 		j = 0;
 		while (j < (int)ft_strlen(map->map[i]) - 1)
 		{
-			
 			if (map->map[i][j] == '0')
 				mlx_put_image_to_window(map->mlx_ptr, map->win_ptr, map->back_2d->img, j
 					* 4, i * 4);	
-			
 			j++;
 		}
 		i++;
 	}
 	// mlx_destroy_image(map->mlx_ptr, map->wall_2d->img);
-}
-
-void draw_ray(t_map *map, int j, int i) 
-{
-    int x_end; 
-
-	x_end = map->x * 4; 
-    while (j < x_end) 
-	{
-		if (map->map[i / 4][j / 4] == '1') 
-		{
-            break; // Sale del bucle si encuentra una pared
-        }
-        mlx_pixel_put(map->mlx_ptr, map->win_ptr, j, i, 0x000000); // Color rojo (formato RGB)
-        j++;
-    }
 }
 
 void	draw_diagonal_line(t_map *map, double dir_x, double dir_y, double x, double y)
