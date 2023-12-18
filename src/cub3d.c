@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: adgutier <adgutier@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 18:15:36 by adgutier          #+#    #+#             */
-/*   Updated: 2023/12/16 17:34:28 by isromero         ###   ########.fr       */
+/*   Updated: 2023/12/18 20:06:19 by adgutier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	initialize_images_2d(t_map *map)
 {
 	load_texture(map, map->char_2d, "assets/empty.xpm");
 	load_texture(map, map->wall_2d, "assets/wall.xpm");
+	load_texture(map, map->back_2d, "assets/fondo.xpm");
 }
 
 int	map_height(char **map)
@@ -127,6 +128,7 @@ void	init_vars_map(t_map *map)
 	map->so_img = (t_img *)malloc(sizeof(t_img));
 	map->char_2d = (t_img *)malloc(sizeof(t_img));
 	map->wall_2d = (t_img *)malloc(sizeof(t_img));
+	map->back_2d = (t_img *)malloc(sizeof(t_img));
 }
 
 // void   leak_check(void)
@@ -175,4 +177,7 @@ int	main(int argc, char **argv)
 	mlx_loop_hook(map.mlx_ptr, render_all, &map);
 	mlx_loop(map.mlx_ptr);
 	mlx_destroy_image(map.mlx_ptr, map.img->img);
+	mlx_destroy_image(map.mlx_ptr, map.wall_2d->img);
+	mlx_destroy_image(map.mlx_ptr, map.back_2d->img);
+	mlx_destroy_image(map.mlx_ptr, map.char_2d->img);
 }

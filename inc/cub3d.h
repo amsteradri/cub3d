@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: adgutier <adgutier@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 18:15:34 by adgutier          #+#    #+#             */
-/*   Updated: 2023/12/16 17:08:56 by isromero         ###   ########.fr       */
+/*   Updated: 2023/12/18 20:01:09 by adgutier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ typedef struct s_map
 	t_img		*ea_img;
 	t_img		*char_2d;
 	t_img		*wall_2d;
+	t_img		*back_2d;
 	int			fr;
 	int			fg;
 	int			fb;
@@ -174,7 +175,7 @@ int				raycast(t_map *map);
 int				render_all(t_map *map);
 
 // render2d.c //
-void			render_background_2d(t_map *map);
+void	render_back_2d(t_map *map);
 void			render_empty_2d(t_map *map);
 void			render_walls_2d(t_map *map);
 void			render_char_2d(t_map *map);

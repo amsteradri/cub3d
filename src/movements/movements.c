@@ -39,7 +39,7 @@ static void	move_forward(t_map *map)
 		map->player->x = new_x;
 	if (is_valid_move((int)new_y, (int)map->player->x, map))
 		map->player->y = new_y;
-    map->map[(int)map->player->y][(int)map->player->x] = 'N';
+    map->map[(int)map->player->y][(int)map->player->x] = map->player->dir;
 }
 
 static void	move_backward(t_map *map)
@@ -55,7 +55,7 @@ static void	move_backward(t_map *map)
 		map->player->x = new_x;
 	if (is_valid_move((int)new_y, (int)map->player->x, map))
 		map->player->y = new_y;
-    map->map[(int)map->player->y][(int)map->player->x] = 'N';
+    map->map[(int)map->player->y][(int)map->player->x] = map->player->dir;
 }
 
 static void	move_right(t_map *map)
@@ -71,7 +71,7 @@ static void	move_right(t_map *map)
 		map->player->x = new_x;
 	if (is_valid_move((int)new_y, (int)map->player->x, map))
 		map->player->y = new_y;
-    map->map[(int)map->player->y][(int)map->player->x] = 'N';
+    map->map[(int)map->player->y][(int)map->player->x] = map->player->dir;
 }
 
 static void	move_left(t_map *map)
@@ -87,7 +87,7 @@ static void	move_left(t_map *map)
 		map->player->x = new_x;
 	if (is_valid_move((int)new_y, (int)map->player->x, map))
 		map->player->y = new_y;
-    map->map[(int)map->player->y][(int)map->player->x] = 'N';
+    map->map[(int)map->player->y][(int)map->player->x] = map->player->dir;
 }
 
 static void	move_camera_left(t_map *map)
@@ -124,40 +124,40 @@ static void	move_camera_right(t_map *map)
 		* cos(16 * DR);
 }
 
-int	move_character(int keycode, t_map *map)
-{
-	if (keycode == 53)
-		handle_esc_screen(map);
-	else if (keycode == 13)
-		move_forward(map);
-	else if (keycode == 1)
-		move_backward(map);
-	else if (keycode == 0)
-		move_left(map);
-	else if (keycode == 2)
-		move_right(map);
-	else if (keycode == 123)
-		move_camera_left(map);
-	else if (keycode == 124)
-		move_camera_right(map);
-	return (0);
-}
-
-// int move_character(int keycode, t_map *map)
+// int	move_character(int keycode, t_map *map)
 // {
-//      if (keycode == KEY_ESC)
-//         handle_esc_screen(map);
-//     else if (keycode == KEY_W)
-//         move_forward(map);
-//     else if (keycode == KEY_S)
-//         move_backward(map);
-//     else if(keycode == KEY_A)
-//         move_left(map);
-//     else if(keycode == KEY_D)
-//         move_right(map);
-//     else if (keycode == KEY_LEFT_ARROW)
-//         move_camera_left(map);
-//     else if (keycode == KEY_RIGHT_ARROW)
-//         move_camera_right(map);
-//     return (0);
+// 	if (keycode == 53)
+// 		handle_esc_screen(map);
+// 	else if (keycode == 13)
+// 		move_forward(map);
+// 	else if (keycode == 1)
+// 		move_backward(map);
+// 	else if (keycode == 0)
+// 		move_left(map);
+// 	else if (keycode == 2)
+// 		move_right(map);
+// 	else if (keycode == 123)
+// 		move_camera_left(map);
+// 	else if (keycode == 124)
+// 		move_camera_right(map);
+// 	return (0);
 // }
+
+int move_character(int keycode, t_map *map)
+{
+     if (keycode == KEY_ESC)
+        handle_esc_screen(map);
+    else if (keycode == KEY_W)
+        move_forward(map);
+    else if (keycode == KEY_S)
+        move_backward(map);
+    else if(keycode == KEY_A)
+        move_left(map);
+    else if(keycode == KEY_D)
+        move_right(map);
+    else if (keycode == KEY_LEFT_ARROW)
+        move_camera_left(map);
+    else if (keycode == KEY_RIGHT_ARROW)
+        move_camera_right(map);
+    return (0);
+}
