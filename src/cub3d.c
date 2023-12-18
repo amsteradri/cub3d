@@ -6,7 +6,7 @@
 /*   By: adgutier <adgutier@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 18:15:36 by adgutier          #+#    #+#             */
-/*   Updated: 2023/12/18 20:06:19 by adgutier         ###   ########.fr       */
+/*   Updated: 2023/12/18 20:29:28 by adgutier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ void	init_vars_map(t_map *map)
 	map->player->dir_y = 0.0;
 	map->player->plane_x = 0.0;
 	map->player->plane_y = 0.0;
+	map->player->len_to_wall = 0;
 	map->ray = (t_ray *)malloc(sizeof(t_ray));
 	map->ray->side = 0;
 	map->ray->dir_x = 0.0;

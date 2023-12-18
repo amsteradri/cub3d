@@ -6,7 +6,7 @@
 /*   By: adgutier <adgutier@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 18:15:34 by adgutier          #+#    #+#             */
-/*   Updated: 2023/12/18 20:01:09 by adgutier         ###   ########.fr       */
+/*   Updated: 2023/12/18 20:20:30 by adgutier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef struct s_player
 	double		plane_y;
 	double		x;
 	double		y;
+	int			len_to_wall; // para dibujar rayitos
 }				t_player;
 
 typedef struct s_ray
