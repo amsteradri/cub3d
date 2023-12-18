@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render2d.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adgutier <adgutier@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 18:35:54 by isromero          #+#    #+#             */
-/*   Updated: 2023/12/18 20:45:45 by adgutier         ###   ########.fr       */
+/*   Updated: 2023/12/18 22:00:22 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,63 +76,53 @@ void draw_ray(t_map *map, int j, int i)
     }
 }
 
-void draw_diagonal_line(t_map *map, double angle, int i, int j) 
+void	draw_diagonal_line(t_map *map, double dir_x, double dir_y, double x, double y)
 {
-    double player_x = j;  // Posición X del jugador
-    double player_y = i;  // Posición Y del jugador
-
     int x_end = map->x * 4;
+	int map_x;
+	int map_y;
 
-    while (player_x < x_end) {
-        // Calcula las coordenadas (x, y) a lo largo de la línea diagonal
-        double x = player_x + cos(angle * M_PI / 180.0);
-        double y = player_y + sin(angle * M_PI / 180.0);
-
-        int map_x = x / 4; // Convierte la posición X a coordenadas del mapa
-        int map_y = y / 4; // Convierte la posición Y a coordenadas del mapa
-
-        if (map->map[map_y][map_x] == '1') {
-            map->player->len_to_wall = sqrt((x - player_x) * (x - player_x) + (y - player_y) * (y - player_y));
+    while ((int)x < x_end) 
+	{
+        x += dir_x * 0.1; // El 0.1 es para que checkee varias veces el rayo antes de chocar, así no traspasan los rayos
+        y += dir_y * 0.1;
+        map_x = (int)(x / 4);
+        map_y = (int)(y / 4);
+        if (map->map[map_y][map_x] == '1')
             break;
-        }
-
-        mlx_pixel_put(map->mlx_ptr, map->win_ptr, x, y, 0x000000); // Color rojo (formato RGB)
-        player_x = x;
-        player_y = y;
+        mlx_pixel_put(map->mlx_ptr, map->win_ptr, (int)x, (int)y, 0xFFFFFF);
     }
 }
 
 void	render_char_2d(t_map *map)
 {
-	int		i;
-	int		j;
-	int		angle = 50;
-
-
+	int i;
+	int j;
+	double fov;
+	double step;
+	double offset;
+	
 	i = 0;
-	while (i < map->y)
+	fov = 66;
+	while (i < map->y) 
 	{
 		j = 0;
-		while (j < (int)ft_strlen(map->map[i]))
+		while (j < (int)ft_strlen(map->map[i])) 
 		{
-			
-			if (map->map[i][j] == 'E' || map->map[i][j] == 'N'
-				|| map->map[i][j] == 'S' || map->map[i][j] == 'W')
+			if (map->map[i][j] == 'E' || map->map[i][j] == 'N' || map->map[i][j] == 'S' || map->map[i][j] == 'W') 
 			{
-				mlx_put_image_to_window(map->mlx_ptr, map->win_ptr, map->char_2d->img, j
-					* 4, i * 4);
-				draw_ray(map, j * 4 + 2, i * 4 + 2);
-				draw_diagonal_line(map, 50, i * 4 , j * 4);
-				while(angle > -50)
+				mlx_put_image_to_window(map->mlx_ptr, map->win_ptr, map->char_2d->img, j * 4, i * 4);
+				step = fov / 66;
+				offset = -fov / 2;
+				while (offset <= fov / 2)
 				{
-					draw_diagonal_line(map, angle, i * 4 , j * 4 + 4);
-					angle--;
+					draw_diagonal_line(map, map->player->dir_x + map->player->plane_x * offset / fov, map->player->dir_y + map->player->plane_y * offset / fov, j * 4 + 2, i * 4 + 2);
+					offset += step;
 				}
-				draw_diagonal_line(map, -50, i * 4, j * 4 + 4);
 			}
 			j++;
 		}
 		i++;
 	}
-	// mlx_destroy_image(map->mlx_ptr, map->char_2d->img);
 }
+
