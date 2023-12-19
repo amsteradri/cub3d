@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_errors.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adgutier <adgutier@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 18:25:52 by adgutier          #+#    #+#             */
-/*   Updated: 2023/10/07 18:25:52 by adgutier         ###   ########.fr       */
+/*   Updated: 2023/12/19 22:05:12 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ void	check_chars(t_map **map)
 				&& (*map)->map[y][x] != 'S' && (*map)->map[y][x] != 'W'
 				&& (*map)->map[y][x] != ' ')
 			{
-				printf("linea:%s\n", (*map)->map[y]);
 				perror("\033[1;31mERROR: Wrong map components\033[0m");
 				exit(1);
 			}
@@ -108,7 +107,6 @@ void	first_line(char *line)
 	{
 		if (line[i] != '1' && line[i] != ' ')
 		{
-			printf("ME SALGO AQUI:%s\n", line);
 			perror("\033[1;31mERROR: No walls in top or bot\033[0m");
 			exit(1);
 		}
@@ -141,6 +139,7 @@ void	check_walls(t_map **map)
 	i = 1;
 	j = 0;
 	aux = (*map)->y - 1;
+	// PRINTEA AQUÍ FIRST LINE-> NO DA LA PRIMERA LÍNEA NUNCA
 	first_line((*map)->map[0]);
 	while (i < aux)
 	{
@@ -190,7 +189,6 @@ void	check_under_empty(t_map **map)
 					&& (*map)->map[i + 1][j] != 'S' && (*map)->map[i
 					+ 1][j] != 'W')
 				{
-					printf("encima:%c\n", (*map)->map[i + 1][j]);
 					perror("\033[1;31mERROR: No walls in bot row\033[0m");
 					exit(1);
 				}
@@ -208,7 +206,6 @@ void	check_under_empty(t_map **map)
 					&& (*map)->map[i][j + 1] != 'S' && (*map)->map[i][j
 					+ 1] != 'W')
 				{
-					printf("%s", (*map)->map[i]);
 					perror("\033[1;31mERROR: No walls in right col\033[0m");
 					exit(1);
 				}
@@ -217,7 +214,6 @@ void	check_under_empty(t_map **map)
 					- 1] != 'N' && (*map)->map[i][j - 1] != 'S'
 					&& (*map)->map[i][j - 1] != 'W')
 				{
-					printf("izq:%c\n", (*map)->map[i][j - 1]);
 					perror("\033[1;31mERROR: No walls in left col\033[0m");
 					exit(1);
 				}
