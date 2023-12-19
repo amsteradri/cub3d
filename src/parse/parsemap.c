@@ -6,7 +6,7 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 13:00:15 by adgutier          #+#    #+#             */
-/*   Updated: 2023/12/16 17:26:22 by isromero         ###   ########.fr       */
+/*   Updated: 2023/12/19 21:55:33 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,11 @@ void	parse_top_map(t_map *map)
 	i = 0;
 	j = 0;
 	k = 0;
+	// CUIDADOOOOOOO Esto hay que mantenerlo aquí o antes de parsear el mapa si o sí
+	map->no[0] = '\0';
+	map->we[0] = '\0';
+	map->ea[0] = '\0';
+	map->so[0] = '\0';
 	// mapheight = map_height(map->map);
 	while (map->map[i] != NULL)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adgutier <adgutier@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 18:15:36 by adgutier          #+#    #+#             */
-/*   Updated: 2023/12/19 19:03:51 by adgutier         ###   ########.fr       */
+/*   Updated: 2023/12/19 21:56:41 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	initialize_textures(t_map *map)
 {
+	
 	if (!map->no[0])
 		load_texture(map, map->no_img, "assets/default.xpm");
 	else
@@ -151,24 +152,7 @@ int	main(int argc, char **argv)
 	check_ext(argv[1]);
 	map.map = read_map(argv[1]);
 	parse_top_map(&map);
-	// printf("color:%d\n", map.fr);
-	// int i = 0;
-	// int j = 0;
-	// while(map.map[i])
-	// {
-	// 	j = 0;
-	// 	while(map.map[i][j])
-	// 	{
-	// 		printf("%d ", map.map[i][j]);
-	// 		j++;
-	// 	}
-	// 	printf("\n");
-	// 	i++;
-	// }
-
-	// printf("ESTO ES LA i %d\n", i);
 	map.map = &map.map[find_first_map_row(&map)];
-	// printf("LINE:%s\n", map.map[0]);
 	init_vars_map(&map);
 	all_checks(&map);
 	fill_dir(&map);
@@ -176,7 +160,6 @@ int	main(int argc, char **argv)
 	create_img(&map);
 	initialize_textures(&map);
 	initialize_images_2d(&map);
-		// Causa seg fault al utilizarlo en las funciones del minimapa (render2d.c)
 	render_all(&map);
 	mlx_hook(map.win_ptr, 2, 1L << 0, move_character, &map);
 	mlx_hook(map.win_ptr, 17, 1L << 0, handle_esc_screen, &map);
