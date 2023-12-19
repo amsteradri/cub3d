@@ -14,8 +14,10 @@
 
 int	is_valid_move(int fil, int col, t_map *map)
 {
-	double margin = 0.4;
-		// Margen para evitar que el jugador se acerque demasiado a las paredes
+	double	margin;
+
+	margin = 0.4;
+	// Margen para evitar que el jugador se acerque demasiado a las paredes
 	// Verifica si las coordenadas están fuera de los límites del mapa
 	if (fil < margin || fil >= map->y - margin || col < margin || col >= map->x
 		- margin)
@@ -31,7 +33,7 @@ static void	move_forward(t_map *map)
 	double	new_x;
 	double	new_y;
 
-    map->map[(int)map->player->y][(int)map->player->x] = '0';
+	map->map[(int)map->player->y][(int)map->player->x] = '0';
 	new_x = map->player->x + map->player->dir_x * 0.6;
 	new_y = map->player->y + map->player->dir_y * 0.6;
 	// Verificar colisión por separado para X y Y (Esto permite deslizarse por las paredes y no quedarse atascado)
@@ -39,7 +41,7 @@ static void	move_forward(t_map *map)
 		map->player->x = new_x;
 	if (is_valid_move((int)new_y, (int)map->player->x, map))
 		map->player->y = new_y;
-    map->map[(int)map->player->y][(int)map->player->x] = map->player->dir;
+	map->map[(int)map->player->y][(int)map->player->x] = map->player->dir;
 }
 
 static void	move_backward(t_map *map)
@@ -47,7 +49,7 @@ static void	move_backward(t_map *map)
 	double	new_x;
 	double	new_y;
 
-    map->map[(int)map->player->y][(int)map->player->x] = '0';
+	map->map[(int)map->player->y][(int)map->player->x] = '0';
 	new_x = map->player->x - map->player->dir_x * 0.6;
 	new_y = map->player->y - map->player->dir_y * 0.6;
 	// Verificar colisión por separado para X y Y (Esto permite deslizarse por las paredes y no quedarse atascado)
@@ -55,7 +57,7 @@ static void	move_backward(t_map *map)
 		map->player->x = new_x;
 	if (is_valid_move((int)new_y, (int)map->player->x, map))
 		map->player->y = new_y;
-    map->map[(int)map->player->y][(int)map->player->x] = map->player->dir;
+	map->map[(int)map->player->y][(int)map->player->x] = map->player->dir;
 }
 
 static void	move_right(t_map *map)
@@ -63,7 +65,7 @@ static void	move_right(t_map *map)
 	double	new_x;
 	double	new_y;
 
-    map->map[(int)map->player->y][(int)map->player->x] = '0';
+	map->map[(int)map->player->y][(int)map->player->x] = '0';
 	new_x = map->player->x - map->player->dir_y * 0.6;
 	new_y = map->player->y + map->player->dir_x * 0.6;
 	// Verificar colisión por separado para X y Y (Esto permite deslizarse por las paredes y no quedarse atascado)
@@ -71,7 +73,7 @@ static void	move_right(t_map *map)
 		map->player->x = new_x;
 	if (is_valid_move((int)new_y, (int)map->player->x, map))
 		map->player->y = new_y;
-    map->map[(int)map->player->y][(int)map->player->x] = map->player->dir;
+	map->map[(int)map->player->y][(int)map->player->x] = map->player->dir;
 }
 
 static void	move_left(t_map *map)
@@ -79,7 +81,7 @@ static void	move_left(t_map *map)
 	double	new_x;
 	double	new_y;
 
-    map->map[(int)map->player->y][(int)map->player->x] = '0';
+	map->map[(int)map->player->y][(int)map->player->x] = '0';
 	new_x = map->player->x + map->player->dir_y * 0.6;
 	new_y = map->player->y - map->player->dir_x * 0.6;
 	// Verificar colisión por separado para X y Y (Esto permite deslizarse por las paredes y no quedarse atascado)
@@ -87,7 +89,7 @@ static void	move_left(t_map *map)
 		map->player->x = new_x;
 	if (is_valid_move((int)new_y, (int)map->player->x, map))
 		map->player->y = new_y;
-    map->map[(int)map->player->y][(int)map->player->x] = map->player->dir;
+	map->map[(int)map->player->y][(int)map->player->x] = map->player->dir;
 }
 
 static void	move_camera_left(t_map *map)
@@ -116,7 +118,7 @@ static void	move_camera_right(t_map *map)
 	map->player->dir_x = map->player->dir_x * cos(16 * DR) - map->player->dir_y
 		* sin(16 * DR);
 	map->player->dir_y = old_dir_x * sin(16 * DR) + map->player->dir_y * cos(16
-			* DR);
+		* DR);
 	old_plane_x = map->player->plane_x;
 	map->player->plane_x = map->player->plane_x * cos(16 * DR)
 		- map->player->plane_y * sin(16 * DR);
@@ -145,19 +147,19 @@ int	move_character(int keycode, t_map *map)
 
 /* int move_character(int keycode, t_map *map)
 {
-     if (keycode == KEY_ESC)
-        handle_esc_screen(map);
-    else if (keycode == KEY_W)
-        move_forward(map);
-    else if (keycode == KEY_S)
-        move_backward(map);
-    else if(keycode == KEY_A)
-        move_left(map);
-    else if(keycode == KEY_D)
-        move_right(map);
-    else if (keycode == KEY_LEFT_ARROW)
-        move_camera_left(map);
-    else if (keycode == KEY_RIGHT_ARROW)
-        move_camera_right(map);
-    return (0);
+		if (keycode == KEY_ESC)
+		handle_esc_screen(map);
+	else if (keycode == KEY_W)
+		move_forward(map);
+	else if (keycode == KEY_S)
+		move_backward(map);
+	else if(keycode == KEY_A)
+		move_left(map);
+	else if(keycode == KEY_D)
+		move_right(map);
+	else if (keycode == KEY_LEFT_ARROW)
+		move_camera_left(map);
+	else if (keycode == KEY_RIGHT_ARROW)
+		move_camera_right(map);
+	return (0);
 } */

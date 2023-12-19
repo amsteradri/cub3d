@@ -82,10 +82,10 @@ void	check_nsew(t_map **map)
 		x = 0;
 		while (x < (int)ft_strlen((*map)->map[y]) && direction_count <= 1)
 		{
-			if ((*map)->map[y][x] == 'N' || (*map)->map[y][x] == 'S' ||
-				(*map)->map[y][x] == 'E' || (*map)->map[y][x] == 'W')
+			if ((*map)->map[y][x] == 'N' || (*map)->map[y][x] == 'S'
+				|| (*map)->map[y][x] == 'E' || (*map)->map[y][x] == 'W')
 			{
-				//printf("encuentro esto:%c\n", (*map)->map[y][x]);
+				// printf("encuentro esto:%c\n", (*map)->map[y][x]);
 				direction_count++;
 			}
 			x++;
@@ -156,7 +156,7 @@ void	check_walls(t_map **map)
 			- ft_spacelen((*map)->map[i]) - 1] != '1')
 		{
 			printf("mi char:%d\n", (*map)->map[i][ft_strlen((*map)->map[i])
-					- ft_spacelen((*map)->map[i]) - 1]);
+				- ft_spacelen((*map)->map[i]) - 1]);
 			perror("\033[1;31mERROR: No walls in last col\033[0m");
 			exit(1);
 		}

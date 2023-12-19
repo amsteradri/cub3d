@@ -6,7 +6,7 @@
 /*   By: adgutier <adgutier@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 08:57:02 by isromero          #+#    #+#             */
-/*   Updated: 2023/12/15 17:33:39 by adgutier         ###   ########.fr       */
+/*   Updated: 2023/12/19 12:43:22 by adgutier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ int	raycast(t_map *map)
 		else
 			map->ray->delta_dist_y = fabs(1 / map->ray->dir_y);
 
-		// Calculate step and initial sideDist
 		if (map->ray->dir_x < 0)
 		{
 			map->ray->step_x = -1;
@@ -44,7 +43,7 @@ int	raycast(t_map *map)
 		{
 			map->ray->step_x = 1;
 			map->ray->side_dist_x = ((float)map->ray->map_x + 1.0
-					- map->player->x) * map->ray->delta_dist_x;
+				- map->player->x) * map->ray->delta_dist_x;
 		}
 		if (map->ray->dir_y < 0)
 		{

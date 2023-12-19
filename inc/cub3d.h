@@ -6,7 +6,7 @@
 /*   By: adgutier <adgutier@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 18:15:34 by adgutier          #+#    #+#             */
-/*   Updated: 2023/12/18 20:20:30 by adgutier         ###   ########.fr       */
+/*   Updated: 2023/12/19 12:41:13 by adgutier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,12 @@ void			fill_dir(t_map *map);
 void			load_texture(t_map *map, t_img *img, char *path);
 void			draw_textures(t_map *map);
 void			calculate_draw_values(t_map *map);
+int				create_rgb_color(int red, int green, int blue);
+void			texture_on_img(t_map *map, t_img *img);
+
+// textures2.c //
+
+void	draw_textures(t_map *map);
 
 // parsemap.c //
 void			parse_top_map(t_map *map);

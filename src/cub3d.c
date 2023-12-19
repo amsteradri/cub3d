@@ -15,7 +15,7 @@
 void	initialize_textures(t_map *map)
 {
 	if (!map->no[0])
-        ft_strncpy(map->no, "assets/default.xpm", sizeof(map->no) - 1);
+		ft_strncpy(map->no, "assets/default.xpm", sizeof(map->no) - 1);
 	load_texture(map, map->no_img, map->no);
 	if (!map->we[0])
 		ft_strncpy(map->we, "assets/default.xpm", sizeof(map->we) - 1);
@@ -139,7 +139,7 @@ void	init_vars_map(t_map *map)
 
 int	main(int argc, char **argv)
 {
-	//atexit(leak_check);
+	// atexit(leak_check);
 	(void)argv;
 	t_map map;
 
@@ -164,14 +164,15 @@ int	main(int argc, char **argv)
 
 	// printf("ESTO ES LA i %d\n", i);
 	map.map = &map.map[find_first_map_row(&map)];
-	//printf("LINE:%s\n", map.map[0]);
+	// printf("LINE:%s\n", map.map[0]);
 	init_vars_map(&map);
 	all_checks(&map);
 	fill_dir(&map);
 	create_window(&map);
 	create_img(&map);
 	initialize_textures(&map);
-	initialize_images_2d(&map); // Causa seg fault al utilizarlo en las funciones del minimapa (render2d.c)
+	initialize_images_2d(&map);
+		// Causa seg fault al utilizarlo en las funciones del minimapa (render2d.c)
 	render_all(&map);
 	mlx_hook(map.win_ptr, 2, 1L << 0, move_character, &map);
 	mlx_hook(map.win_ptr, 17, 1L << 0, handle_esc_screen, &map);
