@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: adgutier <adgutier@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 18:15:36 by adgutier          #+#    #+#             */
-/*   Updated: 2023/12/19 21:56:41 by isromero         ###   ########.fr       */
+/*   Updated: 2023/12/20 16:44:11 by adgutier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,7 @@ int	main(int argc, char **argv)
 	map.map = read_map(argv[1]);
 	parse_top_map(&map);
 	map.map = &map.map[find_first_map_row(&map)];
+
 	init_vars_map(&map);
 	all_checks(&map);
 	fill_dir(&map);

@@ -6,7 +6,7 @@
 /*   By: adgutier <adgutier@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 18:35:54 by isromero          #+#    #+#             */
-/*   Updated: 2023/12/19 12:36:54 by adgutier         ###   ########.fr       */
+/*   Updated: 2023/12/20 16:48:07 by adgutier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	render_walls_2d(t_map *map)
 
 	i = 0;
 	j = 0;
-	while (i < map->y - 1)
+	while (i < map->y)
 	{
 		j = 0;
 		while (j < (int)ft_strlen(map->map[i]) - 1)

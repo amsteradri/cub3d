@@ -126,26 +126,26 @@ static void	move_camera_right(t_map *map)
 		* cos(16 * DR);
 }
 
-int	move_character(int keycode, t_map *map)
-{
-	if (keycode == 53)
-		handle_esc_screen(map);
-	else if (keycode == 13)
-		move_forward(map);
-	else if (keycode == 1)
-		move_backward(map);
-	else if (keycode == 0)
-		move_left(map);
-	else if (keycode == 2)
-		move_right(map);
-	else if (keycode == 123)
-		move_camera_left(map);
-	else if (keycode == 124)
-		move_camera_right(map);
-	return (0);
-}
+// int	move_character(int keycode, t_map *map)
+// {
+// 	if (keycode == 53)
+// 		handle_esc_screen(map);
+// 	else if (keycode == 13)
+// 		move_forward(map);
+// 	else if (keycode == 1)
+// 		move_backward(map);
+// 	else if (keycode == 0)
+// 		move_left(map);
+// 	else if (keycode == 2)
+// 		move_right(map);
+// 	else if (keycode == 123)
+// 		move_camera_left(map);
+// 	else if (keycode == 124)
+// 		move_camera_right(map);
+// 	return (0);
+// }
 
-/* int move_character(int keycode, t_map *map)
+int move_character(int keycode, t_map *map)
 {
 		if (keycode == KEY_ESC)
 		handle_esc_screen(map);
@@ -162,4 +162,4 @@ int	move_character(int keycode, t_map *map)
 	else if (keycode == KEY_RIGHT_ARROW)
 		move_camera_right(map);
 	return (0);
-} */
+}

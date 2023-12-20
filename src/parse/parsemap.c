@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsemap.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: adgutier <adgutier@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 13:00:15 by adgutier          #+#    #+#             */
-/*   Updated: 2023/12/19 21:55:33 by isromero         ###   ########.fr       */
+/*   Updated: 2023/12/20 16:43:12 by adgutier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,8 +143,9 @@ int	find_first_map_row(t_map *map)
 	{
 		if (map->map[i][0] == ' ')
 		{
+			j = 0;
 			while (map->map[i][j] && (map->map[i][j] != '1'
-					|| map->map[i][j] != '0'))
+					&& map->map[i][j] != '0'))
 				j++;
 			if (map->map[i][j] == '1' || map->map[i][j] == '0')
 				return (i);

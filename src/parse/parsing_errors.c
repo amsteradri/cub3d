@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_errors.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: adgutier <adgutier@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 18:25:52 by adgutier          #+#    #+#             */
-/*   Updated: 2023/12/19 22:05:12 by isromero         ###   ########.fr       */
+/*   Updated: 2023/12/20 16:32:09 by adgutier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,14 +102,16 @@ void	first_line(char *line)
 {
 	int	i;
 
-	i = -1;
-	while (line[++i] != '\0' && line[i] != '\r')
+	i = 0;
+	while (line[i] != '\0' && line[i] != '\r')
 	{
 		if (line[i] != '1' && line[i] != ' ')
 		{
+			printf("linea: %s\n", line);
 			perror("\033[1;31mERROR: No walls in top or bot\033[0m");
 			exit(1);
 		}
+		i++;
 	}
 }
 
