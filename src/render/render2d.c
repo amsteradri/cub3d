@@ -6,7 +6,7 @@
 /*   By: adgutier <adgutier@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 18:35:54 by isromero          #+#    #+#             */
-/*   Updated: 2023/12/20 16:48:07 by adgutier         ###   ########.fr       */
+/*   Updated: 2023/12/20 19:09:16 by adgutier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	render_walls_2d(t_map *map)
 		{
 			if (map->map[i][j] == '1')
 				mlx_put_image_to_window(map->mlx_ptr, map->win_ptr,
-					map->wall_2d->img, j * 4, i * 4);
+					map->wall_2d->img, j * 4 + 30, i * 4 + 30);
 			j++;
 		}
 		i++;
@@ -40,14 +40,18 @@ void	render_back_2d(t_map *map)
 
 	i = 0;
 	j = 0;
+
 	while (i < map->y - 1)
 	{
 		j = 0;
 		while (j < (int)ft_strlen(map->map[i]) - 1)
 		{
 			if (map->map[i][j] == '0')
+			{
 				mlx_put_image_to_window(map->mlx_ptr, map->win_ptr,
-					map->back_2d->img, j * 4, i * 4);
+					map->back_2d->img, j * 4 + 30, i * 4 + 30);
+			}
+				
 			j++;
 		}
 		i++;
@@ -70,7 +74,7 @@ void	draw_diagonal_line(t_map *map, double dir_x, double dir_y, double x,
 		map_y = (int)(y / 4);
 		if (map->map[map_y][map_x] == '1')
 			break ;
-		mlx_pixel_put(map->mlx_ptr, map->win_ptr, (int)x, (int)y, 0xFFFFFF);
+		mlx_pixel_put(map->mlx_ptr, map->win_ptr, (int)x + 30, (int)y + 30, 0xFFFFFF);
 	}
 }
 
@@ -93,7 +97,7 @@ void	render_char_2d(t_map *map)
 				|| map->map[i][j] == 'S' || map->map[i][j] == 'W')
 			{
 				mlx_put_image_to_window(map->mlx_ptr, map->win_ptr,
-					map->char_2d->img, j * 4, i * 4);
+					map->char_2d->img, j * 4 + 30, i * 4 + 30);
 				step = fov / 66;
 				offset = -fov / 2;
 				while (offset <= fov / 2)
