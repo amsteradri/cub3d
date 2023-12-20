@@ -6,7 +6,7 @@
 /*   By: adgutier <adgutier@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 18:35:54 by isromero          #+#    #+#             */
-/*   Updated: 2023/12/20 19:09:16 by adgutier         ###   ########.fr       */
+/*   Updated: 2023/12/20 19:28:35 by adgutier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	render_walls_2d(t_map *map)
 	while (i < map->y)
 	{
 		j = 0;
-		while (j < (int)ft_strlen(map->map[i]) - 1)
+		while (j < (int)ft_strlen(map->map[i]))
 		{
 			if (map->map[i][j] == '1')
 				mlx_put_image_to_window(map->mlx_ptr, map->win_ptr,
