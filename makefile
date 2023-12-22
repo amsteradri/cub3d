@@ -15,7 +15,8 @@ CC			=	gcc
 SRCS		=	src/cub3d.c src/parse/parsing_errors.c src/parse/parsing.c src/parse/parsemap.c\
 				src/window/cub_window.c src/raycast/raycast.c src/movements/movements.c \
 				src/render/render.c src/render/render2d.c src/render/render3d.c src/utils/utils.c \
-				src/raycast/textures.c src/raycast/textures2.c
+				src/raycast/textures.c src/raycast/textures2.c src/utils/mlx.c src/utils/inits.c \
+				src/utils/inits2.c
 
 LIBFT		=	libft/libft.a
 

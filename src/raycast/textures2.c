@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adgutier <adgutier@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 12:38:40 by adgutier          #+#    #+#             */
-/*   Updated: 2023/12/19 12:38:40 by adgutier         ###   ########.fr       */
+/*   Updated: 2023/12/22 20:59:45 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

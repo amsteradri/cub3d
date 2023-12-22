@@ -6,7 +6,7 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 18:15:34 by adgutier          #+#    #+#             */
-/*   Updated: 2023/12/19 21:41:26 by isromero         ###   ########.fr       */
+/*   Updated: 2023/12/22 21:15:40 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,63 +132,82 @@ typedef struct s_map
 }				t_map;
 
 // cub_window.c //
-void			create_window(t_map *map);
-int				handle_esc_screen(t_map *map);
-void			create_img(t_map *map);
+void	create_window(t_map *map);
+int		handle_esc_screen(t_map *map);
+void	create_img(t_map *map);
 
 // cub3d.c //
-int				map_height(char **map);
-int				find_longest_line_length(char **map);
-void			init_vars_map(t_map *map);
+int		map_height(char **map);
+int		find_longest_line_length(char **map);
+void	init_vars_map(t_map *map);
 
 // movements.c //
-int				move_character(int keycode, t_map *map);
+int		move_character(int keycode, t_map *map);
 
 // parsing_errors.c //
-void			error_args(int argc);
-void			check_ext(char *map);
-void			check_chars(t_map **map);
-void			check_nsew(t_map **map);
-void			first_line(char *line);
-int				ft_spacelen(char *str);
-void			check_walls(t_map **map);
-void			check_under_empty(t_map **map);
-void			all_checks(t_map *map);
+void	error_args(int argc);
+void	check_ext(char *map);
+void	check_chars(t_map **map);
+void	check_nsew(t_map **map);
+void	first_line(char *line);
+int		ft_spacelen(char *str);
+void	check_walls(t_map **map);
+void	check_under_empty(t_map **map);
+void	all_checks(t_map *map);
 
 // parsing.c //
-void			default_error(void);
-char			**read_map(char *fmap);
-void			fill_dir(t_map *map);
+void	default_error(void);
+char	**read_map(char *fmap);
+void	fill_dir(t_map *map);
 
 // textures.c //
-void			load_texture(t_map *map, t_img *img, char *path);
-void			draw_textures(t_map *map);
-void			calculate_draw_values(t_map *map);
-int				create_rgb_color(int red, int green, int blue);
-void			texture_on_img(t_map *map, t_img *img);
+void	load_texture(t_map *map, t_img *img, char *path);
+void	draw_textures(t_map *map);
+void	calculate_draw_values(t_map *map);
+int		create_rgb_color(int red, int green, int blue);
+void	texture_on_img(t_map *map, t_img *img);
 
 // textures2.c //
 
 void	draw_textures(t_map *map);
 
 // parsemap.c //
-void			parse_top_map(t_map *map);
-int				find_first_map_row(t_map *map);
+void	parse_top_map(t_map *map);
+int		find_first_map_row(t_map *map);
 
 // ray_casting.c //
-int				raycast(t_map *map);
+int		raycast(t_map *map);
 
 // render.c //
-int				render_all(t_map *map);
+int		render_all(t_map *map);
 
 // render2d.c //
 void	render_back_2d(t_map *map);
-void			render_empty_2d(t_map *map);
-void			render_walls_2d(t_map *map);
-void			render_char_2d(t_map *map);
+void	render_empty_2d(t_map *map);
+void	render_walls_2d(t_map *map);
+void	render_char_2d(t_map *map);
 
 // render3d.c //
 
 // utils.c //
+int	map_height(char **map);
+int	find_longest_line_length(char **map);
+
+// mlx.c //
+void	mlx_hooks(t_map *map);
+void	mlx_destroy_images(t_map *map);
+void	mlx_functions(t_map *map);
+
+// inits.c //
+void	init_vars_map(t_map *map);
+void	init_vars_imgs(t_map *map);
+void	init_vars_draw(t_map *map);
+void	init_vars_ray(t_map *map);
+void	init_vars_player(t_map *map);
+
+// inits2.c //
+void	init_vars_line(t_map *map);
+void	init_vars_texture(t_map *map);
+void	inits_structs(t_map *map);
 
 #endif

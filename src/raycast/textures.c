@@ -6,7 +6,7 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 14:28:36 by isromero          #+#    #+#             */
-/*   Updated: 2023/12/19 21:48:23 by isromero         ###   ########.fr       */
+/*   Updated: 2023/12/22 20:59:58 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,27 @@ void	load_texture(t_map *map, t_img *img, char *path)
 			&img->line_length, &img->endian);
 }
 
-void	my_img_pixel_put(t_map *map, int x, int y, int color)
+void	initialize_textures(t_map *map)
 {
-	char	*dst;
-
-	dst = map->img->addr + (y * map->img->line_length + x
-			* (map->img->bits_per_pixel / 8));
-	*(unsigned int *)dst = color;
+	if (!map->no[0])
+		load_texture(map, map->no_img, "assets/default.xpm");
+	else
+		load_texture(map, map->no_img, map->no);
+	if (!map->we[0])
+		load_texture(map, map->we_img, "assets/default.xpm");
+	else
+		load_texture(map, map->we_img, map->we);
+	if (!map->ea[0])
+		load_texture(map, map->ea_img, "assets/default.xpm");
+	else
+		load_texture(map, map->ea_img, map->ea);
+	if (!map->so[0])
+		load_texture(map, map->so_img, "assets/default.xpm");
+	else
+		load_texture(map, map->so_img, map->so);
+	load_texture(map, map->char_2d, "assets/empty.xpm");
+	load_texture(map, map->wall_2d, "assets/wall.xpm");
+	load_texture(map, map->back_2d, "assets/fondo.xpm");
 }
 
 int	create_rgb_color(int red, int green, int blue)
