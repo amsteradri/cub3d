@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_errors.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adgutier <adgutier@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 18:25:52 by adgutier          #+#    #+#             */
-/*   Updated: 2023/12/20 16:32:09 by adgutier         ###   ########.fr       */
+/*   Updated: 2023/12/22 20:23:37 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,6 @@ void	check_walls(t_map **map)
 	i = 1;
 	j = 0;
 	aux = (*map)->y - 1;
-	// PRINTEA AQUÍ FIRST LINE-> NO DA LA PRIMERA LÍNEA NUNCA
 	first_line((*map)->map[0]);
 	while (i < aux)
 	{
