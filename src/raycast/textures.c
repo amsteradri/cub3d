@@ -6,7 +6,7 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 14:28:36 by isromero          #+#    #+#             */
-/*   Updated: 2023/12/22 20:59:58 by isromero         ###   ########.fr       */
+/*   Updated: 2023/12/23 15:04:12 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,8 @@ void	initialize_textures(t_map *map)
 		load_texture(map, map->so_img, "assets/default.xpm");
 	else
 		load_texture(map, map->so_img, map->so);
-	load_texture(map, map->char_2d, "assets/empty.xpm");
-	load_texture(map, map->wall_2d, "assets/wall.xpm");
-	load_texture(map, map->back_2d, "assets/fondo.xpm");
+	load_texture(map, map->char_2d, "assets/2d_player.xpm");
+	load_texture(map, map->wall_2d, "assets/2d_wall.xpm");
 }
 
 int	create_rgb_color(int red, int green, int blue)
