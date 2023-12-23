@@ -6,7 +6,7 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 18:35:54 by isromero          #+#    #+#             */
-/*   Updated: 2023/12/22 20:58:44 by isromero         ###   ########.fr       */
+/*   Updated: 2023/12/22 21:18:33 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,31 +27,6 @@ void	render_walls_2d(t_map *map)
 			if (map->map[i][j] == '1')
 				mlx_put_image_to_window(map->mlx_ptr, map->win_ptr,
 					map->wall_2d->img, j * 4 + 30, i * 4 + 30);
-			j++;
-		}
-		i++;
-	}
-}
-
-void	render_back_2d(t_map *map)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-
-	while (i < map->y - 1)
-	{
-		j = 0;
-		while (j < (int)ft_strlen(map->map[i]) - 1)
-		{
-			if (map->map[i][j] == '0')
-			{
-				mlx_put_image_to_window(map->mlx_ptr, map->win_ptr,
-					map->back_2d->img, j * 4 + 30, i * 4 + 30);
-			}
-				
 			j++;
 		}
 		i++;

@@ -6,7 +6,7 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 18:15:34 by adgutier          #+#    #+#             */
-/*   Updated: 2023/12/22 21:15:40 by isromero         ###   ########.fr       */
+/*   Updated: 2023/12/23 14:39:53 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,32 +162,31 @@ void	fill_dir(t_map *map);
 
 // textures.c //
 void	load_texture(t_map *map, t_img *img, char *path);
+void	initialize_textures(t_map *map);
 void	draw_textures(t_map *map);
 void	calculate_draw_values(t_map *map);
 int		create_rgb_color(int red, int green, int blue);
 void	texture_on_img(t_map *map, t_img *img);
 
 // textures2.c //
-
 void	draw_textures(t_map *map);
 
 // parsemap.c //
 void	parse_top_map(t_map *map);
 int		find_first_map_row(t_map *map);
 
-// ray_casting.c //
+// raycast.c //
 int		raycast(t_map *map);
+
+// raycast2.c //
+void	calculate_perpendicular_distance(t_map *map);
 
 // render.c //
 int		render_all(t_map *map);
 
 // render2d.c //
-void	render_back_2d(t_map *map);
-void	render_empty_2d(t_map *map);
 void	render_walls_2d(t_map *map);
 void	render_char_2d(t_map *map);
-
-// render3d.c //
 
 // utils.c //
 int	map_height(char **map);
