@@ -6,7 +6,7 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 18:35:54 by isromero          #+#    #+#             */
-/*   Updated: 2023/12/23 14:42:33 by isromero         ###   ########.fr       */
+/*   Updated: 2023/12/24 10:42:30 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	render_char_2d(t_map *map)
 			{
 				mlx_put_image_to_window(map->mlx_ptr, map->win_ptr,
 					map->char_2d->img, j * 4 + 30, i * 4 + 30);
-				step = 5;
+				step = 20;
 				offset = -fov / 2;
 				while (offset <= fov / 2)
 				{
