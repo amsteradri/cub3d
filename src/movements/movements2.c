@@ -6,7 +6,7 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 13:27:26 by isromero          #+#    #+#             */
-/*   Updated: 2023/12/24 13:28:19 by isromero         ###   ########.fr       */
+/*   Updated: 2023/12/24 13:54:43 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ void	move_camera_right(t_map *map)
 	old_dir_x = map->player->dir_x;
 	map->player->dir_x = map->player->dir_x * cos(16 * DR) - map->player->dir_y
 		* sin(16 * DR);
-	map->player->dir_y = old_dir_x * sin(16 * DR) + map->player->dir_y * cos(16
-		* DR);
+	map->player->dir_y = old_dir_x * sin(16 * DR) + map->player->dir_y
+		* cos(16 * DR);
 	old_plane_x = map->player->plane_x;
 	map->player->plane_x = map->player->plane_x * cos(16 * DR)
 		- map->player->plane_y * sin(16 * DR);

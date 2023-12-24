@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/0.1/28 08:55:56 by isromero          #+#    #+#             */
-/*   Updated: 2023/12/06 14:01:29 by isromero         ###   ########.fr       */
+/*   Created: 2023/12/24 13:54:13 by isromero          #+#    #+#             */
+/*   Updated: 2023/12/24 13:54:17 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	move_forward(t_map *map)
 	map->map[(int)map->player->y][(int)map->player->x] = '0';
 	new_x = map->player->x + map->player->dir_x * 0.6;
 	new_y = map->player->y + map->player->dir_y * 0.6;
-	// Verificar colisión por separado para X y Y (Esto permite deslizarse por las paredes y no quedarse atascado)
 	if (is_valid_move((int)map->player->y, (int)new_x, map))
 		map->player->x = new_x;
 	if (is_valid_move((int)new_y, (int)map->player->x, map))
@@ -36,7 +35,6 @@ void	move_backward(t_map *map)
 	map->map[(int)map->player->y][(int)map->player->x] = '0';
 	new_x = map->player->x - map->player->dir_x * 0.6;
 	new_y = map->player->y - map->player->dir_y * 0.6;
-	// Verificar colisión por separado para X y Y (Esto permite deslizarse por las paredes y no quedarse atascado)
 	if (is_valid_move((int)map->player->y, (int)new_x, map))
 		map->player->x = new_x;
 	if (is_valid_move((int)new_y, (int)map->player->x, map))
@@ -52,7 +50,6 @@ void	move_right(t_map *map)
 	map->map[(int)map->player->y][(int)map->player->x] = '0';
 	new_x = map->player->x - map->player->dir_y * 0.6;
 	new_y = map->player->y + map->player->dir_x * 0.6;
-	// Verificar colisión por separado para X y Y (Esto permite deslizarse por las paredes y no quedarse atascado)
 	if (is_valid_move((int)map->player->y, (int)new_x, map))
 		map->player->x = new_x;
 	if (is_valid_move((int)new_y, (int)map->player->x, map))
@@ -68,7 +65,6 @@ void	move_left(t_map *map)
 	map->map[(int)map->player->y][(int)map->player->x] = '0';
 	new_x = map->player->x + map->player->dir_y * 0.6;
 	new_y = map->player->y - map->player->dir_x * 0.6;
-	// Verificar colisión por separado para X y Y (Esto permite deslizarse por las paredes y no quedarse atascado)
 	if (is_valid_move((int)map->player->y, (int)new_x, map))
 		map->player->x = new_x;
 	if (is_valid_move((int)new_y, (int)map->player->x, map))

@@ -6,7 +6,7 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 21:13:08 by isromero          #+#    #+#             */
-/*   Updated: 2023/12/22 21:15:00 by isromero         ###   ########.fr       */
+/*   Updated: 2023/12/24 13:46:20 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ void	init_vars_line(t_map *map)
 	map->line = (t_line *)malloc(sizeof(t_line));
 	map->line->x = 0;
 	map->line->y = 0;
-	map->line->y0 = 0;
-	map->line->y1 = 0;
 	map->line->tex_x = 0;
 	map->line->tex_y = 0;
 }

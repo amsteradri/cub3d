@@ -6,7 +6,7 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 18:15:34 by adgutier          #+#    #+#             */
-/*   Updated: 2023/12/24 13:44:19 by isromero         ###   ########.fr       */
+/*   Updated: 2023/12/24 14:30:35 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ typedef struct s_line
 {
 	int			x;
 	int			y;
-	int			y0;
-	int			y1;
 	int			tex_x;
 	int			tex_y;
 }				t_line;
@@ -57,7 +55,6 @@ typedef struct s_player
 	double		plane_y;
 	double		x;
 	double		y;
-	int			len_to_wall; // para dibujar rayitos
 }				t_player;
 
 typedef struct s_ray
@@ -74,7 +71,6 @@ typedef struct s_ray
 	int			step_y;
 	int			map_x;
 	int			map_y;
-	int			hit;
 	double		wall_x;
 	int			col;
 }				t_ray;
@@ -160,7 +156,9 @@ typedef struct s_map
 
 /* parse/ */
 	// colors_and_directions.c //
-	void	parse_top_map(t_map *map);
+	void	get_texture_path(const char *line, char *direction);
+	void	get_color_parse(const char *line, int *r, int *g, int *b);
+	void	parse_colors_and_directions(t_map *map);
 	int		find_first_map_row(t_map *map);
 	
 	// errors.c //

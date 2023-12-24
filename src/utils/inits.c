@@ -6,7 +6,7 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 21:12:13 by isromero          #+#    #+#             */
-/*   Updated: 2023/12/24 13:38:41 by isromero         ###   ########.fr       */
+/*   Updated: 2023/12/24 13:48:41 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ void	init_vars_ray(t_map *map)
 	map->ray->step_y = 0;
 	map->ray->map_x = 0;
 	map->ray->map_y = 0;
-	map->ray->hit = 0;
 	map->ray->wall_x = 0.0;
 	map->ray->col = 0;
 }
@@ -78,5 +77,4 @@ void	init_vars_player(t_map *map)
 	map->player->dir_y = 0.0;
 	map->player->plane_x = 0.0;
 	map->player->plane_y = 0.0;
-	map->player->len_to_wall = 0;
 }
