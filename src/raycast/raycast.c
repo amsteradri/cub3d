@@ -6,7 +6,7 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 08:57:02 by isromero          #+#    #+#             */
-/*   Updated: 2023/12/24 12:27:02 by isromero         ###   ########.fr       */
+/*   Updated: 2023/12/24 16:55:37 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	initialize_ray(t_map *map)
 {
-	double camera_x;
+	double	camera_x;
 
 	camera_x = 2.0 * map->ray->col / (double)map->screen_width - 1.0;
 	map->ray->dir_x = map->player->dir_x + map->player->plane_x * camera_x;
@@ -47,7 +47,7 @@ void	calculate_side_distance(t_map *map)
 	{
 		map->ray->step_x = 1;
 		map->ray->side_dist_x = ((float)map->ray->map_x + 1.0
-			- map->player->x) * map->ray->delta_dist_x;
+				- map->player->x) * map->ray->delta_dist_x;
 	}
 	if (map->ray->dir_y < 0)
 	{

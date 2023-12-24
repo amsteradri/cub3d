@@ -45,7 +45,7 @@ unsigned int	countlet(const char *str, char c)
 
 	i = 0;
 	while (str[i] != '\0' && str[i] != c)
-			i++;
+		i++;
 	return (i);
 }
 
@@ -65,7 +65,7 @@ static void	compara_split(char **matrix, const char *s, char c, int words)
 		{
 			free_matrix(matrix);
 			return ;
-		}	
+		}
 		while (*s != c && *s)
 			matrix[j][n++] = *s++;
 		n = 0;

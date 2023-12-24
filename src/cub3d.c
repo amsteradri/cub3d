@@ -6,23 +6,17 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 18:15:36 by adgutier          #+#    #+#             */
-/*   Updated: 2023/12/24 15:08:58 by isromero         ###   ########.fr       */
+/*   Updated: 2023/12/24 17:18:16 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-// void   leak_check(void)
-// {
-//     system("leaks -q cub3d");
-// }
-
 int	main(int argc, char **argv)
 {
-	// atexit(leak_check);
-	(void)argv;
 	t_map	map;
 
+	(void)argv;
 	error_args(argc);
 	check_ext(argv[1]);
 	map.map = read_map(argv[1]);

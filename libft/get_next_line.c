@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adgutier <adgutier@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 09:51:20 by adgutier          #+#    #+#             */
-/*   Updated: 2023/03/16 12:12:34 by adgutier         ###   ########.fr       */
+/*   Updated: 2023/12/24 17:18:49 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*get_line(char *buff)
 	if (!buff[i])
 		return (NULL);
 	while (buff[i] && buff[i] != '\n')
-	i++;
+		i++;
 	mem = ft_calloc(i + 2, sizeof(char));
 	if (!mem)
 		return (NULL);

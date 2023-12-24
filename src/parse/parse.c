@@ -6,7 +6,7 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 18:33:50 by adgutier          #+#    #+#             */
-/*   Updated: 2023/12/24 15:10:04 by isromero         ###   ########.fr       */
+/*   Updated: 2023/12/24 16:49:47 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,37 +70,13 @@ void	init_direction_values(t_map *map)
 	int	y;
 
 	if (check_direction(map, &x, &y) == 'N')
-	{
-		map->player->dir = 'N';
-		map->player->dir_x = 0.0;
-		map->player->dir_y = -1.0;
-		map->player->plane_x = 0.66;
-		map->player->plane_y = 0.0;
-	}
+		init_north_values(map);
 	else if (check_direction(map, &x, &y) == 'S')
-	{
-		map->player->dir = 'S';
-		map->player->dir_x = 0.0;
-		map->player->dir_y = 1.0;
-		map->player->plane_x = -0.66;
-		map->player->plane_y = 0.0;
-	}
+		init_south_values(map);
 	else if (check_direction(map, &x, &y) == 'E')
-	{
-		map->player->dir = 'E';
-		map->player->dir_x = 1.0;
-		map->player->dir_y = 0.0;
-		map->player->plane_x = 0.0;
-		map->player->plane_y = 0.66;
-	}
+		init_east_values(map);
 	else if (check_direction(map, &x, &y) == 'W')
-	{
-		map->player->dir = 'W';
-		map->player->dir_x = -1.0;
-		map->player->dir_y = 0.0;
-		map->player->plane_x = 0.0;
-		map->player->plane_y = -0.66;
-	}
+		init_west_values(map);
 	map->player->x = x + 0.5;
 	map->player->y = y + 0.5;
 }

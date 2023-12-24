@@ -6,7 +6,7 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 21:12:13 by isromero          #+#    #+#             */
-/*   Updated: 2023/12/24 13:48:41 by isromero         ###   ########.fr       */
+/*   Updated: 2023/12/24 17:06:05 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,9 @@ void	init_vars_ray(t_map *map)
 	map->ray->map_y = 0;
 	map->ray->wall_x = 0.0;
 	map->ray->col = 0;
+	map->ray->fov = 66.0;
+	map->ray->step = 20.0;
+	map->ray->offset = -map->ray->fov / 2;
 }
 
 void	init_vars_player(t_map *map)

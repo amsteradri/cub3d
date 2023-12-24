@@ -6,7 +6,7 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 20:02:38 by isromero          #+#    #+#             */
-/*   Updated: 2023/12/24 14:34:33 by isromero         ###   ########.fr       */
+/*   Updated: 2023/12/24 17:17:39 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,20 @@ int	find_longest_line_length(char **map)
 {
 	int	longest_length;
 	int	current_length;
+	int	i;
 
 	longest_length = 0;
+	i = 0;
 	if (map == NULL)
 	{
 		return (longest_length);
 	}
-	for (int i = 0; map[i] != NULL; i++)
+	while (map[i] != NULL)
 	{
 		current_length = strlen(map[i]);
 		if (current_length > longest_length)
 			longest_length = current_length;
+		i++;
 	}
 	return (longest_length);
 }
