@@ -6,7 +6,7 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 20:46:31 by isromero          #+#    #+#             */
-/*   Updated: 2023/12/22 21:00:04 by isromero         ###   ########.fr       */
+/*   Updated: 2023/12/24 12:41:02 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,23 @@ void	my_img_pixel_put(t_map *map, int x, int y, int color)
 	dst = map->img->addr + (y * map->img->line_length + x
 			* (map->img->bits_per_pixel / 8));
 	*(unsigned int *)dst = color;
+}
+
+void	pixel_on_img(t_map *map, int rgb, int x, int y)
+{
+	int	r;
+	int	g;
+	int	b;
+
+	r = (rgb >> 16) & 0xFF;
+	g = (rgb >> 8) & 0xFF;
+	b = rgb & 0xFF;
+	map->img->addr[y * map->img->line_length + x * map->img->bits_per_pixel
+		/ 8] = b;
+	map->img->addr[y * map->img->line_length + x * map->img->bits_per_pixel / 8
+		+ 1] = g;
+	map->img->addr[y * map->img->line_length + x * map->img->bits_per_pixel / 8
+		+ 2] = r;
 }
 
 void	mlx_hooks(t_map *map)

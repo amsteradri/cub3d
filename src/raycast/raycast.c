@@ -6,7 +6,7 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 08:57:02 by isromero          #+#    #+#             */
-/*   Updated: 2023/12/23 14:39:07 by isromero         ###   ########.fr       */
+/*   Updated: 2023/12/24 12:27:02 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int	raycast(t_map *map)
 		dda_algorithm(map);
 		calculate_perpendicular_distance(map);
 		calculate_draw_values(map);
-		draw_textures(map);
+		draw(map);
 	}
 	mlx_put_image_to_window(map->mlx_ptr, map->win_ptr, map->img->img, 0, 0);
 	return (0);

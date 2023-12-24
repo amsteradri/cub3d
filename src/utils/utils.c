@@ -6,7 +6,7 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 20:02:38 by isromero          #+#    #+#             */
-/*   Updated: 2023/12/22 20:59:22 by isromero         ###   ########.fr       */
+/*   Updated: 2023/12/24 13:34:23 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,32 @@ int	find_longest_line_length(char **map)
 			longest_length = current_length;
 	}
 	return (longest_length);
+}
+
+int	create_rgb_color(int red, int green, int blue)
+{
+	return ((red << 16) | (green << 8) | blue);
+}
+
+int	ft_spacelen(char *str)
+{
+	int	l;
+	int	count;
+	int	i;
+
+	l = ft_strlen(str);
+	i = l - 1;
+	count = 0;
+	while (i >= 0 && (str[i] == ' ' || str[i] == '\r'))
+	{
+		count++;
+		i--;
+	}
+	return (count);
+}
+
+void	default_error(void)
+{
+	perror("\033[1;31mERROR\033[0m");
+	exit(1);
 }

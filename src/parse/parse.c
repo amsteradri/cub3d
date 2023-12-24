@@ -1,22 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adgutier <adgutier@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 18:33:50 by adgutier          #+#    #+#             */
-/*   Updated: 2023/10/07 18:33:50 by adgutier         ###   ########.fr       */
+/*   Updated: 2023/12/24 13:34:16 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	default_error(void)
-{
-	perror("\033[1;31mERROR\033[0m");
-	exit(1);
-}
 
 char	**read_map(char *fmap)
 {

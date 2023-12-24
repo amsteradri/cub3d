@@ -12,11 +12,11 @@
 
 NAME		=	cub3d
 CC			=	gcc
-SRCS		=	src/cub3d.c src/parse/parsing_errors.c src/parse/parsing.c src/parse/parsemap.c\
-				src/window/cub_window.c src/raycast/raycast.c src/movements/movements.c \
-				src/render/render.c src/render/render2d.c src/utils/utils.c \
-				src/raycast/textures.c src/raycast/textures2.c src/utils/mlx.c src/utils/inits.c \
-				src/utils/inits2.c src/raycast/raycast2.c
+SRCS		=	src/draw/calculations_draw.c src/draw/draw.c src/movements/movements.c src/movements/movements2.c \
+				src/parse/colors_and_directions.c src/parse/errors.c src/parse/errors2.c src/parse/parse.c \
+				src/raycast/raycast.c src/raycast/raycast2.c src/render/render.c src/textures/textures.c \
+				src/utils/inits.c src/utils/inits2.c src/utils/mlx.c src/utils/utils.c src/window/cub_window.c \
+				src/cub3d.c
 
 LIBFT		=	libft/libft.a
 

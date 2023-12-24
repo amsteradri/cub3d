@@ -12,23 +12,7 @@
 
 #include "cub3d.h"
 
-int	is_valid_move(int fil, int col, t_map *map)
-{
-	double	margin;
-
-	margin = 0.4;
-	// Margen para evitar que el jugador se acerque demasiado a las paredes
-	// Verifica si las coordenadas están fuera de los límites del mapa
-	if (fil < margin || fil >= map->y - margin || col < margin || col >= map->x
-		- margin)
-		return (0);
-	// Verifica si la posición es una pared
-	if (map->map[fil][col] == '1')
-		return (0);
-	return (1);
-}
-
-static void	move_forward(t_map *map)
+void	move_forward(t_map *map)
 {
 	double	new_x;
 	double	new_y;
@@ -44,7 +28,7 @@ static void	move_forward(t_map *map)
 	map->map[(int)map->player->y][(int)map->player->x] = map->player->dir;
 }
 
-static void	move_backward(t_map *map)
+void	move_backward(t_map *map)
 {
 	double	new_x;
 	double	new_y;
@@ -60,7 +44,7 @@ static void	move_backward(t_map *map)
 	map->map[(int)map->player->y][(int)map->player->x] = map->player->dir;
 }
 
-static void	move_right(t_map *map)
+void	move_right(t_map *map)
 {
 	double	new_x;
 	double	new_y;
@@ -76,7 +60,7 @@ static void	move_right(t_map *map)
 	map->map[(int)map->player->y][(int)map->player->x] = map->player->dir;
 }
 
-static void	move_left(t_map *map)
+void	move_left(t_map *map)
 {
 	double	new_x;
 	double	new_y;
@@ -90,40 +74,6 @@ static void	move_left(t_map *map)
 	if (is_valid_move((int)new_y, (int)map->player->x, map))
 		map->player->y = new_y;
 	map->map[(int)map->player->y][(int)map->player->x] = map->player->dir;
-}
-
-static void	move_camera_left(t_map *map)
-{
-	double	old_dir_x;
-	double	old_plane_x;
-
-	old_dir_x = map->player->dir_x;
-	map->player->dir_x = map->player->dir_x * cos(-(16 * DR))
-		- map->player->dir_y * sin(-(16 * DR));
-	map->player->dir_y = old_dir_x * sin(-(16 * DR)) + map->player->dir_y
-		* cos(-(16 * DR));
-	old_plane_x = map->player->plane_x;
-	map->player->plane_x = map->player->plane_x * cos(-(16 * DR))
-		- map->player->plane_y * sin(-(16 * DR));
-	map->player->plane_y = old_plane_x * sin(-(16 * DR)) + map->player->plane_y
-		* cos(-(16 * DR));
-}
-
-static void	move_camera_right(t_map *map)
-{
-	double	old_dir_x;
-	double	old_plane_x;
-
-	old_dir_x = map->player->dir_x;
-	map->player->dir_x = map->player->dir_x * cos(16 * DR) - map->player->dir_y
-		* sin(16 * DR);
-	map->player->dir_y = old_dir_x * sin(16 * DR) + map->player->dir_y * cos(16
-		* DR);
-	old_plane_x = map->player->plane_x;
-	map->player->plane_x = map->player->plane_x * cos(16 * DR)
-		- map->player->plane_y * sin(16 * DR);
-	map->player->plane_y = old_plane_x * sin(16 * DR) + map->player->plane_y
-		* cos(16 * DR);
 }
 
 int	move_character(int keycode, t_map *map)
