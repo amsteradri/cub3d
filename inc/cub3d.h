@@ -6,7 +6,7 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 18:15:34 by adgutier          #+#    #+#             */
-/*   Updated: 2023/12/24 17:20:34 by isromero         ###   ########.fr       */
+/*   Updated: 2023/12/24 17:56:31 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,8 +158,8 @@ void	move_camera_right(t_map *map);
 
 /* parse/ */
 // colors_and_directions.c //
-void	get_texture_path(const char *line, char *direction);
-void	get_color_parse(const char *line, int *r, int *g, int *b);
+void	get_texture_path(char *line, char *direction);
+void	get_color_parse(char *line, int *r, int *g, int *b);
 void	parse_colors_and_directions(t_map *map);
 int		find_first_map_row(t_map *map);
 

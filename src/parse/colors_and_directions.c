@@ -6,30 +6,42 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 13:00:15 by adgutier          #+#    #+#             */
-/*   Updated: 2023/12/24 14:29:46 by isromero         ###   ########.fr       */
+/*   Updated: 2023/12/24 17:56:02 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	get_texture_path(const char *line, char *direction)
+void	get_texture_path(char *line, char *direction)
 {
 	int	j;
 	int	k;
 
 	j = 3;
 	k = 0;
+	if (line == NULL || (int)ft_strlen(line) <= j)
+	{
+		ft_strcpy(direction, "assets/default.xpm");
+		return ;
+	}
 	while (line[j] != '\0' && line[j] != '\n' && line[j] != ' '
 		&& line[j] != '\t' && line[j] != '\r')
 		direction[k++] = line[j++];
 	direction[k] = '\0';
 }
 
-void	get_color_parse(const char *line, int *r, int *g, int *b)
+void	get_color_parse(char *line, int *r, int *g, int *b)
 {
 	int	j;
 
 	j = 2;
+	if (line == NULL || (int)ft_strlen(line) <= j)
+	{
+		*r = 0;
+		*g = 0;
+		*b = 0;
+		return ;
+	}
 	*r = ft_atoi(&line[j]);
 	while (line[j] != ',' && line[j])
 		j++;
@@ -47,10 +59,6 @@ void	parse_colors_and_directions(t_map *map)
 {
 	int	i;
 
-	map->no[0] = '\0';
-	map->we[0] = '\0';
-	map->ea[0] = '\0';
-	map->so[0] = '\0';
 	i = 0;
 	while (map->map[i] != NULL)
 	{

@@ -47,7 +47,7 @@ int		ft_isprint(int c);
 void	*ft_memchr(const void *s, int c, size_t n);
 int		ft_memcmp(const void *str1, const void *str2, unsigned int n);
 void	*ft_memset(void *b, int c, int len);
-char	**ft_split(char *s, char c);
+char	**ft_split(char const *s, char c);
 char	*ft_strdup(char *src);
 void	ft_striteri(char *s, void (*f)(unsigned int, char *));
 char	*ft_strjoin(char *s1, char *s2);
