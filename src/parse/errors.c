@@ -6,7 +6,7 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 18:25:52 by adgutier          #+#    #+#             */
-/*   Updated: 2023/12/24 13:33:23 by isromero         ###   ########.fr       */
+/*   Updated: 2023/12/24 14:38:59 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,7 @@ void	check_ext(char *map)
 	len = ft_strlen(map);
 	if (map[len - 4] != '.' || map[len - 3] != 'c' || map[len - 2] != 'u'
 		|| map[len - 1] != 'b')
-	{
-		printf("\033[1;31mERROR: Wrong map extension\033[0m\n");
-		exit(1);
-	}
+		print_error_and_exit("Wrong map extension");
 }
 
 void	check_chars(t_map **map)
@@ -58,10 +55,7 @@ void	check_chars(t_map **map)
 				&& (*map)->map[y][x] != 'N' && (*map)->map[y][x] != 'E'
 				&& (*map)->map[y][x] != 'S' && (*map)->map[y][x] != 'W'
 				&& (*map)->map[y][x] != ' ')
-			{
-				printf("\033[1;31mERROR: Wrong map components\033[0m\n");
-				exit(1);
-			}
+				print_error_and_exit("Wrong map components");
 			x++;
 		}
 		y++;
@@ -89,10 +83,7 @@ void	check_nsew(t_map **map)
 		y++;
 	}
 	if (direction_count != 1)
-	{
-		printf("\033[1;31mERROR: Only one spawn direction required\033[0m\n");
-		exit(1);
-	}
+		print_error_and_exit("Only one spawn direction required");
 }
 
 void	first_line(char *line)
@@ -103,10 +94,7 @@ void	first_line(char *line)
 	while (line[i] != '\0' && line[i] != '\r')
 	{
 		if (line[i] != '1' && line[i] != ' ')
-		{
-			printf("\033[1;31mERROR: No walls in top or bot\033[0m\n");
-			exit(1);
-		}
+			print_error_and_exit("No walls in top or bot");
 		i++;
 	}
 }

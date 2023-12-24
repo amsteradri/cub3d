@@ -6,7 +6,7 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 20:02:38 by isromero          #+#    #+#             */
-/*   Updated: 2023/12/24 13:34:23 by isromero         ###   ########.fr       */
+/*   Updated: 2023/12/24 14:34:33 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ int	ft_spacelen(char *str)
 	return (count);
 }
 
-void	default_error(void)
+void	print_error_and_exit(const char *message)
 {
-	perror("\033[1;31mERROR\033[0m");
+	printf("\033[1;31mERROR: %s\033[0m\n", message);
 	exit(1);
 }

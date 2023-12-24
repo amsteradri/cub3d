@@ -6,7 +6,7 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 18:15:34 by adgutier          #+#    #+#             */
-/*   Updated: 2023/12/24 14:30:35 by isromero         ###   ########.fr       */
+/*   Updated: 2023/12/24 15:09:34 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,12 +170,15 @@ typedef struct s_map
 
 	// errors2.c //
 	void	check_walls(t_map **map);
+	int		is_valid_character(char c);
+	void	check_surrounding(t_map **map, int i, int j, int aux);
 	void	check_under_empty(t_map **map);
 	void	all_checks(t_map *map);
 
 	// parse.c //
 	char	**read_map(char *fmap);
-	void	fill_dir(t_map *map);
+	char	check_direction(t_map *map, int *x, int *y);
+	void	init_direction_values(t_map *map);
 
 /* raycast/ */
 	// raycast.c //
@@ -226,7 +229,7 @@ typedef struct s_map
 	int		find_longest_line_length(char **map);
 	int		create_rgb_color(int red, int green, int blue);
 	int		ft_spacelen(char *str);
-	void	default_error(void);
+	void	print_error_and_exit(const char *message);
 
 /* window/ */
 	// cub_window.c //

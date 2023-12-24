@@ -61,6 +61,7 @@ char	*ft_strtrim(char *s1, char *set);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 int		ft_tolower(int c);
 int		ft_toupper(int c);
+char	*ft_strcpy(char *dest, char *src);
 char	*ft_strchr(const char *str, int c);
 char	*ft_strrchr(char *str, int c);
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);

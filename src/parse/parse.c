@@ -6,7 +6,7 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 18:33:50 by adgutier          #+#    #+#             */
-/*   Updated: 2023/12/24 13:34:16 by isromero         ###   ########.fr       */
+/*   Updated: 2023/12/24 15:10:04 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	**read_map(char *fmap)
 	joined_lines = ft_strdup("");
 	fd = open(fmap, O_RDONLY);
 	if (fd < 0)
-		default_error();
+		print_error_and_exit("");
 	while (line)
 	{
 		line = get_next_line(fd);
@@ -32,74 +32,75 @@ char	**read_map(char *fmap)
 	}
 	close(fd);
 	if (joined_lines[0] == '\0')
-		default_error();
+		print_error_and_exit("");
 	return (ft_split(joined_lines, '\n'));
 }
 
-void	fill_dir(t_map *map)
+char	check_direction(t_map *map, int *x, int *y)
 {
-	int i;
-	int aux;
-	int j;
-	int len;
+	char	direction[5];
+	int		i;
+	int		j;
+	char	*found;
 
-	i = 1;
-	j = 0;
-	aux = map->y - 1;
-	len = ft_strlen(map->map[i]) - 1;
-	while (i < aux)
+	ft_strcpy(direction, "NSWE");
+	i = 0;
+	while (i < map->y)
 	{
 		j = 0;
-		len = ft_strlen(map->map[i]) - 1;
-
-		while (j < len)
+		while (direction[j])
 		{
-			if (map->map[i][j] == 'N')
+			found = strchr(map->map[i], direction[j]);
+			if (found != NULL)
 			{
-				map->player->dir = 'N';
-				map->player->x = j + 0.5;
-				map->player->y = i + 0.5;
-				map->player->dir_x = 0.0;
-				map->player->dir_y = -1.0;
-				map->player->plane_x = 0.66;
-				map->player->plane_y = 0.0;
-				return ;
-			}
-			else if (map->map[i][j] == 'S')
-			{
-				map->player->dir = 'S';
-				map->player->x = j + 0.5;
-				map->player->y = i + 0.5;
-				map->player->dir_x = 0.0;
-				map->player->dir_y = 1.0;
-				map->player->plane_x = -0.66;
-				map->player->plane_y = 0.0;
-				return ;
-			}
-			else if (map->map[i][j] == 'E')
-			{
-				map->player->dir = 'E';
-				map->player->x = j + 0.5;
-				map->player->y = i + 0.5;
-				map->player->dir_x = 1.0;
-				map->player->dir_y = 0.0;
-				map->player->plane_x = 0.0;
-				map->player->plane_y = 0.66;
-				return ;
-			}
-			else if (map->map[i][j] == 'W')
-			{
-				map->player->dir = 'W';
-				map->player->x = j + 0.5;
-				map->player->y = i + 0.5;
-				map->player->dir_x = -1.0;
-				map->player->dir_y = 0.0;
-				map->player->plane_x = 0.0;
-				map->player->plane_y = -0.66;
-				return ;
+				*x = found - map->map[i];
+				*y = i;
+				return (direction[j]);
 			}
 			j++;
 		}
 		i++;
 	}
+	return (0);
+}
+
+void	init_direction_values(t_map *map)
+{
+	int	x;
+	int	y;
+
+	if (check_direction(map, &x, &y) == 'N')
+	{
+		map->player->dir = 'N';
+		map->player->dir_x = 0.0;
+		map->player->dir_y = -1.0;
+		map->player->plane_x = 0.66;
+		map->player->plane_y = 0.0;
+	}
+	else if (check_direction(map, &x, &y) == 'S')
+	{
+		map->player->dir = 'S';
+		map->player->dir_x = 0.0;
+		map->player->dir_y = 1.0;
+		map->player->plane_x = -0.66;
+		map->player->plane_y = 0.0;
+	}
+	else if (check_direction(map, &x, &y) == 'E')
+	{
+		map->player->dir = 'E';
+		map->player->dir_x = 1.0;
+		map->player->dir_y = 0.0;
+		map->player->plane_x = 0.0;
+		map->player->plane_y = 0.66;
+	}
+	else if (check_direction(map, &x, &y) == 'W')
+	{
+		map->player->dir = 'W';
+		map->player->dir_x = -1.0;
+		map->player->dir_y = 0.0;
+		map->player->plane_x = 0.0;
+		map->player->plane_y = -0.66;
+	}
+	map->player->x = x + 0.5;
+	map->player->y = y + 0.5;
 }
