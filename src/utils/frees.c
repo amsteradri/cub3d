@@ -1,30 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.c                                            :+:      :+:    :+:   */
+/*   frees.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/07 18:15:36 by adgutier          #+#    #+#             */
-/*   Updated: 2023/12/24 18:05:46 by isromero         ###   ########.fr       */
+/*   Created: 2023/12/24 18:02:29 by isromero          #+#    #+#             */
+/*   Updated: 2023/12/24 18:10:25 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	main(int argc, char **argv)
+void	free_map(t_map *map)
 {
-	t_map	map;
+	int	i;
 
-	(void)argv;
-	error_args(argc);
-	check_ext(argv[1]);
-	map.map = read_map(argv[1]);
-	parse_colors_and_directions(&map);
-	map.map = &map.map[find_first_map_row(&map)];
-	inits_structs(&map);
-	all_checks(&map);
-	init_direction_values(&map);
-	mlx_functions(&map);
-	free_all(&map);
+	i = 0;
+	while (map->map[i])
+		free(map->map[i]);
+	free(map->map);
+}
+
+void	free_all(t_map *map)
+{
+	free_map(map);
+	free(map->ray);
+	free(map->draw);
+	free(map->player);
+	free(map->line);
+	free(map->texture);
 }

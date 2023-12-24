@@ -6,7 +6,7 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 18:15:34 by adgutier          #+#    #+#             */
-/*   Updated: 2023/12/24 17:56:31 by isromero         ###   ########.fr       */
+/*   Updated: 2023/12/24 18:06:16 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,6 +213,10 @@ void	initialize_textures(t_map *map);
 void	texture_on_img(t_map *map, t_img *img);
 
 /* utils/ */
+// frees.c //
+void	free_map(t_map *map);
+void	free_all(t_map *map);
+
 // inits.c //
 void	init_vars_map(t_map *map);
 void	init_vars_imgs(t_map *map);
