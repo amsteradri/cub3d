@@ -6,7 +6,7 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 18:25:52 by adgutier          #+#    #+#             */
-/*   Updated: 2023/12/24 11:03:11 by isromero         ###   ########.fr       */
+/*   Updated: 2023/12/24 11:15:35 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	check_chars(t_map **map)
 				&& (*map)->map[y][x] != 'S' && (*map)->map[y][x] != 'W'
 				&& (*map)->map[y][x] != ' ')
 			{
-				perror("\033[1;31mERROR: Wrong map components\033[0m");
+				printf("\033[1;31mERROR: Wrong map components\033[0m\n");
 				exit(1);
 			}
 			x++;
@@ -83,17 +83,14 @@ void	check_nsew(t_map **map)
 		{
 			if ((*map)->map[y][x] == 'N' || (*map)->map[y][x] == 'S'
 				|| (*map)->map[y][x] == 'E' || (*map)->map[y][x] == 'W')
-			{
-				// printf("encuentro esto:%c\n", (*map)->map[y][x]);
 				direction_count++;
-			}
 			x++;
 		}
 		y++;
 	}
 	if (direction_count != 1)
 	{
-		perror("\033[1;31mERROR: Only one spawn direction required\033[0m");
+		printf("\033[1;31mERROR: Only one spawn direction required\033[0m\n");
 		exit(1);
 	}
 }
@@ -107,8 +104,7 @@ void	first_line(char *line)
 	{
 		if (line[i] != '1' && line[i] != ' ')
 		{
-			printf("linea: %s\n", line);
-			perror("\033[1;31mERROR: No walls in top or bot\033[0m");
+			printf("\033[1;31mERROR: No walls in top or bot\033[0m\n");
 			exit(1);
 		}
 		i++;
@@ -149,15 +145,13 @@ void	check_walls(t_map **map)
 			j++;
 		if ((*map)->map[i][j] != '1')
 		{
-			perror("\033[1;31mERROR: No walls in first col\033[0m");
+			printf("\033[1;31mERROR: No walls in first col\033[0m\n");
 			exit(1);
 		}
 		if ((*map)->map[i][ft_strlen((*map)->map[i])
 			- ft_spacelen((*map)->map[i]) - 1] != '1')
 		{
-			printf("mi char:%d\n", (*map)->map[i][ft_strlen((*map)->map[i])
-				- ft_spacelen((*map)->map[i]) - 1]);
-			perror("\033[1;31mERROR: No walls in last col\033[0m");
+			printf("\033[1;31mERROR: No walls in last col\033[0m\n");
 			exit(1);
 		}
 		i++;
@@ -190,7 +184,7 @@ void	check_under_empty(t_map **map)
 					&& (*map)->map[i + 1][j] != 'S' && (*map)->map[i
 					+ 1][j] != 'W')
 				{
-					perror("\033[1;31mERROR: No walls in bot row\033[0m");
+					printf("\033[1;31mERROR: No walls in bot row\033[0m\n");
 					exit(1);
 				}
 				if ((*map)->map[i - 1][j] != '1' && (*map)->map[i - 1][j] != '0'
@@ -198,7 +192,7 @@ void	check_under_empty(t_map **map)
 					- 1][j] != 'N' && (*map)->map[i - 1][j] != 'S'
 					&& (*map)->map[i - 1][j] != 'W')
 				{
-					perror("\033[1;31mERROR: No walls in top row\033[0m");
+					printf("\033[1;31mERROR: No walls in top row\033[0m\n");
 					exit(1);
 				}
 				if (j + 1 <= len && (*map)->map[i][j + 1] != '1'
@@ -207,7 +201,7 @@ void	check_under_empty(t_map **map)
 					&& (*map)->map[i][j + 1] != 'S' && (*map)->map[i][j
 					+ 1] != 'W')
 				{
-					perror("\033[1;31mERROR: No walls in right col\033[0m");
+					printf("\033[1;31mERROR: No walls in right col\033[0m\n");
 					exit(1);
 				}
 				if ((*map)->map[i][j - 1] != '1' && (*map)->map[i][j - 1] != '0'
@@ -215,7 +209,7 @@ void	check_under_empty(t_map **map)
 					- 1] != 'N' && (*map)->map[i][j - 1] != 'S'
 					&& (*map)->map[i][j - 1] != 'W')
 				{
-					perror("\033[1;31mERROR: No walls in left col\033[0m");
+					printf("\033[1;31mERROR: No walls in left col\033[0m\n");
 					exit(1);
 				}
 			}
