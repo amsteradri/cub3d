@@ -36,7 +36,7 @@ Las contribuciones son siempre bienvenidas. Si deseas contribuir, por favor:
 3. Haz commit de tus cambios (`git commit -m 'Add some AmazingFeature'`).
 4. Haz push a la rama (`git push origin feature/AmazingFeature`).
 5. Abre un Pull Request.
-
+```
 ## 👥 Créditos
 - [isromero's GitHub](https://github.com/isromero)
 - [amsteradri's GitHub](https://github.com/amsteradri)
