@@ -28,7 +28,7 @@ Para iniciar el juego, ejecuta:
 - 🡄🡆 : Flechas del teclado para rotar la vista.
 
 ## 📸 Capturas de pantalla / Demo
-_Incluye aquí algunas capturas de pantalla o enlaces a videos del juego en acción._
+![Demostración del juego](imagenes/imagen1.png)
 
 ## 🤝 Contribuciones
 Las contribuciones son siempre bienvenidas. Si deseas contribuir, por favor:
