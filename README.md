@@ -1,5 +1,6 @@
 # 🎮 Proyecto cub3d - 42 Network
-
+<img align="center" src="imagenes/imagen1.PNG" alt="Screenshot of the game" />
+<img align="center" src="imagenes/imagen2.PNG" alt="Screenshot of the game" />
 ## 📖 Descripción
 🕹️ **cub3d** es un proyecto de renderizado 3D inspirado en el clásico juego Wolfenstein 3D. Este proyecto se centra en los fundamentos de los gráficos por computadora y ofrece una oportunidad única para explorar la técnica de ray-casting en un entorno de juego.
 
@@ -26,9 +27,6 @@ Para iniciar el juego, ejecuta:
 ### Controles
 - W A S D para moverse.
 - 🡄🡆 : Flechas del teclado para rotar la vista.
-
-## 📸 Capturas de pantalla / Demo
-![Demostración del juego](../imagenes/imagen1.png)
 
 ## 🤝 Contribuciones
 Las contribuciones son siempre bienvenidas. Si deseas contribuir, por favor:
