@@ -17,13 +17,13 @@ Para instalar y ejecutar **cub3d** en tu sistema local, sigue estos pasos:
 git clone [url-de-tu-repositorio]
 cd cub3d
 make
-
+```
 ## 🕹️ Uso
 Para iniciar el juego, ejecuta:
 
 ```bash
 ./cub3d [ruta/a/tu/mapa.cub]
-
+```
 ### Controles
 - W A S D para moverse.
 - 🡄🡆 : Flechas del teclado para rotar la vista.
