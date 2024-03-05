@@ -27,7 +27,7 @@ Para iniciar el juego, ejecuta:
 ```
 ### Controles
 - W A S D para moverse.
-- 🡄🡆 : Flechas del teclado para rotar la vista.
+- ←→ : Flechas del teclado para rotar la vista.
 
 ## 🤝 Contribuciones
 Las contribuciones son siempre bienvenidas. Si deseas contribuir, por favor:
