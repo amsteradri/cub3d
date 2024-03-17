@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movements2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: adgutier <adgutier@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 13:27:26 by isromero          #+#    #+#             */
-/*   Updated: 2023/12/24 13:54:43 by isromero         ###   ########.fr       */
+/*   Updated: 2024/03/17 10:43:28 by adgutier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,12 @@ int	is_valid_move(int fil, int col, t_map *map)
 	if (fil < margin || fil >= map->y - margin || col < margin || col >= map->x
 		- margin)
 		return (0);
-	if (map->map[fil][col] == '1')
+	
+	// if (map->map[fil + 1][col] == 'o' ||  map->map[fil][col + 1] == 'o' || map->map[fil - 1][col] == 'o' ||  map->map[fil][col - 1] == 'o'
+	//  || map->map[fil + 1][col + 1] == 'o' ||  map->map[fil - 1][col - 1] == 'o') 
+	// 	map->map[fil][col] = 'c';
+	
+	if (map->map[fil][col] == '1' || map->map[fil][col] == 'c')
 		return (0);
 	return (1);
 }

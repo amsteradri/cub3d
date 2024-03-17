@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: adgutier <adgutier@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 14:28:36 by isromero          #+#    #+#             */
-/*   Updated: 2023/12/24 17:16:52 by isromero         ###   ########.fr       */
+/*   Updated: 2024/03/17 09:55:42 by adgutier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	initialize_textures(t_map *map)
 		load_texture(map, map->so_img, map->so);
 	load_texture(map, map->char_2d, "assets/2d_player.xpm");
 	load_texture(map, map->wall_2d, "assets/2d_wall.xpm");
+	load_texture(map, map->door, "assets/default.xpm");
 }
 
 void	texture_on_img(t_map *map, t_img *img)

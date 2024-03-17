@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   inits.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: adgutier <adgutier@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 21:12:13 by isromero          #+#    #+#             */
-/*   Updated: 2023/12/24 17:51:15 by isromero         ###   ########.fr       */
+/*   Updated: 2024/03/17 09:47:14 by adgutier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	init_vars_imgs(t_map *map)
 	map->char_2d = (t_img *)malloc(sizeof(t_img));
 	map->wall_2d = (t_img *)malloc(sizeof(t_img));
 	map->back_2d = (t_img *)malloc(sizeof(t_img));
+	map->door = (t_img *)malloc(sizeof(t_img));
 }
 
 void	init_vars_draw(t_map *map)

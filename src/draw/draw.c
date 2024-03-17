@@ -3,20 +3,51 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: adgutier <adgutier@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 12:39:39 by isromero          #+#    #+#             */
-/*   Updated: 2023/12/24 13:53:17 by isromero         ###   ########.fr       */
+/*   Updated: 2024/03/17 10:33:04 by adgutier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	get_door_orientation(t_map *map, t_img **img)
+{
+	if (map->ray->side == EAST)
+		*img = map->door;
+	else if (map->ray->side == NORTH)
+		*img = map->door;
+	else if (map->ray->side == WEST)
+		*img = map->door;
+	else if (map->ray->side == SOUTH)
+		*img = map->door;
+}
+
+void	draw_door(t_map *map)
+{
+	t_img	*img;
+
+	img = map->door;
+	get_door_orientation(map, &img);
+	calculate_wall_x(map);
+	calculate_tex_x(map, img);
+	map->line->y = map->draw->draw_start;
+	while (map->line->y < map->draw->draw_end)
+	{
+		texture_on_img(map, img);
+		map->line->y++;
+	}
+}
 
 void	draw(t_map *map)
 {
 	draw_ceil(map);
 	if (map->map[map->ray->map_y][map->ray->map_x] == '1')
 		draw_wall(map);
+	else if(map->map[map->ray->map_y][map->ray->map_x] == 'c')
+		draw_door(map);
+	
 	draw_floor(map);
 }
 
@@ -81,3 +112,5 @@ void	draw_wall(t_map *map)
 		map->line->y++;
 	}
 }
+
+

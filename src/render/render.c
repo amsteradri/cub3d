@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: adgutier <adgutier@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 18:39:43 by isromero          #+#    #+#             */
-/*   Updated: 2023/12/24 17:16:15 by isromero         ###   ########.fr       */
+/*   Updated: 2024/03/17 10:03:00 by adgutier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	render_walls_2d(t_map *map)
 		j = 0;
 		while (j < (int)ft_strlen(map->map[i]))
 		{
-			if (map->map[i][j] == '1')
+			if (map->map[i][j] == '1' || map->map[i][j] == 'c')
 				mlx_put_image_to_window(map->mlx_ptr, map->win_ptr,
 					map->wall_2d->img, j * 4 + 30, i * 4 + 30);
 			j++;
@@ -53,7 +53,7 @@ void	draw_diagonal_line(t_map *map, double x, double y)
 		if (map_x < 0 || map_y < 0 || map_y >= map->y
 			|| map_x >= (int)ft_strlen(map->map[map_y]))
 			break ;
-		if (map->map[map_y][map_x] == '1')
+		if (map->map[map_y][map_x] == '1' || map->map[map_y][map_x] == 'c')
 			break ;
 		mlx_pixel_put(map->mlx_ptr, map->win_ptr,
 			(int)x + 30, (int)y + 30, 0xFFFFFF);

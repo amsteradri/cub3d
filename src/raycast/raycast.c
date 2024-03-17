@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: adgutier <adgutier@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 08:57:02 by isromero          #+#    #+#             */
-/*   Updated: 2023/12/24 16:55:37 by isromero         ###   ########.fr       */
+/*   Updated: 2024/03/17 10:02:17 by adgutier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	dda_algorithm(t_map *map)
 			else
 				map->ray->side = SOUTH;
 		}
-		if (map->map[map->ray->map_y][map->ray->map_x] == '1')
+		if (map->map[map->ray->map_y][map->ray->map_x] == '1' || map->map[map->ray->map_y][map->ray->map_x] == 'c')
 			break ;
 	}
 }

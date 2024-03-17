@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: adgutier <adgutier@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 20:46:31 by isromero          #+#    #+#             */
-/*   Updated: 2023/12/24 17:17:17 by isromero         ###   ########.fr       */
+/*   Updated: 2024/03/17 09:47:27 by adgutier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ void	mlx_destroy_images(t_map *map)
 	mlx_destroy_image(map->mlx_ptr, map->char_2d->img);
 	mlx_destroy_image(map->mlx_ptr, map->wall_2d->img);
 	mlx_destroy_image(map->mlx_ptr, map->back_2d->img);
+	mlx_destroy_image(map->mlx_ptr, map->door->img);
 }
 
 void	mlx_functions(t_map *map)
