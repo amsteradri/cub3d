@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: adgutier <adgutier@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 20:46:31 by isromero          #+#    #+#             */
-/*   Updated: 2023/12/24 17:17:17 by isromero         ###   ########.fr       */
+/*   Updated: 2024/04/04 10:39:23 by adgutier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,50 +38,9 @@ void	pixel_on_img(t_map *map, int rgb, int x, int y)
 		+ 2] = r;
 }
 
-int mouse_move(int x, int y, t_map *map) {
-    static int last_x = -1;
-    double rotation_speed;
-    double old_dir_x;
-    double old_plane_x;
-
-
-	if (x < 0 || y < 0 || x > map->screen_width || y > map->screen_height) {
-        last_x = -1; // Resetea last_x si el ratón sale de la ventana
-        return (0); // No proceses el movimiento si el ratón está fuera de la ventana
-    }
-	
-    if (last_x == -1) {
-        last_x = x;
-        return (0);
-    }
-
-    // Calcular el cambio en la posición del ratón
-    int delta_x = x - last_x;
-    
-    // Establecer la velocidad de rotación basada en el delta del ratón
-    // Puedes ajustar '0.05' para hacer la rotación más rápida o más lenta
-    rotation_speed = delta_x * 0.005;
-
-    // Actualizar la dirección de la cámara
-    old_dir_x = map->player->dir_x;
-    map->player->dir_x = map->player->dir_x * cos(rotation_speed) - map->player->dir_y * sin(rotation_speed);
-    map->player->dir_y = old_dir_x * sin(rotation_speed) + map->player->dir_y * cos(rotation_speed);
-
-    // Actualizar el plano de la cámara
-    old_plane_x = map->player->plane_x;
-    map->player->plane_x = map->player->plane_x * cos(rotation_speed) - map->player->plane_y * sin(rotation_speed);
-    map->player->plane_y = old_plane_x * sin(rotation_speed) + map->player->plane_y * cos(rotation_speed);
-
-    // Actualizar last_x para la próxima llamada
-    last_x = x;
-
-    return (0);
-}
-
-
 void	mlx_hooks(t_map *map)
 {
-	mlx_hook(map->win_ptr, 6, 1L<<6, mouse_move, map);
+	mlx_hook(map->win_ptr, 6, 1L << 6, mouse_move, map);
 	mlx_hook(map->win_ptr, 2, 1L << 0, move_character, map);
 	mlx_hook(map->win_ptr, 17, 1L << 0, handle_esc_screen, map);
 	mlx_loop_hook(map->mlx_ptr, render_all, map);

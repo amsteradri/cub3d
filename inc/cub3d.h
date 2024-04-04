@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: adgutier <adgutier@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 18:15:34 by adgutier          #+#    #+#             */
-/*   Updated: 2023/12/24 18:06:16 by isromero         ###   ########.fr       */
+/*   Updated: 2024/04/04 10:37:03 by adgutier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,6 +235,9 @@ void	pixel_on_img(t_map *map, int rgb, int x, int y);
 void	mlx_hooks(t_map *map);
 void	mlx_destroy_images(t_map *map);
 void	mlx_functions(t_map *map);
+
+// mouse.c //
+int		mouse_move(int x, int y, t_map *map);
 
 // utils.c //
 int		map_height(char **map);

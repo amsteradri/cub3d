@@ -16,7 +16,7 @@ SRCS		=	src/draw/calculations_draw.c src/draw/draw.c src/movements/movements.c s
 				src/parse/colors_and_directions.c src/parse/errors.c src/parse/errors2.c src/parse/parse.c src/parse/parse2.c \
 				src/raycast/raycast.c src/raycast/raycast2.c src/render/render.c src/textures/textures.c src/utils/frees.c \
 				src/utils/inits.c src/utils/inits2.c src/utils/mlx.c src/utils/utils.c src/window/cub_window.c \
-				src/cub3d.c
+				src/cub3d.c src/utils/mouse.c
 
 LIBFT		=	libft/libft.a
 
