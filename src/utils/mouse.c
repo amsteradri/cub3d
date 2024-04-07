@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mouse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adgutier <adgutier@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 10:35:34 by adgutier          #+#    #+#             */
-/*   Updated: 2024/04/04 10:43:15 by adgutier         ###   ########.fr       */
+/*   Updated: 2024/04/07 12:03:32 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,9 @@ void	update_camera_plane(int delta_x, t_player *player)
 
 int	mouse_move(int x, int y, t_map *map)
 {
-	static int	last_x;
+	static int	last_x = -1;
 	int			delta_x;
 
-	last_x = -1;
 	if (x < 0 || y < 0 || x > map->screen_width || y > map->screen_height)
 	{
 		last_x = -1;

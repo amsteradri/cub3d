@@ -6,7 +6,7 @@
 /*   By: isromero <isromero@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 13:00:15 by adgutier          #+#    #+#             */
-/*   Updated: 2023/12/24 17:56:02 by isromero         ###   ########.fr       */
+/*   Updated: 2024/04/07 12:03:19 by isromero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,10 @@ void	parse_colors_and_directions(t_map *map)
 	int	i;
 
 	i = 0;
+	map->no[0] = '\0';
+	map->we[0] = '\0';
+	map->so[0] = '\0';
+	map->ea[0] = '\0';
 	while (map->map[i] != NULL)
 	{
 		if (ft_strncmp(map->map[i], "NO", 2) == 0)
